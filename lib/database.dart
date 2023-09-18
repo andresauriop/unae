@@ -1,3 +1,5 @@
+
+
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:unae/instituciones.dart';
@@ -33,16 +35,7 @@ class DataBase {
     return result;
   }
 
-  Future<int> insertInstituciones(List<Instituciones> instituciones) async {
-    int result = 0;
-    final Database db = await initializedDB();
-    for (var institucion in instituciones) {
-      result = await db.insert('instituciones', institucion.toMap(),
-          conflictAlgorithm: ConflictAlgorithm.replace);
-    }
 
-    return result;
-  }
 
   // retrieve Instituciones
   Future<List<Instituciones>> retrieveInstituciones() async {
@@ -66,5 +59,35 @@ class DataBase {
       where: "id = ?",
       whereArgs: [id],
     );
+  }
+
+  Future<int> insertInstituciones(List<Instituciones> instituciones) async {
+    int result = 0;
+    final Database db = await initializedDB();
+    for (var institucion in instituciones) {
+      result = await db.insert('instituciones', institucion.toMap(),
+          conflictAlgorithm: ConflictAlgorithm.replace);
+    }
+
+    return result;
+  }
+
+  Future<void> deleteInstituciones() async {
+    final db = await initializedDB();
+    await db.delete(
+      'instituciones',
+    );
+  }
+
+  Future<void> cargardatos() async {
+    final db = await initializedDB();
+    //cargar datos desde http
+    List<Instituciones> lista_instituciones = [];
+    lista_instituciones.add(new Instituciones(ins_id:1,ins_nombre: "Catalinas", ins_tipo: "U", ins_estado: "A"));
+    lista_instituciones.add(new Instituciones(ins_id:2,ins_nombre: "Borja7", ins_tipo: "U", ins_estado: "A"));
+
+    for (var institucion in lista_instituciones) {
+      insertInstituciones(lista_instituciones);
+    }
   }
 }

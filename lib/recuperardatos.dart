@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'database.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class RecuperarDatos extends StatelessWidget {
 
@@ -112,8 +113,29 @@ class RecuperarDatos extends StatelessWidget {
 
   acciones(String titulo, BuildContext context) {
     if (titulo == "Cancelar")
-      {print("cancelar");
+      {//print("cancelar");
       Navigator.of(context).pop();
       }
+    if (titulo == "Continuar")
+    {
+      actualizartablas(context);
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Tablas actualizadas'),
+      ));
+      Navigator.of(context).pop();
+    }
+  }
+
+  actualizartablas(BuildContext context)
+  { late DataBase handler; //late non-nullable variable will be initialized later
+    handler = DataBase();
+    handler.initializedDB().whenComplete(() async {
+      await handler.deleteInstituciones();
+      await handler.cargardatos();
+
+
+
+    });
   }
 }

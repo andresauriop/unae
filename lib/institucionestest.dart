@@ -3,35 +3,35 @@ import 'planets.dart';
 import 'instituciones.dart';
 import 'database.dart';
 
-void main() {
+/*void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(Home());
-}
+  runApp(IngresoParametros());
+}*/
 
-class Home extends StatefulWidget {
-  Home({Key? key}) : super(key: key);
+class IngresoParametros extends StatefulWidget {
+  IngresoParametros({Key? key}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
+  State<IngresoParametros> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<IngresoParametros> {
   late DataBase handler;
 
-  Future<int> addInstituciones() async {
+  /*Future<int> addInstituciones() async {
     Instituciones inst1 =
     Instituciones(ins_id:1, ins_nombre: "Catalinas", ins_tipo: "U", ins_estado:"A");
     Instituciones inst2 =
     Instituciones(ins_id:2, ins_nombre: "Borja", ins_tipo: "U", ins_estado:"A");
     List<Instituciones> instituciones = [inst1, inst2];
     return await handler.insertInstituciones(instituciones);
-  }
+  }*/
   @override
   void initState() {
     super.initState();
     handler = DataBase();
     handler.initializedDB().whenComplete(() async {
-      await addInstituciones();
+      //await addInstituciones();
       setState(() {});
     });
   }
