@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:unae/recuperardatos.dart';
 import 'package:unae/institucionestest.dart';
+import 'package:unae/parametros_calificacion.dart';
 void main() {
   runApp(SampleCenterButton());
 }
@@ -116,7 +117,8 @@ class SampleCenterButton extends StatelessWidget {
     if (titulo == "Calificar") {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) =>  IngresoParametros()),
+        //MaterialPageRoute(builder: (context) =>  IngresoParametros()),
+        MaterialPageRoute(builder: (context) =>  Parametros()),
       );
     }
 
