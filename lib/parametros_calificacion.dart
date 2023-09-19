@@ -1,51 +1,113 @@
 import 'package:flutter/material.dart';
+import 'database.dart';
+import 'instituciones.dart';
 
-/// Flutter code sample for [DropdownButton].
+List<String> list = ['One', 'Two', 'Three', 'Four'];
+List<String> list2 = ['Ninguno'];
+var mapa = new Map();
 
-const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
-const List<String> listcursos = <String>['1','2','3','4','5','6','7','8','9','10',];
 
-void main() => runApp(const Parametros());
+List<Instituciones> listainst = [];
+late DataBase handler = DataBase();
 
-class Parametros extends StatelessWidget {
-  const Parametros({super.key});
+const List<String> listcursos = <String>[
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '10',
+];
+const List<String> listaparalelos = <String>[
+  'A',
+  'B',
+  'C',
+  'D',
+  'E',
+  'F',
+  'G',
+];
+
+void main() => runApp(Parametros());
+
+class Parametros extends StatefulWidget {
+  @override
+  _ParametrosState createState() => _ParametrosState();
+}
+
+class _ParametrosState extends State<Parametros> {
+
+  Future cargarEntidades() async {
+    handler.initializedDB().whenComplete(() async {
+      listainst = await handler.retrieveInstitucionesCombo();
+      for (final e in listainst) {
+        list2.add(e.ins_nombre);
+      };
+    });
+    return list2;
+  }
+
+  llamacargarEntidades() async {
+    return await cargarEntidades();
+  }
+
+  @override
+  void initState() {
+    llamacargarEntidades();
+    super.initState();
+
+
+    setState(() {});
+
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: const Text('Ingreso de parametros')),
-        body: const Center(
-            child: Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 50, // <-- SEE HERE
-                ),
-                Mensaje(texto: "Ingrese los valores de consulta"),
-                SizedBox(
-                  height: 20, // <-- SEE HERE
-                ),
-                Mensaje(texto: "Entidad"),
-                ListaEntidades(),
-                SizedBox(
-                  height: 20, // <-- SEE HERE
-                ),
-                Mensaje(texto: "Curso"),
-                ListaCursos(),
-                SizedBox(
-                  height: 20, // <-- SEE HERE
-                ),
-                Mensaje(texto: "Paralelo"),
-                ListaEntidades(),
-              ],
-            )
-
+        appBar: AppBar(
+          title: const Text('Ingreso de parametros'),
+          backgroundColor: Color(0xff1D4554),
         ),
+        body: Builder(builder: (context1) {
+          return Container(
+            color: Color(0xffffffff),
+            child: const Center(
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 50, // <-- SEE HERE
+                    ),
+                    Mensaje(texto: "Ingrese los valores de consulta"),
+                    SizedBox(
+                      height: 20, // <-- SEE HERE
+                    ),
+                    Mensaje(texto: "Entidad"),
+                    //ListaEntidades(),
+                    ListaFutura(),
+                    SizedBox(
+                      height: 20, // <-- SEE HERE
+                    ),
+                    Mensaje(texto: "Curso"),
+                    ListaCursos(),
+                    SizedBox(
+                      height: 20, // <-- SEE HERE
+                    ),
+                    Mensaje(texto: "Paralelo"),
+                    ListaParalelos(),
+
+                  ],
+                )),
+          );
+        }),
       ),
     );
   }
 }
-
 
 class ListaEntidades extends StatefulWidget {
   const ListaEntidades({super.key});
@@ -55,7 +117,9 @@ class ListaEntidades extends StatefulWidget {
 }
 
 class _ListaEntidadesState extends State<ListaEntidades> {
-  String valorEntidad = list.first;
+
+
+  String valorEntidad = list2.first;
 
   @override
   Widget build(BuildContext context) {
@@ -63,28 +127,28 @@ class _ListaEntidadesState extends State<ListaEntidades> {
       value: valorEntidad,
       icon: const Icon(Icons.arrow_downward),
       elevation: 16,
-      style: const TextStyle(fontSize:20,color: Colors.deepPurple),
+      style: const TextStyle(fontSize: 20, color: Color(0xff1D4554)),
       underline: Container(
         height: 2,
-        color: Colors.deepPurpleAccent,
+        color: Color(0xff1D4554),
       ),
       onChanged: (String? value) {
         // This is called when the user selects an item.
         setState(() {
+          //valorEntidad = value!;
           valorEntidad = value!;
         });
       },
-      items: list.map<DropdownMenuItem<String>>((String value) {
+      items: list2.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),
         );
       }).toList(),
+
     );
   }
 }
-
-
 
 class ListaCursos extends StatefulWidget {
   const ListaCursos({super.key});
@@ -102,10 +166,10 @@ class _ListaCursos extends State<ListaCursos> {
       value: valorCursos,
       icon: const Icon(Icons.arrow_downward),
       elevation: 16,
-      style: const TextStyle(fontSize:20,color: Colors.deepPurple),
+      style: const TextStyle(fontSize: 20, color: Color(0xff1D4554)),
       underline: Container(
         height: 2,
-        color: Colors.deepPurpleAccent,
+        color: Color(0xff1D4554),
       ),
       onChanged: (String? value) {
         // This is called when the user selects an item.
@@ -123,17 +187,55 @@ class _ListaCursos extends State<ListaCursos> {
   }
 }
 
+class ListaParalelos extends StatefulWidget {
+  const ListaParalelos({super.key});
+
+  @override
+  State<ListaParalelos> createState() => _ListaParalelos();
+}
+
+class _ListaParalelos extends State<ListaParalelos> {
+  String valorParalelos = listaparalelos.first;
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton<String>(
+      value: valorParalelos,
+      icon: const Icon(Icons.arrow_downward),
+      elevation: 16,
+      style: const TextStyle(fontSize: 20, color: Color(0xff1D4554)),
+      underline: Container(
+        height: 2,
+        color: Color(0xff1D4554),
+      ),
+      onChanged: (String? value) {
+        // This is called when the user selects an item.
+        setState(() {
+          valorParalelos = value!;
+        });
+      },
+      items: listaparalelos.map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+    );
+  }
+}
 
 class Mensaje extends StatelessWidget {
   final String texto;
+
   const Mensaje({
-  required this.texto,
+    required this.texto,
   });
 
   @override
   Widget build(BuildContext context) {
     return RichText(
       textScaleFactor: 1,
+      selectionColor: const Color(0xaff30858),
       text: TextSpan(
         text: '',
         style: DefaultTextStyle
@@ -141,11 +243,78 @@ class Mensaje extends StatelessWidget {
             .style,
         children: <TextSpan>[
           TextSpan(
-              //text: 'Ingrese los valores del curso', style: TextStyle(fontSize:18, fontWeight: FontWeight.bold)),
-              //text: 'Ingrese los datos del curso', style: TextStyle(fontSize:20)),
-              text: this.texto, style: TextStyle(fontSize:20)),
+            //text: 'Ingrese los valores del curso', style: TextStyle(fontSize:18, fontWeight: FontWeight.bold)),
+            //text: 'Ingrese los datos del curso', style: TextStyle(fontSize:20)),
+              text: this.texto,
+              style: TextStyle(fontSize: 20, color: Colors.black)),
         ],
       ),
+    );
+  }
+}
+
+
+class ListaFutura extends StatefulWidget {
+  const ListaFutura({super.key});
+
+  @override
+  State<ListaFutura> createState() => _ListaFutura();
+}
+
+class _ListaFutura extends State<ListaFutura> {
+  String dropDownValue = "";
+  Future<List<Instituciones>> cargarEntidades2() async {
+    List<Instituciones> listainstituciones = [];
+    await handler.initializedDB().whenComplete(() async {
+      listainstituciones = await handler.retrieveInstituciones();
+    });
+    /*for (final e in listainstituciones) {
+      print(e.ins_nombre);
+    }*/
+    return Future.value(listainstituciones);
+  }
+
+
+  llamacargarEntidades2() async {
+    return await cargarEntidades2();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: cargarEntidades2(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return snapshot.hasData
+            ? Container(
+          child: DropdownButton<String>(
+            icon: const Icon(Icons.arrow_downward),
+            elevation: 16,
+            style: const TextStyle(fontSize: 20, color: Color(0xff1D4554)),
+            underline: Container(
+              height: 2,
+              color: Color(0xff1D4554),
+            ),
+            hint: Text(dropDownValue ?? 'Seleccionar'),
+            items: snapshot.data.map<DropdownMenuItem<String>>((item) {
+              return DropdownMenuItem<String>(
+                value: item.ins_nombre,
+                child: Text(item.ins_nombre),
+              );
+            }).toList(),
+            onChanged: (value) {
+              setState(() {
+                dropDownValue = value ?? "";
+                //print(value);
+              });
+            },
+          ),
+        )
+            : Container(
+          child: Center(
+            child: Text('Cargando...'),
+          ),
+        );
+      },
     );
   }
 }

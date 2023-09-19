@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:unae/recuperardatos.dart';
 import 'package:unae/institucionestest.dart';
 import 'package:unae/parametros_calificacion.dart';
+import 'package:flutter/services.dart';
+
 void main() {
+  /*SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.green,
+  ));*/
   runApp(SampleCenterButton());
 }
 
@@ -62,7 +67,7 @@ class SampleCenterButton extends StatelessWidget {
         ]),
         buildRow([
           buildOption(
-              Color(0xffE7C16A), Icons.videogame_asset, "Inicializar", context),
+              Color(0xffE7C16A), Icons.videogame_asset, "Sincronizar", context),
           buildOption(Color(0xffF2A061), Icons.settings, "Options", context),
         ]),
       ],
@@ -107,7 +112,7 @@ class SampleCenterButton extends StatelessWidget {
   }
 
   acciones(String titulo, BuildContext context) {
-    if (titulo == "Inicializar") {
+    if (titulo == "Sincronizar") {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const RecuperarDatos()),

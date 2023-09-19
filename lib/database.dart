@@ -43,7 +43,23 @@ class DataBase {
     final List<Map<String, Object?>> queryResult = await db.query('instituciones');
     return queryResult.map((e) => Instituciones.fromMap(e)).toList();
   }
+  // retrieve Instituciones
+  Future<List<Instituciones>> retrieveInstitucionesCombo() async {
+    final Database db = await initializedDB();
+    final List<Map<String, Object?>> queryResult = await db.query(
+            'instituciones',
+            columns: ['ins_id','ins_nombre'],
+            );
+/*
 
+
+    for (var ent in queryResult) {
+      for(var ent1 in ent.entries) {
+        print(ent);
+      }
+    }*/
+    return queryResult.map((e) => Instituciones.fromMap2(e)).toList();
+  }
   // retrieve data
   Future<List<Planets>> retrievePlanets() async {
     final Database db = await initializedDB();

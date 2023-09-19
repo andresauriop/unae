@@ -24,4 +24,14 @@ class Instituciones {
       'ins_estado': ins_estado
     };
   }
+
+  Instituciones.fromMap2(Map<String, dynamic> result)
+      : ins_id = result["ins_id"],
+        ins_nombre = result["ins_nombre"];
+  Map<String, Object> toMap2() {
+    return {
+      'ins_id': ins_id,
+      'ins_nombre': ins_nombre,
+    };
+  }
 }

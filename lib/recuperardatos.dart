@@ -10,10 +10,11 @@ class RecuperarDatos extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        appBar: AppBar(title: const Text('Sincronizar'),backgroundColor:  Color(0xff1D4554),),
         body:
         Builder(
             builder: (context1) {
-              return Container(color: Color(0xff1D4554),
+              return Container(color: Color(0xffffff),
                 width: double.infinity,
                 height: double.infinity,
                 child: Stack(
@@ -35,13 +36,13 @@ class RecuperarDatos extends StatelessWidget {
     return Column(
       children: <Widget>[
         buildRow([
-          buildOption(Color(0xff1D4554),
-              "La operación eliminará los datos de la apliación.  No puede revertirse"),
+          buildOption(Color(0xffffff),
+              "La operación eliminará los datos de las calificaciones.  No puede revertirse. \n¿Desea continuar?"),
 
         ]),
         buildRow([
-          buildOption2(Color(0xff4e9603), "Continuar",context),
-          buildOption2(Colors.red, "Cancelar",context),
+          buildOption2(Color(0xff4e9603), "Si",context),
+          buildOption2(Colors.red, "No",context),
         ]),
       ],
     );
@@ -52,7 +53,7 @@ class RecuperarDatos extends StatelessWidget {
     return Expanded(
       child: InkWell(
         child: FractionallySizedBox(
-          widthFactor: 0.7,
+          widthFactor: 0.8,
           child: Container(
             // defining one dimension works as well, as Flutter knows how to render a circle.
 //        width: MediaQuery.of(context).size.width/2,
@@ -63,7 +64,7 @@ class RecuperarDatos extends StatelessWidget {
             child: Center(
               child: Text(
                 title,
-                style: TextStyle(fontSize: 30, color: Colors.white),
+                style: TextStyle(fontSize: 30, color: Color(0xff1D4554)),
               ),
             ),
           ),
@@ -79,7 +80,7 @@ class RecuperarDatos extends StatelessWidget {
           acciones(title, context);
         },
         child: FractionallySizedBox(
-          widthFactor: 0.75,
+          widthFactor: 0.6,
           child: Container(
             // defining one dimension works as well, as Flutter knows how to render a circle.
 //        width: MediaQuery.of(context).size.width/2,
@@ -90,7 +91,7 @@ class RecuperarDatos extends StatelessWidget {
             child: Center(
               child: Text(
                 title,
-                style: TextStyle(fontSize: 30, color: Colors.white),
+                style: TextStyle(fontSize: 26, color: Colors.white),
               ),
             ),
           ),
@@ -112,11 +113,11 @@ class RecuperarDatos extends StatelessWidget {
   }
 
   acciones(String titulo, BuildContext context) {
-    if (titulo == "Cancelar")
+    if (titulo == "No")
       {//print("cancelar");
       Navigator.of(context).pop();
       }
-    if (titulo == "Continuar")
+    if (titulo == "Si")
     {
       actualizartablas(context);
 
