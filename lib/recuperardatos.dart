@@ -41,8 +41,9 @@ class RecuperarDatos extends StatelessWidget {
 
         ]),
         buildRow([
-          buildOption2(Color(0xff4e9603), "Si",context),
           buildOption2(Colors.red, "No",context),
+          buildOption2(Color(0xff4e9603), "Si",context),
+
         ]),
       ],
     );
@@ -80,7 +81,7 @@ class RecuperarDatos extends StatelessWidget {
           acciones(title, context);
         },
         child: FractionallySizedBox(
-          widthFactor: 0.6,
+          widthFactor: 0.5,
           child: Container(
             // defining one dimension works as well, as Flutter knows how to render a circle.
 //        width: MediaQuery.of(context).size.width/2,
@@ -91,7 +92,7 @@ class RecuperarDatos extends StatelessWidget {
             child: Center(
               child: Text(
                 title,
-                style: TextStyle(fontSize: 26, color: Colors.white),
+                style: TextStyle(fontSize: 24, color: Colors.white),
               ),
             ),
           ),

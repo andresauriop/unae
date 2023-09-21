@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'database.dart';
 import 'instituciones.dart';
+import 'pantallaAlumnos.dart';
 
 List<String> list = ['One', 'Two', 'Three', 'Four'];
 List<String> list2 = ['Ninguno'];
@@ -71,15 +72,15 @@ class _ParametrosState extends State<Parametros> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Ingreso de parametros'),
-          backgroundColor: Color(0xff1D4554),
+          backgroundColor: const Color(0xff1D4554),
         ),
         body: Builder(builder: (context1) {
           return Container(
-            color: Color(0xffffffff),
-            child: const Center(
+            color: const Color(0xffffffff),
+            child: Center(
                 child: Column(
                   children: <Widget>[
-                    SizedBox(
+                    const SizedBox(
                       height: 50, // <-- SEE HERE
                     ),
                     Mensaje(texto: "Ingrese los valores de consulta"),
@@ -99,6 +100,22 @@ class _ParametrosState extends State<Parametros> {
                     ),
                     Mensaje(texto: "Paralelo"),
                     ListaParalelos(),
+                    SizedBox(
+                      height: 30, // <-- SEE HERE
+                    ),
+                    //Expanded(child: <Widget>[BotonOpcion(texto:"Consultar")]),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: BotonOpcion("Cancelar","btn1", context),
+
+                        ),
+                        Expanded(
+                          child: BotonOpcion("Consultar","btn2",context),
+                        ),
+
+                      ],
+                    )
 
                   ],
                 )),
@@ -108,6 +125,8 @@ class _ParametrosState extends State<Parametros> {
     );
   }
 }
+
+
 
 class ListaEntidades extends StatefulWidget {
   const ListaEntidades({super.key});
@@ -206,7 +225,7 @@ class _ListaParalelos extends State<ListaParalelos> {
       style: const TextStyle(fontSize: 20, color: Color(0xff1D4554)),
       underline: Container(
         height: 2,
-        color: Color(0xff1D4554),
+        color: const Color(0xff1D4554),
       ),
       onChanged: (String? value) {
         // This is called when the user selects an item.
@@ -310,7 +329,7 @@ class _ListaFutura extends State<ListaFutura> {
           ),
         )
             : Container(
-          child: Center(
+          child: const Center(
             child: Text('Cargando...'),
           ),
         );
@@ -318,3 +337,47 @@ class _ListaFutura extends State<ListaFutura> {
     );
   }
 }
+
+
+
+
+/*
+class BotonOpcion extends StatefulWidget {
+  final String texto;
+  final String etiqueta;
+  final BuildContext contexto;
+  //heroTag: "btn1",
+  const BotonOpcion({
+    required this.texto,required this.etiqueta,required this.contexto
+  });
+
+  @override*/
+
+  Widget BotonOpcion(String texto, String etiqueta, BuildContext contexto) {
+    return FloatingActionButton.large(
+      backgroundColor: texto == "Cancelar"  ? Colors.red: Color(0xff4e9603),
+      heroTag: etiqueta,
+      child: FittedBox(
+          child: Text(texto)
+      ),
+      onPressed: () {
+        if (texto == "Cancelar")
+          { Navigator.of(contexto).pop();
+          }
+        if (texto == "Consultar")
+        { Navigator.push(
+          contexto,
+          MaterialPageRoute(builder: (context) =>  pantallaAlumnos()),
+          );
+        }
+
+      },
+      /*child: Icon(
+        Icons.train,
+        size: 35,
+        color: Colors.black,
+      ),*/
+
+    );
+  }
+//}

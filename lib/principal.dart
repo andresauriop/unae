@@ -117,6 +117,7 @@ class SampleCenterButton extends StatelessWidget {
         context,
         MaterialPageRoute(builder: (context) => const RecuperarDatos()),
       );
+
     }
 
     if (titulo == "Calificar") {
