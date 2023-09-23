@@ -15,6 +15,8 @@ List<String> titles = [
   "\u00BFQué cualidades crees que se han visto reflejados en los estudiantes de la UNAE?\n"
   //,  "\n\n"
 ];
+var calificaciones = {'0':-1,'1':'','2':'','3':''};
+
 List subtitles = [
   "Here is list 1 subtitle",
   "Here is list 2 subtitle",
@@ -27,15 +29,19 @@ List icons = [
 ];
 
 class pantallaPreguntas extends StatefulWidget {
+
   @override
   _pantallaPreguntasState createState() => _pantallaPreguntasState();
 }
 
 class _pantallaPreguntasState extends State<pantallaPreguntas> {
+
   @override
   void initState() {
     super.initState();
-    setState(() {});
+    setState(() {
+      calificaciones = {'0':-1,'1':'','2':'','3':''};
+    });
   }
 
   @override
@@ -62,20 +68,6 @@ class _pantallaPreguntasState extends State<pantallaPreguntas> {
                     child: Card(
                       child: ListTile(
                           onTap: () {
-                            setState(() {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          pantallaPreguntas()));
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content:
-                                      Text('Presionado ' + index.toString()),
-                                  duration: Duration(seconds: 2),
-                                ),
-                              );
-                            });
                           },
                           title: RichText(
                             // Controls visual overflow
@@ -146,6 +138,9 @@ class _pantallaPreguntasState extends State<pantallaPreguntas> {
                                       onRatingUpdate: (value) {
                                         setState(() {
                                           _ratingValue = value;
+                                          //calificaciones["'"+ index.toString() +"'"] = value.toString();
+                                          calificaciones[index.toString()] = value.toString();
+                                          print(calificaciones);
                                         });
                                       }),
                                   SizedBox(

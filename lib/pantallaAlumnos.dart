@@ -58,7 +58,7 @@ class _pantallaAlumnosState extends State<pantallaAlumnos> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              pantallaPreguntas()));
+                                              pantallaPreguntas()), ).then((value) => setState(() {}));
 
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
