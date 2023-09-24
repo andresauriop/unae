@@ -6,7 +6,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 List<String> titles = [
-      "\u00BFQué tan efectivos cree que fueron los recursos " +
+  "\u00BFQué tan efectivos cree que fueron los recursos " +
       "proporcionados en las clases impartidas por los " +
       "por los practicantes para su aprendizaje? " +
       "Material brindado en las clases por los practicantes\n",
@@ -15,7 +15,7 @@ List<String> titles = [
   "\u00BFQué cualidades crees que se han visto reflejados en los estudiantes de la UNAE?\n"
   //,  "\n\n"
 ];
-var calificaciones = {'0':-1,'1':'','2':'','3':''};
+var calificaciones = {'0': -1, '1': '', '2': '', '3': ''};
 
 List subtitles = [
   "Here is list 1 subtitle",
@@ -35,19 +35,23 @@ class pantallaPreguntas extends StatefulWidget {
 }
 
 class _pantallaPreguntasState extends State<pantallaPreguntas> {
+  void _show() {
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text("Hi, I am a snack bar!"),
+    ));
+  }
 
   @override
   void initState() {
     super.initState();
     setState(() {
-      calificaciones = {'0':-1,'1':'','2':'','3':''};
+      calificaciones = {'0': -1, '1': -1, '2': -1, '3': -1};
     });
   }
 
   @override
   Widget build(BuildContext context) {
     double? _ratingValue;
-
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -62,50 +66,54 @@ class _pantallaPreguntasState extends State<pantallaPreguntas> {
             return ListView.builder(
                 itemCount: titles.length,
                 itemBuilder: (context, index) {
-                  double screenWidth = MediaQuery.of(context).size.width;
+                  double screenWidth = MediaQuery
+                      .of(context)
+                      .size
+                      .width;
                   return Container(
                     //height: screenWidth / 3,
                     child: Card(
                       child: ListTile(
-                          onTap: () {
-                          },
-                          title: RichText(
-                            // Controls visual overflow
-                            overflow: TextOverflow.clip,
+                        onTap: () {},
+                        title: RichText(
+                          // Controls visual overflow
+                          overflow: TextOverflow.clip,
 
-                            // Controls how the text should be aligned horizontally
-                            textAlign: TextAlign.justify,
+                          // Controls how the text should be aligned horizontally
+                          textAlign: TextAlign.justify,
 
-                            // Control the text direction
-                            //textDirection: TextDirection.rtl,
+                          // Control the text direction
+                          //textDirection: TextDirection.rtl,
 
-                            // Whether the text should break at soft line breaks
-                            softWrap: true,
+                          // Whether the text should break at soft line breaks
+                          softWrap: true,
 
-                            // Maximum number of lines for the text to span
-                            maxLines: 10,
+                          // Maximum number of lines for the text to span
+                          maxLines: 10,
 
-                            // The number of font pixels for each logical pixel
-                            textScaleFactor: 1.5,
-                            text: TextSpan(
-                              text: titles[index],
-                              style: DefaultTextStyle.of(context).style,
-                              /*children: const <TextSpan>[
+                          // The number of font pixels for each logical pixel
+                          textScaleFactor: 1.5,
+                          text: TextSpan(
+                            text: titles[index],
+                            style: DefaultTextStyle
+                                .of(context)
+                                .style,
+                            /*children: const <TextSpan>[
                                 TextSpan(
                                     text: 'Geeks',
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ],*/
-                            ),
                           ),
+                        ),
 
-                          //Text(titles[index]),
-                          subtitle: Column(
-                            children: <Widget>[
-                              Container(
-                                  child: Row(
-                                children: <Widget>[
-                                  /*FloatingActionButton(
+                        //Text(titles[index]),
+                        subtitle: Column(
+                          children: <Widget>[
+                            Container(
+                                child: Row(
+                                  children: <Widget>[
+                                    /*FloatingActionButton(
                                     backgroundColor: Colors.red,
                                     heroTag: "Cancelar",
                                     child: FittedBox(child: Text("Cancelar")),
@@ -119,41 +127,42 @@ class _pantallaPreguntasState extends State<pantallaPreguntas> {
                                     onPressed: () {
                                     },
                                   ),*/
-                                  RatingBar(
-                                      initialRating: 0,
-                                      direction: Axis.horizontal,
-                                      allowHalfRating: true,
-                                      itemCount: 5,
-                                      ratingWidget: RatingWidget(
-                                          full: const Icon(Icons.star,
-                                              color: Colors.orange),
-                                          half: const Icon(
-                                            Icons.star_half,
-                                            color: Colors.orange,
-                                          ),
-                                          empty: const Icon(
-                                            Icons.star_outline,
-                                            color: Colors.orange,
-                                          )),
-                                      onRatingUpdate: (value) {
-                                        setState(() {
-                                          _ratingValue = value;
-                                          //calificaciones["'"+ index.toString() +"'"] = value.toString();
-                                          calificaciones[index.toString()] = value.toString();
-                                          print(calificaciones);
-                                        });
-                                      }),
-                                  SizedBox(
-                                    height: 30, // <-- SEE HERE
-                                  ),
-                                ],
-                              ))
-                            ],
-                          ),
-                          /*leading: CircleAvatar(
+                                    RatingBar(
+                                        initialRating: 0,
+                                        direction: Axis.horizontal,
+                                        allowHalfRating: true,
+                                        itemCount: 5,
+                                        ratingWidget: RatingWidget(
+                                            full: const Icon(Icons.star,
+                                                color: Colors.orange),
+                                            half: const Icon(
+                                              Icons.star_half,
+                                              color: Colors.orange,
+                                            ),
+                                            empty: const Icon(
+                                              Icons.star_outline,
+                                              color: Colors.orange,
+                                            )),
+                                        onRatingUpdate: (value) {
+                                          setState(() {
+                                            _ratingValue = value;
+                                            //calificaciones["'"+ index.toString() +"'"] = value.toString();
+                                            calificaciones[index.toString()] =
+                                                value.toString();
+                                            print(calificaciones);
+                                          });
+                                        }),
+                                    SizedBox(
+                                      height: 30, // <-- SEE HERE
+                                    ),
+                                  ],
+                                ))
+                          ],
+                        ),
+                        /*leading: CircleAvatar(
                               backgroundImage: NetworkImage(
                                   "https://images.unsplash.com/photo-1547721064-da6cfb341d50")),*/
-                          //trailing: Icon(icons[index])
+                        //trailing: Icon(icons[index])
                       ),
 
                     ),
@@ -162,6 +171,21 @@ class _pantallaPreguntasState extends State<pantallaPreguntas> {
           },
         ),
         floatingActionButton: BotonOpcion("Grabar", "btn1", context),
+        /*floatingActionButton: Builder(
+            builder: (context) {
+              return FloatingActionButton(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                          "Existen valores sin calificación.  No se puede grabar"),
+                      duration: Duration(seconds: 5),
+                    ),
+                  );
+                },
+              );
+            }
+        ),*/
       ),
     );
   }
@@ -176,15 +200,41 @@ Widget _image(String asset) {
   );
 }
 
+
 Widget BotonOpcion(String texto, String etiqueta, BuildContext contexto) {
-  return FloatingActionButton(
-    backgroundColor: texto == "Cancelar" ? Colors.red : Color(0xff4e9603),
-    heroTag: etiqueta,
-    child: FittedBox(child: Text(texto)),
-    onPressed: () {
-      if (texto == "Cancelar") {
-        Navigator.of(contexto).pop();
-      }
-    },
+  return Builder(
+      builder: (context) => FloatingActionButton(
+            backgroundColor: texto == "Cancelar" ? Colors.red : Color(
+                0xff4e9603),
+            heroTag: etiqueta,
+            child: FittedBox(child: Text(texto)),
+            onPressed: () {
+              if (texto == "Cancelar") {
+                Navigator.of(contexto).pop();
+              }
+              if (texto == "Grabar") {
+                var valido = true;
+                calificaciones.forEach((key, value) {
+                  if (double.parse(value.toString()) < 0) {
+                    valido = false;
+                  }
+                });
+
+                if (valido == false) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                          "Existen valores sin calificación.  No se puede grabar"),
+                      duration: Duration(seconds: 5),
+                    ),
+                  );
+                }
+                else
+                  {print ("a grabar");};
+              }
+            }
+
+        )
   );
 }
+
