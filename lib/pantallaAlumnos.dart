@@ -52,20 +52,24 @@ class _pantallaAlumnosState extends State<pantallaAlumnos> {
   }
 
   Future<List<String>> loadAlumnos(codigoentidad) async {
+    List<String> data = [];
     handler.initializedDB().whenComplete(() async {
       listaalumnos = await handler.retrieveAlumnosAula(codigoentidad);
-    });
-    List<String> data = [];
+
+
     for (var alumno in listaalumnos) {
       data.add(alumno.al_apellidos);
+      print("nombre " + alumno.al_apellidos);
     }
-    await Future.delayed(const Duration(seconds: 2), () {});
+
+    });
+    //await Future.delayed(const Duration(seconds: 2), () {});
     return data;
   }
 
-  llamacargarAlumnos(codigoentidad) async {
+  /*llamacargarAlumnos(codigoentidad) async {
     return await cargarAlumnos(codigoentidad);
-  }
+  }*/
 
 
   @override
@@ -76,7 +80,7 @@ class _pantallaAlumnosState extends State<pantallaAlumnos> {
     print(widget.par_paralelo);
 
     setState(() {
-      llamacargarAlumnos(widget.par_ent_cod);
+      //llamacargarAlumnos(widget.par_ent_cod);
     });
   }
 
@@ -167,18 +171,29 @@ class _pantallaAlumnosState extends State<pantallaAlumnos> {
                               );
                             });
                           },
+                          title: Text(snapshot.data?[index] ?? "got null"),
                         )
                     );
                 }
+              //itemBuilder: (context, index) {
+                //return _buildRow(snapshot.data?[i]?? "got null");
+                //return Text(snapshot.data?[i]?? "got null");
+                //return Text(snapshot.data?[index] ?? "got null");
             )
-            /* : Center(
+
+             : Center(
                 child: CircularProgressIndicator(),
-              );*/
+              );
           }
         ),
 
         floatingActionButton: BotonOpcion("Cancelar", "btn1", context),
       ),
+    );
+  }
+  Widget _buildRow(String texto) {
+    return new ListTile(
+      title: new Text(texto),
     );
   }
 }
