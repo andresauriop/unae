@@ -135,7 +135,7 @@ class RecuperarDatos extends StatelessWidget {
     handler.initializedDB().whenComplete(() async {
       await handler.deleteInstituciones();
       await handler.cargardatos();
-
+      await handler.cargaralumnos();
 
 
     });

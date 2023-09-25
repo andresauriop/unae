@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:unae/alumnos.dart';
 import 'database.dart';
 import 'instituciones.dart';
 import 'preguntas.dart';
 
-List<String> titles = ["Juan Perez", "Jose Prieto", "Luisa Lima"];
+late DataBase handler = DataBase();
+List<String> titles = ["Ninguno"];
+List<Alumnos> listaalumnos = [];
+
 List subtitles = [
   "Here is list 1 subtitle",
   "Here is list 2 subtitle",
@@ -21,12 +25,32 @@ class pantallaAlumnos extends StatefulWidget {
 }
 
 class _pantallaAlumnosState extends State<pantallaAlumnos> {
+  //Cargar desde la base de datos
+
+  Future cargarAlumnos(codigoentidad) async {
+    handler.initializedDB().whenComplete(() async {
+      listaalumnos = await handler.retrieveAlumnosAula(codigoentidad
+      );
+      for (final e in listaalumnos) {
+        titles.add(e.al_apellidos);
+      };
+    });
+    return titles;
+  }
+
+  llamacargarAlumnos(codigoentidad) async {
+    return await cargarAlumnos(codigoentidad);
+  }
+
+
+
   @override
   void initState() {
     super.initState();
 
-    setState(() {});
+    setState(() {llamacargarAlumnos("CAT");});
   }
+
 
   @override
   Widget build(BuildContext context) {

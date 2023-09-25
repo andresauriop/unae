@@ -33,6 +33,10 @@ const List<String> listaparalelos = <String>[
   'G',
 ];
 
+
+String entidadactual = "";
+String entidadseleccionada = "";
+
 void main() => runApp(Parametros());
 
 class Parametros extends StatefulWidget {
@@ -41,6 +45,7 @@ class Parametros extends StatefulWidget {
 }
 
 class _ParametrosState extends State<Parametros> {
+
 
   Future cargarEntidades() async {
     handler.initializedDB().whenComplete(() async {
@@ -68,6 +73,7 @@ class _ParametrosState extends State<Parametros> {
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -89,7 +95,18 @@ class _ParametrosState extends State<Parametros> {
                     ),
                     Mensaje(texto: "Entidad"),
                     //ListaEntidades(),
-                    ListaFutura(),
+                    ListaFutura(onChanged: (String value) {
+                      // 3. Now you can read the selected value here and make cool things
+                      /*print(valorentidad);
+                      entidadseleccionada = valorentidad;*/
+                      setState(() {
+                        entidadseleccionada = value;
+                        print(entidadseleccionada);
+                      });
+                    },
+                    ),
+
+
                     SizedBox(
                       height: 20, // <-- SEE HERE
                     ),
@@ -107,11 +124,11 @@ class _ParametrosState extends State<Parametros> {
                     Row(
                       children: <Widget>[
                         Expanded(
-                          child: BotonOpcion("Cancelar","btn1", context),
+                          child: BotonOpcion("Cancelar","btn1", context,entidadseleccionada ?? 'no encuentra'),
 
                         ),
                         Expanded(
-                          child: BotonOpcion("Consultar","btn2",context),
+                          child: BotonOpcion2("Consultar","btn2",context),
                         ),
 
                       ],
@@ -122,6 +139,38 @@ class _ParametrosState extends State<Parametros> {
           );
         }),
       ),
+    );
+  }
+
+
+
+
+  Widget BotonOpcion2(String texto, String etiqueta, BuildContext contexto){//, String cursoactual,String paraleloactual) {
+    return FloatingActionButton.large(
+      backgroundColor: texto == "Cancelar"  ? Colors.red: Color(0xff4e9603),
+      heroTag: etiqueta,
+      child: FittedBox(
+          child: Text(texto)
+      ),
+      onPressed: () {
+        if (texto == "Cancelar")
+        { Navigator.of(contexto).pop();
+        }
+        if (texto == "Consultar")
+        { print(entidadseleccionada);
+        Navigator.push(
+          contexto,
+          MaterialPageRoute(builder: (context) =>  pantallaAlumnos()),
+        );
+        }
+
+      },
+      /*child: Icon(
+        Icons.train,
+        size: 35,
+        color: Colors.black,
+      ),*/
+
     );
   }
 }
@@ -274,7 +323,10 @@ class Mensaje extends StatelessWidget {
 
 
 class ListaFutura extends StatefulWidget {
-  const ListaFutura({super.key});
+  final Function onChanged;
+  const ListaFutura({ Key? key, required this.onChanged}): super(key: key);
+
+
 
   @override
   State<ListaFutura> createState() => _ListaFutura();
@@ -282,6 +334,7 @@ class ListaFutura extends StatefulWidget {
 
 class _ListaFutura extends State<ListaFutura> {
   String dropDownValue = "";
+
   Future<List<Instituciones>> cargarEntidades2() async {
     List<Instituciones> listainstituciones = [];
     await handler.initializedDB().whenComplete(() async {
@@ -320,11 +373,17 @@ class _ListaFutura extends State<ListaFutura> {
                 child: Text(item.ins_nombre),
               );
             }).toList(),
-            onChanged: (value) {
+            /*onChanged: (value) {
               setState(() {
                 dropDownValue = value ?? "";
-                //print(value);
+                print(value);
               });
+            },*/
+
+            onChanged: (value) {
+              setState(() => dropDownValue = value ?? "");
+              // 2. Call your callback passing the selected value
+              widget.onChanged(value);
             },
           ),
         )
@@ -336,6 +395,7 @@ class _ListaFutura extends State<ListaFutura> {
       },
     );
   }
+
 }
 
 
@@ -353,7 +413,7 @@ class BotonOpcion extends StatefulWidget {
 
   @override*/
 
-  Widget BotonOpcion(String texto, String etiqueta, BuildContext contexto) {
+  Widget BotonOpcion(String texto, String etiqueta, BuildContext contexto,String entidadactual){//, String cursoactual,String paraleloactual) {
     return FloatingActionButton.large(
       backgroundColor: texto == "Cancelar"  ? Colors.red: Color(0xff4e9603),
       heroTag: etiqueta,
@@ -365,7 +425,8 @@ class BotonOpcion extends StatefulWidget {
           { Navigator.of(contexto).pop();
           }
         if (texto == "Consultar")
-        { Navigator.push(
+        { print(entidadactual);
+          Navigator.push(
           contexto,
           MaterialPageRoute(builder: (context) =>  pantallaAlumnos()),
           );

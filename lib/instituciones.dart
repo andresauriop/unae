@@ -1,5 +1,5 @@
 class Instituciones {
-  late final int ins_id;
+  late final String ins_id;
   late final String ins_nombre;
   late final String ins_tipo;  //Urbano - Rural
   late final String ins_estado; //Activo _ Inactivo
