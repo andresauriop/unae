@@ -3,6 +3,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:unae/alumnos.dart';
 import 'package:unae/instituciones.dart';
 import 'planets.dart';
+import 'Notas.dart';
 
 class DataBase {
   Future<Database> initializedDB() async {
@@ -192,6 +193,15 @@ class DataBase {
         al_id: 3, al_apellidos: "Riquelme", al_nombres: "Julia", ins_id: "CAT",al_ins_ciclo: "1",al_ins_paralelo: "A"));
 
     insertAlumnos(lista_alumnos);
+  }
+
+
+  Future<int> insertNota(Notas nota) async {
+    int result = 0;
+    final Database db = await initializedDB();
+      result = await db.insert('notas', nota.toMap2(),
+          conflictAlgorithm: ConflictAlgorithm.replace);
+    return result;
   }
 
 }

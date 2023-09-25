@@ -124,11 +124,15 @@ class _pantallaAlumnosState extends State<pantallaAlumnos> {
                             child: ListTile(
                           onTap: () {
                             setState(() {
+                              String completo = snapshot.data?[index].al_apellidos + " " +
+                                  snapshot.data?[index].al_nombres ?? " ";
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => pantallaPreguntas(par_ent_cod: widget.par_ent_cod,
-                                    par_curso: widget.par_curso,par_paralelo: widget.par_paralelo,)),
+                                    par_curso: widget.par_curso,par_paralelo: widget.par_paralelo,
+                                      par_al_id: snapshot.data?[index].al_id ?? 0,
+                                      par_nombre_completo: completo)),
                               ).then((value) => setState(() {}));
 
                               ScaffoldMessenger.of(context).showSnackBar(

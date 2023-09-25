@@ -17,7 +17,7 @@ List<String> titles = [
 ];
 var calificaciones = {'0': -1, '1': -1, '2': -1, '3': -1};
 
-List subtitles = [
+/*List subtitles = [
   "Here is list 1 subtitle",
   "Here is list 2 subtitle",
   "Here is list 3 subtitle"
@@ -26,7 +26,7 @@ List icons = [
   Icons.sentiment_neutral_rounded,
   Icons.sentiment_neutral_rounded,
   Icons.done_outline_sharp
-];
+];*/
 
 
 class pantallaPreguntas extends StatefulWidget {
@@ -34,12 +34,18 @@ class pantallaPreguntas extends StatefulWidget {
   final String par_curso;
   final String par_paralelo;
   final String par_ent_cod;
+  final int par_al_id;
+  final String par_nombre_completo;
+
 
   const pantallaPreguntas(
       {Key? key,
         required this.par_ent_cod,
         required this.par_curso,
-        required this.par_paralelo})
+        required this.par_paralelo,
+        required this.par_al_id,
+        required this.par_nombre_completo,
+      })
       : super(key: key);
 
   @override
@@ -47,11 +53,12 @@ class pantallaPreguntas extends StatefulWidget {
 }
 
 class _pantallaPreguntasState extends State<pantallaPreguntas> {
-  void _show() {
+  /*void _show() {
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       content: Text("Hi, I am a snack bar!"),
     ));
-  }
+  }*/
+
 
   @override
   void initState() {
@@ -59,7 +66,8 @@ class _pantallaPreguntasState extends State<pantallaPreguntas> {
     print(widget.par_ent_cod);
     print(widget.par_curso);
     print(widget.par_paralelo);
-
+    print(widget.par_al_id);
+    print(widget.par_nombre_completo);
     setState(() {
       calificaciones = {'0': -1, '1': -1, '2': -1, '3': -1};
     });
@@ -71,7 +79,7 @@ class _pantallaPreguntasState extends State<pantallaPreguntas> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Preguntas'),
+          title:  Text(widget.par_nombre_completo),
           backgroundColor: const Color(0xff1D4554),
           leading: BackButton(
             onPressed: () => Navigator.of(context).pop(),
@@ -246,7 +254,10 @@ Widget BotonOpcion(String texto, String etiqueta, BuildContext contexto) {
                   );
                 }
                 else
-                  {print ("a grabar");};
+                  { print ("a grabar");
+                    //insertNota(Notas nota)
+
+                  };
               }
             }
 
