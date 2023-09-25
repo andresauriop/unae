@@ -21,14 +21,14 @@ class DataBase {
         await db.execute(
             "CREATE TABLE alumnos(al_id INTEGER PRIMARY KEY, al_apellidos TEXT NOT NULL," +
                 "al_nombres TEXT NOT NULL,ins_id TEXT NOT NULL,al_ins_ciclo TEXT NOT NULL," +
-                "al_ins_paralelo TEXT NOT NULL");
+                "al_ins_paralelo TEXT NOT NULL)");
 
         await db.execute(
-            "CREATE TABLE notas(nota_id INTEGER PRIMARY KEY, ins_id TEXT" +
-                "al_ins_ciclo TEXT NOT NULL,al_ins_paralelo TEXT NOT NULL" +
-                "al_id INTEGER,  nota_p1 as TEXT, nota_p2 as TEXT,nota_p3 as TEXT," +
-                "nota_p4 as TEXT,nota_p5 as TEXT,nota_p6 as TEXT,nota_7 as TEXT," +
-                "nota_p8 as TEXT,nota_p9 as TEXT,nota_p10 as TEXT");
+            "CREATE TABLE notas(nota_id INTEGER PRIMARY KEY, ins_id TEXT," +
+                "al_ins_ciclo TEXT NOT NULL,al_ins_paralelo TEXT NOT NULL," +
+                "al_id INTEGER,  nota_p1  TEXT, nota_p2  TEXT,nota_p3  TEXT," +
+                "nota_p4  TEXT,nota_p5  TEXT,nota_p6  TEXT,nota_7  TEXT," +
+                "nota_p8  TEXT,nota_p9  TEXT,nota_p10  TEXT)");
       },
 
       onUpgrade: (Database db, int oldVersion, int newVersion) async {

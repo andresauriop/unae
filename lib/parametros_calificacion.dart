@@ -7,35 +7,18 @@ List<String> list = ['One', 'Two', 'Three', 'Four'];
 List<String> list2 = ['Ninguno'];
 var mapa = new Map();
 
-
 List<Instituciones> listainst = [];
 late DataBase handler = DataBase();
 
 const List<String> listcursos = <String>[
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '8',
-  '9',
-  '10',
-];
+  '1',  '2',  '3',  '4',  '5',  '6',  '7',  '8',  '9',  '10',];
 const List<String> listaparalelos = <String>[
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-];
+  'A',  'B',  'C',  'D',  'E',  'F',  'G',];
 
-
-String entidadactual = "";
 String entidadseleccionada = "";
+String cursoseleccionado = "";
+String paraleloseleccionado = "";
+var mapainstituciones = {"XYZ":"XYZ"};
 
 void main() => runApp(Parametros());
 
@@ -45,14 +28,15 @@ class Parametros extends StatefulWidget {
 }
 
 class _ParametrosState extends State<Parametros> {
-
-
   Future cargarEntidades() async {
     handler.initializedDB().whenComplete(() async {
       listainst = await handler.retrieveInstitucionesCombo();
       for (final e in listainst) {
         list2.add(e.ins_nombre);
-      };
+        mapainstituciones[e.ins_nombre] = e.ins_id;
+      }
+      ;
+      print(mapainstituciones);
     });
     return list2;
   }
@@ -63,17 +47,15 @@ class _ParametrosState extends State<Parametros> {
 
   @override
   void initState() {
+    mapainstituciones.clear();
     llamacargarEntidades();
     super.initState();
 
-
     setState(() {});
-
   }
 
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -85,141 +67,114 @@ class _ParametrosState extends State<Parametros> {
             color: const Color(0xffffffff),
             child: Center(
                 child: Column(
+              children: <Widget>[
+                const SizedBox(
+                  height: 50, // <-- SEE HERE
+                ),
+                Mensaje(texto: "Ingrese los valores de consulta"),
+                SizedBox(
+                  height: 20, // <-- SEE HERE
+                ),
+                Mensaje(texto: "Entidad"),
+                //ListaEntidades(),
+                ListaFutura(
+                  onChanged: (String value) {
+                    setState(() {
+                      entidadseleccionada = value;
+                      //print(entidadseleccionada);
+                    });
+                  },
+                ),
+
+                SizedBox(
+                  height: 20, // <-- SEE HERE
+                ),
+                Mensaje(texto: "Curso"),
+                ListaCursos(
+                  onChanged: (String value) {
+                    setState(() {
+                      cursoseleccionado = value;
+
+                    });
+                  },
+                ),
+
+
+                SizedBox(
+                  height: 20, // <-- SEE HERE
+                ),
+                Mensaje(texto: "Paralelo"),
+                ListaParalelos(
+                  onChanged: (String value) {
+                    setState(() {
+                      paraleloseleccionado = value;
+
+                    });
+                  },
+                ),
+                SizedBox(
+                  height: 30, // <-- SEE HERE
+                ),
+                //Expanded(child: <Widget>[BotonOpcion(texto:"Consultar")]),
+                Row(
                   children: <Widget>[
-                    const SizedBox(
-                      height: 50, // <-- SEE HERE
+                    Expanded(
+                      child: BotonOpcion2("Cancelar", "btn1", context),
                     ),
-                    Mensaje(texto: "Ingrese los valores de consulta"),
-                    SizedBox(
-                      height: 20, // <-- SEE HERE
+                    Expanded(
+                      child: BotonOpcion2("Consultar", "btn2", context),
                     ),
-                    Mensaje(texto: "Entidad"),
-                    //ListaEntidades(),
-                    ListaFutura(onChanged: (String value) {
-                      // 3. Now you can read the selected value here and make cool things
-                      /*print(valorentidad);
-                      entidadseleccionada = valorentidad;*/
-                      setState(() {
-                        entidadseleccionada = value;
-                        print(entidadseleccionada);
-                      });
-                    },
-                    ),
-
-
-                    SizedBox(
-                      height: 20, // <-- SEE HERE
-                    ),
-                    Mensaje(texto: "Curso"),
-                    ListaCursos(),
-                    SizedBox(
-                      height: 20, // <-- SEE HERE
-                    ),
-                    Mensaje(texto: "Paralelo"),
-                    ListaParalelos(),
-                    SizedBox(
-                      height: 30, // <-- SEE HERE
-                    ),
-                    //Expanded(child: <Widget>[BotonOpcion(texto:"Consultar")]),
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: BotonOpcion("Cancelar","btn1", context,entidadseleccionada ?? 'no encuentra'),
-
-                        ),
-                        Expanded(
-                          child: BotonOpcion2("Consultar","btn2",context),
-                        ),
-
-                      ],
-                    )
-
                   ],
-                )),
+                )
+              ],
+            )),
           );
         }),
       ),
     );
   }
 
-
-
-
-  Widget BotonOpcion2(String texto, String etiqueta, BuildContext contexto){//, String cursoactual,String paraleloactual) {
+  Widget BotonOpcion2(String texto, String etiqueta, BuildContext contexto) {
+    //, String cursoactual,String paraleloactual) {
     return FloatingActionButton.large(
-      backgroundColor: texto == "Cancelar"  ? Colors.red: Color(0xff4e9603),
+      backgroundColor: texto == "Cancelar" ? Colors.red : Color(0xff4e9603),
       heroTag: etiqueta,
-      child: FittedBox(
-          child: Text(texto)
-      ),
+      child: FittedBox(child: Text(texto)),
       onPressed: () {
-        if (texto == "Cancelar")
-        { Navigator.of(contexto).pop();
+        if (texto == "Cancelar") {
+          Navigator.of(contexto).pop();
         }
-        if (texto == "Consultar")
-        { print(entidadseleccionada);
-        Navigator.push(
-          contexto,
-          MaterialPageRoute(builder: (context) =>  pantallaAlumnos()),
-        );
-        }
+        if (texto == "Consultar") {
+          /*print(entidadseleccionada);
+          print(cursoseleccionado);
+          print(paraleloseleccionado);*/
+          print(mapainstituciones[entidadseleccionada]);
+          Navigator.push(
+            contexto,
+            MaterialPageRoute(builder: (context) => pantallaAlumnos(par_entidad:entidadseleccionada,
+            par_ent_cod: mapainstituciones[entidadseleccionada]??"", par_curso: cursoseleccionado,par_paralelo: paraleloseleccionado,)),
 
+
+          );
+        }
       },
       /*child: Icon(
         Icons.train,
         size: 35,
         color: Colors.black,
       ),*/
-
     );
   }
 }
 
-
-
-class ListaEntidades extends StatefulWidget {
-  const ListaEntidades({super.key});
-
-  @override
-  State<ListaEntidades> createState() => _ListaEntidadesState();
-}
-
-class _ListaEntidadesState extends State<ListaEntidades> {
-
-
-  String valorEntidad = list2.first;
-
-  @override
-  Widget build(BuildContext context) {
-    return DropdownButton<String>(
-      value: valorEntidad,
-      icon: const Icon(Icons.arrow_downward),
-      elevation: 16,
-      style: const TextStyle(fontSize: 20, color: Color(0xff1D4554)),
-      underline: Container(
-        height: 2,
-        color: Color(0xff1D4554),
-      ),
-      onChanged: (String? value) {
-        // This is called when the user selects an item.
-        setState(() {
-          //valorEntidad = value!;
-          valorEntidad = value!;
-        });
-      },
-      items: list2.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-
-    );
-  }
-}
-
+//**************************************
+// Lista cursos
+//***************************************
 class ListaCursos extends StatefulWidget {
-  const ListaCursos({super.key});
+
+  final Function onChanged;
+  const ListaCursos({Key? key, required this.onChanged}) : super(key: key);
+
 
   @override
   State<ListaCursos> createState() => _ListaCursos();
@@ -240,10 +195,9 @@ class _ListaCursos extends State<ListaCursos> {
         color: Color(0xff1D4554),
       ),
       onChanged: (String? value) {
-        // This is called when the user selects an item.
-        setState(() {
-          valorCursos = value!;
-        });
+        setState(() => valorCursos = value ?? "");
+        // 2. Call your callback passing the selected value
+        widget.onChanged(value);
       },
       items: listcursos.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
@@ -254,9 +208,13 @@ class _ListaCursos extends State<ListaCursos> {
     );
   }
 }
+//********************************
+// Paralelos
+//********************************
 
 class ListaParalelos extends StatefulWidget {
-  const ListaParalelos({super.key});
+  final Function onChanged;
+  const ListaParalelos({Key? key, required this.onChanged}) : super(key: key);
 
   @override
   State<ListaParalelos> createState() => _ListaParalelos();
@@ -276,12 +234,18 @@ class _ListaParalelos extends State<ListaParalelos> {
         height: 2,
         color: const Color(0xff1D4554),
       ),
-      onChanged: (String? value) {
+      /*onChanged: (String? value) {
         // This is called when the user selects an item.
         setState(() {
           valorParalelos = value!;
         });
-      },
+      },*/
+
+      onChanged: (String? value) {
+        setState(() => valorParalelos = value ?? "");
+        // 2. Call your callback passing the selected value
+        widget.onChanged(value);
+        },
       items: listaparalelos.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
@@ -291,6 +255,7 @@ class _ListaParalelos extends State<ListaParalelos> {
     );
   }
 }
+//********************************
 
 class Mensaje extends StatelessWidget {
   final String texto;
@@ -306,13 +271,9 @@ class Mensaje extends StatelessWidget {
       selectionColor: const Color(0xaff30858),
       text: TextSpan(
         text: '',
-        style: DefaultTextStyle
-            .of(context)
-            .style,
+        style: DefaultTextStyle.of(context).style,
         children: <TextSpan>[
           TextSpan(
-            //text: 'Ingrese los valores del curso', style: TextStyle(fontSize:18, fontWeight: FontWeight.bold)),
-            //text: 'Ingrese los datos del curso', style: TextStyle(fontSize:20)),
               text: this.texto,
               style: TextStyle(fontSize: 20, color: Colors.black)),
         ],
@@ -320,13 +281,14 @@ class Mensaje extends StatelessWidget {
     );
   }
 }
-
+//********************************
+// Lista entidades
+//********************************
 
 class ListaFutura extends StatefulWidget {
   final Function onChanged;
-  const ListaFutura({ Key? key, required this.onChanged}): super(key: key);
 
-
+  const ListaFutura({Key? key, required this.onChanged}) : super(key: key);
 
   @override
   State<ListaFutura> createState() => _ListaFutura();
@@ -346,7 +308,6 @@ class _ListaFutura extends State<ListaFutura> {
     return Future.value(listainstituciones);
   }
 
-
   llamacargarEntidades2() async {
     return await cargarEntidades2();
   }
@@ -358,87 +319,35 @@ class _ListaFutura extends State<ListaFutura> {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return snapshot.hasData
             ? Container(
-          child: DropdownButton<String>(
-            icon: const Icon(Icons.arrow_downward),
-            elevation: 16,
-            style: const TextStyle(fontSize: 20, color: Color(0xff1D4554)),
-            underline: Container(
-              height: 2,
-              color: Color(0xff1D4554),
-            ),
-            hint: Text(dropDownValue ?? 'Seleccionar'),
-            items: snapshot.data.map<DropdownMenuItem<String>>((item) {
-              return DropdownMenuItem<String>(
-                value: item.ins_nombre,
-                child: Text(item.ins_nombre),
-              );
-            }).toList(),
-            /*onChanged: (value) {
-              setState(() {
-                dropDownValue = value ?? "";
-                print(value);
-              });
-            },*/
-
-            onChanged: (value) {
-              setState(() => dropDownValue = value ?? "");
-              // 2. Call your callback passing the selected value
-              widget.onChanged(value);
-            },
-          ),
-        )
+                child: DropdownButton<String>(
+                  icon: const Icon(Icons.arrow_downward),
+                  elevation: 16,
+                  style:
+                      const TextStyle(fontSize: 20, color: Color(0xff1D4554)),
+                  underline: Container(
+                    height: 2,
+                    color: Color(0xff1D4554),
+                  ),
+                  hint: Text(dropDownValue ?? 'Seleccionar'),
+                  items: snapshot.data.map<DropdownMenuItem<String>>((item) {
+                    return DropdownMenuItem<String>(
+                      value: item.ins_nombre,
+                      child: Text(item.ins_nombre),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    setState(() => dropDownValue = value ?? "");
+                    // 2. Call your callback passing the selected value
+                    widget.onChanged(value);
+                  },
+                ),
+              )
             : Container(
-          child: const Center(
-            child: Text('Cargando...'),
-          ),
-        );
+                child: const Center(
+                  child: Text('Cargando...'),
+                ),
+              );
       },
     );
   }
-
 }
-
-
-
-
-/*
-class BotonOpcion extends StatefulWidget {
-  final String texto;
-  final String etiqueta;
-  final BuildContext contexto;
-  //heroTag: "btn1",
-  const BotonOpcion({
-    required this.texto,required this.etiqueta,required this.contexto
-  });
-
-  @override*/
-
-  Widget BotonOpcion(String texto, String etiqueta, BuildContext contexto,String entidadactual){//, String cursoactual,String paraleloactual) {
-    return FloatingActionButton.large(
-      backgroundColor: texto == "Cancelar"  ? Colors.red: Color(0xff4e9603),
-      heroTag: etiqueta,
-      child: FittedBox(
-          child: Text(texto)
-      ),
-      onPressed: () {
-        if (texto == "Cancelar")
-          { Navigator.of(contexto).pop();
-          }
-        if (texto == "Consultar")
-        { print(entidadactual);
-          Navigator.push(
-          contexto,
-          MaterialPageRoute(builder: (context) =>  pantallaAlumnos()),
-          );
-        }
-
-      },
-      /*child: Icon(
-        Icons.train,
-        size: 35,
-        color: Colors.black,
-      ),*/
-
-    );
-  }
-//}
