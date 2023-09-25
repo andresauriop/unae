@@ -89,9 +89,9 @@ class _pantallaAlumnosState extends State<pantallaAlumnos> {
   @override
   void initState() {
     super.initState();
-    print(widget.par_entidad);
+    /*print(widget.par_entidad);
     print(widget.par_curso);
-    print(widget.par_paralelo);
+    print(widget.par_paralelo);*/
 
     setState(() {
       //llamacargarAlumnos(widget.par_ent_cod);
@@ -127,7 +127,8 @@ class _pantallaAlumnosState extends State<pantallaAlumnos> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => pantallaPreguntas()),
+                                    builder: (context) => pantallaPreguntas(par_ent_cod: widget.par_ent_cod,
+                                    par_curso: widget.par_curso,par_paralelo: widget.par_paralelo,)),
                               ).then((value) => setState(() {}));
 
                               ScaffoldMessenger.of(context).showSnackBar(

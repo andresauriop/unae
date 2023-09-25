@@ -15,7 +15,7 @@ List<String> titles = [
   "\u00BFQué cualidades crees que se han visto reflejados en los estudiantes de la UNAE?\n"
   //,  "\n\n"
 ];
-var calificaciones = {'0': -1, '1': '', '2': '', '3': ''};
+var calificaciones = {'0': -1, '1': -1, '2': -1, '3': -1};
 
 List subtitles = [
   "Here is list 1 subtitle",
@@ -28,7 +28,19 @@ List icons = [
   Icons.done_outline_sharp
 ];
 
+
 class pantallaPreguntas extends StatefulWidget {
+
+  final String par_curso;
+  final String par_paralelo;
+  final String par_ent_cod;
+
+  const pantallaPreguntas(
+      {Key? key,
+        required this.par_ent_cod,
+        required this.par_curso,
+        required this.par_paralelo})
+      : super(key: key);
 
   @override
   _pantallaPreguntasState createState() => _pantallaPreguntasState();
@@ -44,6 +56,10 @@ class _pantallaPreguntasState extends State<pantallaPreguntas> {
   @override
   void initState() {
     super.initState();
+    print(widget.par_ent_cod);
+    print(widget.par_curso);
+    print(widget.par_paralelo);
+
     setState(() {
       calificaciones = {'0': -1, '1': -1, '2': -1, '3': -1};
     });
@@ -148,7 +164,7 @@ class _pantallaPreguntasState extends State<pantallaPreguntas> {
                                             _ratingValue = value;
                                             //calificaciones["'"+ index.toString() +"'"] = value.toString();
                                             calificaciones[index.toString()] =
-                                                value.toString();
+                                                value.toInt();
                                             print(calificaciones);
                                           });
                                         }),

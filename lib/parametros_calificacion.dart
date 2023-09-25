@@ -55,7 +55,7 @@ class _ParametrosState extends State<Parametros> {
         mapainstituciones[e.ins_nombre] = e.ins_id;
       }
       ;
-      print(mapainstituciones);
+      //print(mapainstituciones);
     });
     return list2;
   }
