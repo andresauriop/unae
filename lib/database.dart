@@ -169,12 +169,12 @@ class DataBase {
   // retrieve Alumnos por aula
   //whereArgs: ['%$title']
 
-  Future<List<Alumnos>> retrieveAlumnosAula(institucion) async {
+  Future<List<Alumnos>> retrieveAlumnosAula(institucion,curso,paralelo) async {
     final Database db = await initializedDB();
     final List<Map<String, Object?>> queryResult =
     await db.query('alumnos',
-        where: "ins_id = ?",
-        whereArgs: [institucion]
+        where: "ins_id = ? AND al_ins_ciclo = ? AND al_ins_paralelo = ?",
+        whereArgs: [institucion,curso,paralelo]
     );
     return queryResult.map((e) => Alumnos.fromMap(e)).toList();
   }

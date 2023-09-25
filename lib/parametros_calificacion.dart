@@ -11,14 +11,33 @@ List<Instituciones> listainst = [];
 late DataBase handler = DataBase();
 
 const List<String> listcursos = <String>[
-  '1',  '2',  '3',  '4',  '5',  '6',  '7',  '8',  '9',  '10',];
+  '',
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '10',
+];
 const List<String> listaparalelos = <String>[
-  'A',  'B',  'C',  'D',  'E',  'F',  'G',];
+  '',
+  'A',
+  'B',
+  'C',
+  'D',
+  'E',
+  'F',
+  'G',
+];
 
 String entidadseleccionada = "";
 String cursoseleccionado = "";
 String paraleloseleccionado = "";
-var mapainstituciones = {"XYZ":"XYZ"};
+var mapainstituciones = {"XYZ": "XYZ"};
 
 void main() => runApp(Parametros());
 
@@ -62,7 +81,7 @@ class _ParametrosState extends State<Parametros> {
           title: const Text('Ingreso de parametros'),
           backgroundColor: const Color(0xff1D4554),
         ),
-        body: Builder(builder: (context1) {
+        body: Builder(builder: (contextolocal) {
           return Container(
             color: const Color(0xffffffff),
             child: Center(
@@ -94,11 +113,9 @@ class _ParametrosState extends State<Parametros> {
                   onChanged: (String value) {
                     setState(() {
                       cursoseleccionado = value;
-
                     });
                   },
                 ),
-
 
                 SizedBox(
                   height: 20, // <-- SEE HERE
@@ -108,7 +125,6 @@ class _ParametrosState extends State<Parametros> {
                   onChanged: (String value) {
                     setState(() {
                       paraleloseleccionado = value;
-
                     });
                   },
                 ),
@@ -119,10 +135,10 @@ class _ParametrosState extends State<Parametros> {
                 Row(
                   children: <Widget>[
                     Expanded(
-                      child: BotonOpcion2("Cancelar", "btn1", context),
+                      child: BotonOpcion2("Cancelar", "btn1", context,contextolocal),
                     ),
                     Expanded(
-                      child: BotonOpcion2("Consultar", "btn2", context),
+                      child: BotonOpcion2("Consultar", "btn2", context,contextolocal),
                     ),
                   ],
                 )
@@ -134,7 +150,7 @@ class _ParametrosState extends State<Parametros> {
     );
   }
 
-  Widget BotonOpcion2(String texto, String etiqueta, BuildContext contexto) {
+  Widget BotonOpcion2(String texto, String etiqueta, BuildContext contexto,BuildContext contextolocal) {
     //, String cursoactual,String paraleloactual) {
     return FloatingActionButton.large(
       backgroundColor: texto == "Cancelar" ? Colors.red : Color(0xff4e9603),
@@ -148,14 +164,29 @@ class _ParametrosState extends State<Parametros> {
           /*print(entidadseleccionada);
           print(cursoseleccionado);
           print(paraleloseleccionado);*/
-          print(mapainstituciones[entidadseleccionada]);
-          Navigator.push(
-            contexto,
-            MaterialPageRoute(builder: (context) => pantallaAlumnos(par_entidad:entidadseleccionada,
-            par_ent_cod: mapainstituciones[entidadseleccionada]??"", par_curso: cursoseleccionado,par_paralelo: paraleloseleccionado,)),
+          //print(mapainstituciones[entidadseleccionada]);
 
-
-          );
+          if (cursoseleccionado == "" || paraleloseleccionado == "") {
+            print("Error");
+            ScaffoldMessenger.of(contextolocal).showSnackBar(
+              SnackBar(
+                content: Text("Debe ingresar el curso y paralelo"),
+                duration: Duration(seconds: 2),
+              ),
+            );
+          } else {
+            Navigator.push(
+              contexto,
+              MaterialPageRoute(
+                  builder: (context) => pantallaAlumnos(
+                        par_entidad: entidadseleccionada,
+                        par_ent_cod:
+                            mapainstituciones[entidadseleccionada] ?? "",
+                        par_curso: cursoseleccionado,
+                        par_paralelo: paraleloseleccionado,
+                      )),
+            );
+          }
         }
       },
       /*child: Icon(
@@ -171,10 +202,9 @@ class _ParametrosState extends State<Parametros> {
 // Lista cursos
 //***************************************
 class ListaCursos extends StatefulWidget {
-
   final Function onChanged;
-  const ListaCursos({Key? key, required this.onChanged}) : super(key: key);
 
+  const ListaCursos({Key? key, required this.onChanged}) : super(key: key);
 
   @override
   State<ListaCursos> createState() => _ListaCursos();
@@ -214,6 +244,7 @@ class _ListaCursos extends State<ListaCursos> {
 
 class ListaParalelos extends StatefulWidget {
   final Function onChanged;
+
   const ListaParalelos({Key? key, required this.onChanged}) : super(key: key);
 
   @override
@@ -245,7 +276,7 @@ class _ListaParalelos extends State<ListaParalelos> {
         setState(() => valorParalelos = value ?? "");
         // 2. Call your callback passing the selected value
         widget.onChanged(value);
-        },
+      },
       items: listaparalelos.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
