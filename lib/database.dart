@@ -208,4 +208,26 @@ class DataBase {
     return result;
   }
 
+  // retrieve Notas
+  Future<List<Notas>> retrieveNotas(institucion,curso,paralelo,fecha) async {
+    final Database db = await initializedDB();
+    final List<Map<String, Object?>> queryResult =  await db.query('notas',
+        where: "ins_id = ? AND al_ins_ciclo = ? AND al_ins_paralelo = ?",
+        whereArgs: [institucion,curso,paralelo]
+    );
+    return queryResult.map((e) => Notas.fromMap(e)).toList();
+  }
+
+  // retrieve Notas
+  Future<List<Notas>> retrieveNotasAlumno(institucion,curso,paralelo,fecha,alumno) async {
+    final Database db = await initializedDB();
+    final List<Map<String, Object?>> queryResult =  await db.query('notas',
+        where: "ins_id = ? AND al_ins_ciclo = ? AND al_ins_paralelo = ? AND "+
+               "nota_fecha = ? AND al_id = ?",
+        whereArgs: [institucion,curso,paralelo,fecha,alumno]
+    );
+    //print(queryResult.toString());
+    return queryResult.map((e) => Notas.fromMap(e)).toList();
+  }
+
 }
