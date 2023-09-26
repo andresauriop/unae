@@ -3,14 +3,14 @@ import 'package:sqflite/sqflite.dart';
 import 'package:unae/alumnos.dart';
 import 'package:unae/instituciones.dart';
 import 'planets.dart';
-import 'Notas.dart';
+import 'notas.dart';
 
 class DataBase {
   Future<Database> initializedDB() async {
     String path = await getDatabasesPath();
     return openDatabase(
       join(path, 'planets.db'),
-      version: 3,
+      version: 4,
       onCreate: (Database db, int version) async {
         print("Creando base de datos");
         await db.execute(
@@ -50,11 +50,15 @@ class DataBase {
 
         await db.execute("DROP TABLE IF EXISTS notas");
         await db.execute(
-            "CREATE TABLE notas(nota_id INTEGER PRIMARY KEY, ins_id TEXT," +
-                "al_ins_ciclo TEXT NOT NULL,al_ins_paralelo TEXT NOT NULL," +
-                "al_id INTEGER,  nota_p1  TEXT, nota_p2  TEXT,nota_p3  TEXT," +
-                "nota_p4  TEXT,nota_p5  TEXT,nota_p6  TEXT,nota_7  TEXT," +
-                "nota_p8  TEXT,nota_p9  TEXT,nota_p10  TEXT)");
+            "CREATE TABLE notas(nota_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                "ins_id TEXT," +
+                "al_ins_ciclo TEXT NOT NULL,"+
+                "al_ins_paralelo TEXT NOT NULL," +
+                "al_id INTEGER,  "+
+                "nota_fecha TEXT NOT NULL,  "+
+                "nota_p1  TEXT, nota_p2  TEXT,nota_p3  TEXT," +
+                "nota_p4  TEXT,nota_p5  TEXT,nota_p6  TEXT,nota_p7  TEXT," +
+                "nota_p8  TEXT,nota_p9  TEXT,nota_p10  TEXT, nota_adc TEXT)");
       },
     );
   }

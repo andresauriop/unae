@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:unae/notas.dart';
 import 'database.dart';
 import 'instituciones.dart';
 import 'package:flutter/src/widgets/basic.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'notas.dart';
+
+late DataBase handler = DataBase();
 
 List<String> titles = [
   "\u00BFQué tan efectivos cree que fueron los recursos " +
@@ -15,7 +20,35 @@ List<String> titles = [
   "\u00BFQué cualidades crees que se han visto reflejados en los estudiantes de la UNAE?\n"
   //,  "\n\n"
 ];
-var calificaciones = {'0': -1, '1': -1, '2': -1, '3': -1};
+var calificaciones = {'0': -1.0, '1': -1.0, '2': -1.0, '3': -1.0};
+var parametros = {'ins_id':'','al_ins_ciclo':'','al_ins_paralelo':'','al_id':0,
+  'nota_fecha':'','nota_p1':'','nota_p2':'','nota_p3':'','nota_p4':'','nota_p5':'',
+  'nota_p6':'','nota_p7':'','nota_p8':'','nota_p9':'','nota_p10':'','nota_adc':'',
+};
+
+//nota_id:
+/*
+              al_ins_ciclo
+              al_ins_paralelo:
+              al_id =
+              nota_fecha =
+              nota_p1 =
+              nota_p2 =
+              nota_p3 =
+              nota_p4 =
+              nota_p5 =
+              nota_p6 =
+              nota_p7 =
+              nota_p8 =
+              nota_p9 =
+              nota_p10 =
+              nota_adc =
+                    */
+
+
+
+
+
 
 /*List subtitles = [
   "Here is list 1 subtitle",
@@ -69,7 +102,12 @@ class _pantallaPreguntasState extends State<pantallaPreguntas> {
     print(widget.par_al_id);
     print(widget.par_nombre_completo);
     setState(() {
-      calificaciones = {'0': -1, '1': -1, '2': -1, '3': -1};
+      calificaciones = {'0': -1.0, '1': -1.0, '2': -1.0, '3': -1.0};
+      parametros['ins_id'] = widget.par_ent_cod;
+      parametros['al_ins_ciclo'] = widget.par_curso;
+      parametros['al_ins_paralelo'] = widget.par_paralelo;
+      parametros['al_id'] = widget.par_al_id;
+
     });
   }
 
@@ -172,7 +210,7 @@ class _pantallaPreguntasState extends State<pantallaPreguntas> {
                                             _ratingValue = value;
                                             //calificaciones["'"+ index.toString() +"'"] = value.toString();
                                             calificaciones[index.toString()] =
-                                                value.toInt();
+                                                value.toDouble();
                                             print(calificaciones);
                                           });
                                         }),
@@ -239,7 +277,7 @@ Widget BotonOpcion(String texto, String etiqueta, BuildContext contexto) {
               if (texto == "Grabar") {
                 var valido = true;
                 calificaciones.forEach((key, value) {
-                  if (double.parse(value.toString()) < 0) {
+                  if (double.parse(value.toString()) < 0.0) {
                     valido = false;
                   }
                 });
@@ -255,8 +293,33 @@ Widget BotonOpcion(String texto, String etiqueta, BuildContext contexto) {
                 }
                 else
                   { print ("a grabar");
-                    //insertNota(Notas nota)
+                    String currentDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
+                    Notas objeto = Notas(nota_id: null,//nota_id:1,
+                        ins_id:parametros['ins_id'].toString(),
+                        al_ins_ciclo: parametros['al_ins_ciclo'].toString(),
+                        al_ins_paralelo:parametros['al_ins_paralelo'].toString(),
+                        al_id:int.parse(parametros['al_id'].toString()),
+                        nota_fecha:currentDate,
+                        nota_p1:calificaciones['0'].toString(),
+                        nota_p2:calificaciones['1'].toString(),
+                        nota_p3:calificaciones['2'].toString(),
+                        nota_p4:calificaciones['3'].toString(),
+                        nota_p5:"0",
+                        nota_p6:"0",nota_p7:"0",nota_p8:"0",
+                        nota_p9:"0",nota_p10:"0",nota_adc:"A"
+                    );
+                    handler.initializedDB().whenComplete(() async {
+                       handler.insertNota(objeto);
+                    });
+                  ScaffoldMessenger.of(contexto).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                          "Calificación guardada"),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                  Navigator.of(contexto).pop();
                   };
               }
             }
@@ -265,3 +328,21 @@ Widget BotonOpcion(String texto, String etiqueta, BuildContext contexto) {
   );
 }
 
+//nota_id:
+/*
+              al_ins_ciclo
+              al_ins_paralelo
+              al_id =
+              nota_fecha =
+              nota_p1 =
+              nota_p2 =
+              nota_p3 =
+              nota_p4 =
+              nota_p5 =
+              nota_p6 =
+              nota_p7 =
+              nota_p8 =
+              nota_p9 =
+              nota_p10 =
+              nota_adc =
+                    */

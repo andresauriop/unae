@@ -1,9 +1,10 @@
 class Notas {
-  late int nota_id;
+  late int? nota_id;
   late final String ins_id;
   late final String al_ins_ciclo;
   late final String al_ins_paralelo;
   late final int al_id;
+  late final String nota_fecha;
   late final String nota_p1;
   late final String nota_p2;
   late final String nota_p3;
@@ -14,8 +15,7 @@ class Notas {
   late final String nota_p8;
   late final String nota_p9;
   late final String nota_p10;
-
-
+  late final String nota_adc; //estado A:Activo P:Procesado
 
   Notas ({
     required this.nota_id,
@@ -23,6 +23,7 @@ class Notas {
     required this.al_ins_ciclo,
     required this.al_ins_paralelo,
     required this.al_id,
+    required this.nota_fecha,
     required this.nota_p1,
     required this.nota_p2,
     required this.nota_p3,
@@ -33,6 +34,7 @@ class Notas {
     required this.nota_p8,
     required this.nota_p9,
     required this.nota_p10,
+    required this.nota_adc,
   });
 
   Notas.fromMap(Map<String, dynamic> result)
@@ -41,6 +43,7 @@ class Notas {
         al_ins_ciclo = result["al_ins_ciclo"],
         al_ins_paralelo = result["al_ins_paralelo"],
         al_id = result["al_id"],
+        nota_fecha = result["nota_fecha"],
         nota_p1 = result["nota_p1"],
         nota_p2 = result["nota_p2"],
         nota_p3 = result["nota_p3"],
@@ -50,24 +53,26 @@ class Notas {
         nota_p7 = result["nota_p7"],
         nota_p8 = result["nota_p8"],
         nota_p9 = result["nota_p9"],
-        nota_p10 = result["nota_p10"];
+        nota_p10 = result["nota_p10"],
+        nota_adc = result["nota_adc"];
 
-  Map<String, Object> toMap() {
+  /*Map<String, Object> toMap() {
     return {
       'al_id': al_id,
       'ins_id': ins_id,
       'al_ins_ciclo': al_ins_ciclo,
       'al_ins_paralelo': al_ins_paralelo
     };
-  }
+  }*/
 
   Map<String, Object> toMap2() {
     return {
-      'nota_id': nota_id,
+      'nota_id': nota_id??0,
       'ins_id': ins_id,
       'al_ins_ciclo': al_ins_ciclo,
       'al_ins_paralelo': al_ins_paralelo,
       'al_id': al_id,
+      'nota_fecha' : nota_fecha,
       'nota_p1': nota_p1,
       'nota_p2': nota_p2,
       'nota_p3': nota_p3,
@@ -78,6 +83,7 @@ class Notas {
       'nota_p8': nota_p8,
       'nota_p9': nota_p9,
       'nota_p10': nota_p10,
+      'nota_adc' : nota_adc,
     };
   }
 
