@@ -295,7 +295,7 @@ Widget BotonOpcion(String texto, String etiqueta, BuildContext contexto) {
                   { print ("a grabar");
                     String currentDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
-                    Notas objeto = Notas(nota_id: null,//nota_id:1,
+                    Notas objeto = Notas(//nota_id: null,//nota_id:1,
                         ins_id:parametros['ins_id'].toString(),
                         al_ins_ciclo: parametros['al_ins_ciclo'].toString(),
                         al_ins_paralelo:parametros['al_ins_paralelo'].toString(),

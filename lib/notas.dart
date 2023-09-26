@@ -1,5 +1,5 @@
 class Notas {
-  late int? nota_id;
+  late final int nota_id;
   late final String ins_id;
   late final String al_ins_ciclo;
   late final String al_ins_paralelo;
@@ -18,7 +18,7 @@ class Notas {
   late final String nota_adc; //estado A:Activo P:Procesado
 
   Notas ({
-    required this.nota_id,
+    //required this.nota_id,
     required this.ins_id,
     required this.al_ins_ciclo,
     required this.al_ins_paralelo,
@@ -67,7 +67,7 @@ class Notas {
 
   Map<String, Object> toMap2() {
     return {
-      'nota_id': nota_id??0,
+      //'nota_id': nota_id,
       'ins_id': ins_id,
       'al_ins_ciclo': al_ins_ciclo,
       'al_ins_paralelo': al_ins_paralelo,
