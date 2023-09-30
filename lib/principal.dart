@@ -87,12 +87,14 @@ class SampleCenterButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Icon(
+                color:Colors.white,
                 iconData,
+
                 size: 80,
               ),
               Text(
                 title,
-                style: TextStyle(fontSize: 30),
+                style: TextStyle(fontSize: 30,color:Colors.white,),
               ),
             ],
           ),

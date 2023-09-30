@@ -158,6 +158,7 @@ class _pantallaPreguntasState extends State<pantallaPreguntas> {
                   return Container(
                     //height: screenWidth / 3,
                     child: Card(
+                      margin: const EdgeInsets.all(20),
                       child: ListTile(
                         onTap: () {},
                         title: RichText(

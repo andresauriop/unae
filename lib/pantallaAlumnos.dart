@@ -144,6 +144,7 @@ class _pantallaAlumnosState extends State<pantallaAlumnos> {
                         double screenWidth = MediaQuery.of(context).size.width;
                         child:
                         return Card(
+                            margin: const EdgeInsets.all(10),
                             child: ListTile(
                           onTap: () {
 
@@ -151,8 +152,8 @@ class _pantallaAlumnosState extends State<pantallaAlumnos> {
                              if (snapshot.data?[index].nota_fecha == "null")
                              {
                                 String completo = snapshot.data?[index]
-                                    .al_apellidos + " " +
-                                    snapshot.data?[index].al_nombres ?? " ";
+                                    .al_nombres + " " +
+                                    snapshot.data?[index].al_apellidos ?? " ";
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -212,9 +213,11 @@ class _pantallaAlumnosState extends State<pantallaAlumnos> {
 
 
                               leading: CircleAvatar(
-                                  backgroundImage: NetworkImage(
-                                      "https://images.unsplash.com/photo-1547721064-da6cfb341d50")),
-                        ));
+                                  backgroundImage: //NetworkImage(
+                                      //"https://images.unsplash.com/photo-1547721064-da6cfb341d50")),
+                                        AssetImage("assets/images/person.png"),
+                        ))
+                        );
                       })
                   : Center(
                       child: CircularProgressIndicator(),
@@ -242,5 +245,44 @@ Widget BotonOpcion(String texto, String etiqueta, BuildContext contexto) {
         Navigator.of(contexto).pop();
       }
     },
+  );
+}
+
+
+class EnterExitRoute extends PageRouteBuilder {
+  final Widget enterPage;
+  final Widget exitPage;
+  EnterExitRoute({required this.exitPage, required this.enterPage})
+      : super(
+    pageBuilder: (
+        BuildContext context,
+        Animation<double> animation,
+        Animation<double> secondaryAnimation,
+        ) =>
+    enterPage,
+    transitionsBuilder: (
+        BuildContext context,
+        Animation<double> animation,
+        Animation<double> secondaryAnimation,
+        Widget child,
+        ) =>
+        Stack(
+          children: <Widget>[
+            SlideTransition(
+              position: new Tween<Offset>(
+                begin: const Offset(0.0, 0.0),
+                end: const Offset(-1.0, 0.0),
+              ).animate(animation),
+              child: exitPage,
+            ),
+            SlideTransition(
+              position: new Tween<Offset>(
+                begin: const Offset(1.0, 0.0),
+                end: Offset.zero,
+              ).animate(animation),
+              child: enterPage,
+            )
+          ],
+        ),
   );
 }
