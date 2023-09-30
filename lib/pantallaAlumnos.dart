@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:unae/alumnocalificado.dart';
 import 'package:unae/alumnos.dart';
 import 'database.dart';
 import 'instituciones.dart';
@@ -8,7 +9,7 @@ import 'notas.dart';
 late DataBase handler = DataBase();
 List<String> titles = [];
 List<Alumnos> listaalumnos = [];
-
+List<Map> listaalumnos2 = [];
 List subtitles = [
   "Here is list 1 subtitle",
   "Here is list 2 subtitle",
@@ -44,37 +45,36 @@ class pantallaAlumnos extends StatefulWidget {
 class _pantallaAlumnosState extends State<pantallaAlumnos> {
   //Cargar desde la base de datos
 
-  /*Future cargarAlumnos(codigoentidad) async {
+  Future<List<AlumnosCalificados>> loadListaAlumnos(codigoentidad,codigocurso,codigoparalelo) async {
+    List<AlumnosCalificados> datosAlumnos = [];
+    String currentDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
     handler.initializedDB().whenComplete(() async {
-      listaalumnos = await handler.retrieveAlumnosAula(codigoentidad);
-
-      for (final e in listaalumnos) {
-        titles.add(e.al_apellidos );
-        icons.add(Icons.done_outline_sharp);
-      }
-      ;
-    });
-    return titles;
-  }*/
-
-  /*Future<List<String>> loadAlumnos(codigoentidad) async {
-    List<String> data = [];
-    handler.initializedDB().whenComplete(() async {
-      listaalumnos = await handler.retrieveAlumnosAula(codigoentidad);
-
-      for (var alumno in listaalumnos) {
-        data.add(alumno.al_apellidos + " " + alumno.al_nombres);
-        print("nombre " + alumno.al_apellidos);
+      listaalumnos2 = await handler.getAlumnoNotaDia(codigoentidad,codigocurso,codigoparalelo,currentDate);
+      for (var instanciamapa in listaalumnos2) {
+        AlumnosCalificados alumno = new AlumnosCalificados(al_id: instanciamapa["al_id"], al_apellidos: instanciamapa["al_apellidos"], al_nombres: instanciamapa["al_nombres"], ins_id: instanciamapa["ins_id"], al_ins_ciclo: instanciamapa["al_ins_ciclo"], al_ins_paralelo: instanciamapa["al_ins_paralelo"],nota_fecha: instanciamapa["nota_fecha"].toString());
+        datosAlumnos.add(alumno);
       }
     });
-    //await Future.delayed(const Duration(seconds: 2), () {});
-    return data;
-  }*/
+    return datosAlumnos;
+  }
 
-  Future<List<Alumnos>> loadListaAlumnos(codigoentidad,codigocurso,codigoparalelo) async {
+
+
+
+  /*Future<List<Alumnos>> cargaconvalidacion(codigoentidad,codigocurso,codigoparalelo) async {
+  {
+    List<Alumnos> datosAlumnos = await loadListaAlumnos(codigoentidad,codigocurso,codigoparalelo);
+    print(datosAlumnos);
+    await validar(codigoentidad,codigocurso,codigoparalelo,datosAlumnos);
+    return datosAlumnos;
+  }}*/
+
+
+  /*
+  Future<List<Alumnos>> loadListaAlumnosOriginal(codigoentidad,codigocurso,codigoparalelo) async {
     List<Alumnos> datosAlumnos = [];
     String currentDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
-
+    print("Ingresa");
     handler.initializedDB().whenComplete(() async {
       listaalumnos = await handler.retrieveAlumnosAula(codigoentidad,codigocurso,codigoparalelo);
       for (var alumno in listaalumnos) {
@@ -84,39 +84,36 @@ class _pantallaAlumnosState extends State<pantallaAlumnos> {
             codigoentidad, codigocurso, codigoparalelo, currentDate,
             alumno.al_id);
         //mapamarcaciones[alumno.al_id]="S";
-            if (listaaux.length > 0) {
-              mapamarcaciones[alumno.al_id.toString()] = "S";
-            }
-            else {
-              mapamarcaciones[alumno.al_id.toString()] = "N";
-            }
+        mapamarcaciones["hola"]="S";
       }
     });
-    print(mapamarcaciones.toString());
+
+
+    for (var alumno in listaalumnos) {
+      //verifica si ya se marco
+      List<Notas> listaaux = [];
+      listaaux = await handler.retrieveNotasAlumno(
+          codigoentidad, codigocurso, codigoparalelo, currentDate,
+          alumno.al_id);
+      print("respuesta notas " + listaaux.toString());
+      //print(currentDate);
+      print(codigoentidad  + " "+ codigocurso+ " "+codigoparalelo+ " "+currentDate+ " "+alumno.al_id.toString());
+      if (listaaux.length > 0) {
+        mapamarcaciones[alumno.al_id.toString()] = "S";
+      }
+      else {
+        mapamarcaciones[alumno.al_id.toString()] = "N";
+      }
+    }
     return datosAlumnos;
 
   }
-
-  Future<List<Notas>> verificarnota(institucion,curso,paralelo,fecha,alumno) async {
-    List<Notas> datosNotas = [];
-    handler.initializedDB().whenComplete(() async {
-      List<Notas> listanotas = await handler.retrieveNotasAlumno(institucion,curso,paralelo,fecha,alumno);
-      for (var nota in listanotas) {
-        datosNotas.add(nota);
-      }
-    });
-    return datosNotas;
-  }
-  /*llamacargarAlumnos(codigoentidad) async {
-    return await cargarAlumnos(codigoentidad);
-  }*/
+*/
 
   @override
   void initState() {
     super.initState();
-    /*print(widget.par_entidad);
-    print(widget.par_curso);
-    print(widget.par_paralelo);*/
+    //print(widget.par_entidad);
 
     setState(() {
       //llamacargarAlumnos(widget.par_ent_cod);
@@ -134,7 +131,8 @@ class _pantallaAlumnosState extends State<pantallaAlumnos> {
 
         body: FutureBuilder<List>(
             //future: llamacargarAlumnos(widget.par_ent_cod),
-            future: loadListaAlumnos(widget.par_ent_cod,widget.par_curso,widget.par_paralelo),
+            future: //loadListaAlumnos(widget.par_ent_cod,widget.par_curso,widget.par_paralelo),
+            loadListaAlumnos(widget.par_ent_cod,widget.par_curso,widget.par_paralelo),
             //initialData: List(),
             builder: (context, snapshot) {
               return snapshot.hasData
@@ -150,9 +148,8 @@ class _pantallaAlumnosState extends State<pantallaAlumnos> {
                           onTap: () {
 
                             setState(()  {
-                               //if (listaaux.length>0) {
-                                print("mapa " + mapamarcaciones.toString());
-
+                             if (snapshot.data?[index].nota_fecha == "null")
+                             {
                                 String completo = snapshot.data?[index]
                                     .al_apellidos + " " +
                                     snapshot.data?[index].al_nombres ?? " ";
@@ -176,9 +173,9 @@ class _pantallaAlumnosState extends State<pantallaAlumnos> {
                                     duration: Duration(seconds: 2),
                                   ),
                                 );
-                              /*}
+                              }
                               else
-                              { */
+                              {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content:
@@ -187,7 +184,7 @@ class _pantallaAlumnosState extends State<pantallaAlumnos> {
                                   ),
                                 );
                               //}
-                            });
+                            }});
                           },
                           title: //Text(snapshot.data?[index] ?? "Null"),
                               RichText(
@@ -209,7 +206,11 @@ class _pantallaAlumnosState extends State<pantallaAlumnos> {
                                                   TextDecoration.underline),
                                         )
                                       ]*/)),
-                          trailing: Icon(Icons.done_outline_sharp),
+                          trailing: Icon(snapshot.data?[index].nota_fecha != "null"?Icons.verified_user_rounded :Icons.dangerous,
+                              color: snapshot.data?[index].nota_fecha != "null"?Colors.green:Colors.red,
+                              size: 30.0),
+
+
                               leading: CircleAvatar(
                                   backgroundImage: NetworkImage(
                                       "https://images.unsplash.com/photo-1547721064-da6cfb341d50")),

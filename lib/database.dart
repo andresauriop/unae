@@ -230,4 +230,57 @@ class DataBase {
     return queryResult.map((e) => Notas.fromMap(e)).toList();
   }
 
+  // retrieve Notas
+  Future<List<Map>> getAlumnoNotaDia(institucion,curso,paralelo,fecha) async {
+    final Database db = await initializedDB();
+    //final List<Map<String, Object?>> queryResult 
+    String sql = "select distinct al_id,al_apellidos,al_nombres,ins_id,al_ins_ciclo,al_ins_paralelo,nota_fecha from ( " +
+        'select '+
+        'alumnos.al_id al_id, '+
+        'alumnos.al_apellidos al_apellidos ,'+
+        'alumnos.al_nombres al_nombres,'+
+        'alumnos.ins_id ins_id,'+
+        'alumnos.al_ins_ciclo al_ins_ciclo,'+
+        'alumnos.al_ins_paralelo,'+
+        'nota_fecha '+
+        'from alumnos ' +
+        'left join notas on alumnos.al_id = notas.al_id '+
+        'AND notas.nota_fecha = "$fecha" '
+        'where '+
+        //'alumnos.al_id = ? AND '+
+        'alumnos.ins_id = "$institucion" AND '+
+        'alumnos.al_ins_ciclo = $curso AND '+
+        'alumnos.al_ins_paralelo = "$paralelo" '+
+        ')';
+        print(sql);
+    /*List<Map> result = await db.rawQuery(
+        "select distinct al_id,al_apellidos,al_nombres,al_ins_ciclo,al_ins_paralelo,nota_fecha from ( " +
+        'select '+
+        'alumnos.al_id al_id, '+
+        'alumnos.al_apellidos al_apellidos ,'+
+        'alumnos.al_nombres al_nombres,'+
+        'alumnos.al_ins_ciclo al_ins_ciclo,'+
+        'alumnos.al_ins_paralelo,'+
+        'nota_fecha '+
+        'from alumnos ' +
+        'left join notas on alumnos.al_id = notas.al_id '+
+        'where '+
+        //'alumnos.al_id = ? AND '+
+        'alumnos.ins_id = ? AND '+
+        'alumnos.al_ins_ciclo = ? AND '+
+        'alumnos.al_ins_paralelo = ? AND '+
+        'notas.nota_fecha = ? ' +
+        ')',
+        ["'" + institucion + "'",curso,"'" + paralelo +"'","'"+fecha+"'"]);*/
+        List<Map> result = await db.rawQuery(sql);
+
+
+        //[alumno,"'" +institucion + "'",curso,"'" + paralelo +"'","'"+fecha+"'"]);
+    print("'" + institucion + "'" +curso+"'" + paralelo +"'"+"'"+fecha+"'");
+    print("CONSULTA " + result.toString());
+    //print(queryResult.toString());
+    return result;
+  }
+
+
 }

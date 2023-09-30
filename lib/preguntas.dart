@@ -92,6 +92,29 @@ class _pantallaPreguntasState extends State<pantallaPreguntas> {
     ));
   }*/
 
+  Future<bool> validar(codigoentidad,codigocurso,codigoparalelo,codigoalumno) async {
+    List<Notas> listaaux = [];
+    String currentDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+
+    listaaux = await handler.retrieveNotasAlumno(
+        codigoentidad, codigocurso, codigoparalelo, currentDate,
+        codigoalumno);
+    //mapamarcaciones[alumno.al_id]="S";
+    if (listaaux.length > 0) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+                "La calificacion ya fue registrada"),
+            duration: Duration(seconds: 2),
+          ),
+        );
+        Navigator.of(context).pop();
+     }
+    else {
+      print("No Marcado");
+    }
+    return true;
+  }
 
   @override
   void initState() {
@@ -107,7 +130,7 @@ class _pantallaPreguntasState extends State<pantallaPreguntas> {
       parametros['al_ins_ciclo'] = widget.par_curso;
       parametros['al_ins_paralelo'] = widget.par_paralelo;
       parametros['al_id'] = widget.par_al_id;
-
+      //validar(widget.par_ent_cod,widget.par_curso,widget.par_paralelo,widget.par_al_id);
     });
   }
 
