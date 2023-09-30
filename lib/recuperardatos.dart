@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:unae/instituciones.dart';
 import 'database.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+//import 'dart:io';
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 
 class RecuperarDatos extends StatelessWidget {
 
@@ -134,10 +139,54 @@ class RecuperarDatos extends StatelessWidget {
     handler = DataBase();
     handler.initializedDB().whenComplete(() async {
       await handler.deleteInstituciones();
-      await handler.cargardatos();
-      await handler.cargaralumnos();
-
+      await cargarInstituciones();
+      await handler.insertInstituciones(await cargarInstituciones());
+      //await handler.cargardatos();
+      //await handler.cargaralumnos();
+      //print("respuesta " + await recuperarInstituciones());
 
     });
   }
+
+
+  Future<List<Instituciones>> cargarInstituciones() async {
+    //var http = HttpClient();
+    final url = Uri.parse("http://panemia.uazuay.edu.ec:8090/pruebasmed/procedimientosnot/wsinst.php");
+    http.Response response = await http.get(url);
+    //print('Status code: ${response.statusCode}');
+    //print('Headers: ${response.headers}');
+    //print('Body: ${response.body}');
+
+    var fetchData = jsonDecode(response.body);
+    print(fetchData.toString());
+    List data = [];
+    List<Instituciones> listarespuesta = [];
+    data = fetchData;
+    data.forEach((element) {
+      /*print (element['ins_id']);
+      print (element['ins_nombre']);
+      print (element['ins_tipo']);
+      print (element['ins_estado']);*/
+      listarespuesta.add(new Instituciones(ins_id: element['ins_id'], ins_nombre: element['ins_nombre'], ins_tipo: element['ins_tipo'], ins_estado: element['ins_estado']));
+    });
+    return listarespuesta;
+
+
+
+    /*HttpClientRequest request = await http.getUrl(Uri.parse(urlprocesado));
+
+    HttpClientResponse response = await request.close();
+    print(response.toString());
+    var jsonData = await response.transform(utf8.decoder).join();
+    print("hito3 "+ jsonData.toString());
+    var fetchData = jsonDecode(jsonData);
+    List data = [];
+    data = fetchData;*/
+    /*data.forEach((element) {
+print  element['descripcion']);
+      });*/
+    }
+
+
+
 }
