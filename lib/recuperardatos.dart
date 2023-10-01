@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unae/instituciones.dart';
+import 'package:unae/alumnos.dart';
 import 'database.dart';
 //import 'dart:io';
 import 'dart:async';
@@ -141,6 +142,8 @@ class RecuperarDatos extends StatelessWidget {
       await handler.deleteInstituciones();
       await cargarInstituciones();
       await handler.insertInstituciones(await cargarInstituciones());
+      await handler.insertAlumnos(await cargarAlumnos());
+
       //await handler.cargardatos();
       //await handler.cargaralumnos();
       //print("respuesta " + await recuperarInstituciones());
@@ -170,22 +173,28 @@ class RecuperarDatos extends StatelessWidget {
       listarespuesta.add(new Instituciones(ins_id: element['ins_id'], ins_nombre: element['ins_nombre'], ins_tipo: element['ins_tipo'], ins_estado: element['ins_estado']));
     });
     return listarespuesta;
-
-
-
-    /*HttpClientRequest request = await http.getUrl(Uri.parse(urlprocesado));
-
-    HttpClientResponse response = await request.close();
-    print(response.toString());
-    var jsonData = await response.transform(utf8.decoder).join();
-    print("hito3 "+ jsonData.toString());
-    var fetchData = jsonDecode(jsonData);
-    List data = [];
-    data = fetchData;*/
-    /*data.forEach((element) {
-print  element['descripcion']);
-      });*/
     }
+
+   Future<List<Alumnos>> cargarAlumnos() async {
+    //var http = HttpClient();
+    final url = Uri.parse("http://panemia.uazuay.edu.ec:8090/pruebasmed/procedimientosnot/wsalu.php");
+    http.Response response = await http.get(url);
+    //print('Status code: ${response.statusCode}');
+    //print('Headers: ${response.headers}');
+    print('Body: ${response.body}');
+
+    var fetchData = jsonDecode(response.body);
+    print(fetchData.toString());
+    List data = [];
+    List<Alumnos> listarespuesta = [];
+    data = fetchData;
+    data.forEach((element) {
+
+      listarespuesta.add(new Alumnos(al_id: int.parse(element['al_id']), al_apellidos: element['al_apellidos'], al_nombres:element['al_nombres'],
+          ins_id: element['ins_id'], al_ins_ciclo: element['al_ins_ciclo'], al_ins_paralelo: element['al_ins_paralelo']));
+    });
+   return listarespuesta;
+  }
 
 
 
