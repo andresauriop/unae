@@ -7,6 +7,9 @@ import 'package:flutter/src/widgets/basic.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'notas.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 late DataBase handler = DataBase();
 
@@ -133,6 +136,9 @@ class _pantallaPreguntasState extends State<pantallaPreguntas> {
       //validar(widget.par_ent_cod,widget.par_curso,widget.par_paralelo,widget.par_al_id);
     });
   }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -331,7 +337,7 @@ Widget BotonOpcion(String texto, String etiqueta, BuildContext contexto) {
                         nota_p4:calificaciones['3'].toString(),
                         nota_p5:"0",
                         nota_p6:"0",nota_p7:"0",nota_p8:"0",
-                        nota_p9:"0",nota_p10:"0",nota_adc:"A"
+                        nota_p9:"0",nota_p10:"0",nota_adc:"I"
                     );
                     handler.initializedDB().whenComplete(() async {
                        handler.insertNota(objeto);

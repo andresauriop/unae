@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:unae/recuperardatos.dart';
 import 'package:unae/institucionestest.dart';
 import 'package:unae/parametros_calificacion.dart';
+import 'package:unae/enviarnotas.dart';
 import 'package:flutter/services.dart';
 
 void main() {
@@ -63,7 +64,7 @@ class SampleCenterButton extends StatelessWidget {
       children: <Widget>[
         buildRow([
           buildOption(Color(0xff1D4554), Icons.person, "Calificar", context),
-          buildOption(Color(0xff229B8D), Icons.folder_open, "Pets", context),
+          buildOption(Color(0xff229B8D), Icons.folder_open, "Enviar notas", context),
         ]),
         buildRow([
           buildOption(
@@ -130,5 +131,16 @@ class SampleCenterButton extends StatelessWidget {
       );
     }
 
+    if (titulo == "Enviar notas") {
+      Navigator.push(
+        context,
+        //MaterialPageRoute(builder: (context) =>  IngresoParametros()),
+        MaterialPageRoute(builder: (context) =>  pantallaNotas()),
+      );
+    }
+
   }
 }
+
+
+

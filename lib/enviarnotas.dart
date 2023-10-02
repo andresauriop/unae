@@ -1,0 +1,217 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:unae/alumnocalificado.dart';
+import 'package:unae/alumnos.dart';
+import 'database.dart';
+import 'instituciones.dart';
+import 'preguntas.dart';
+import 'notas.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+late DataBase handler = DataBase();
+List<String> titles = [];
+List<Alumnos> listaalumnos = [];
+List<Map> listaalumnos2 = [];
+List<Notas> listanotas = [];
+
+List subtitles = [
+  "Here is list 1 subtitle",
+  "Here is list 2 subtitle",
+  "Here is list 3 subtitle"
+];
+/*List icons = [
+  Icons.sentiment_neutral_rounded,
+  Icons.sentiment_neutral_rounded,
+  Icons.done_outline_sharp
+];*/
+
+List icons = [];
+
+
+class pantallaNotas extends StatefulWidget {
+  @override
+  _pantallaNotasState createState() => _pantallaNotasState();
+  }
+
+
+
+class _pantallaNotasState extends State<pantallaNotas> {
+  //Cargar desde la base de datos
+
+  Future<List<Notas>> cargar(lista) async
+  { List<Notas> datosNotas = [];
+    for (var instanciamapa in lista) {
+      datosNotas.add(instanciamapa);
+    }
+    return datosNotas;
+  }
+
+  Future<List<Notas>> loadListaNotas() async {
+    List<Notas> datosNotas = [];
+
+    handler.initializedDB().whenComplete(() async {
+      listanotas = await handler.retrieveNotasPendientes();
+      /*for (var instanciamapa in listanotas) {
+        //AlumnosCalificados alumno = new AlumnosCalificados(al_id: instanciamapa["al_id"], al_apellidos: instanciamapa["al_apellidos"], al_nombres: instanciamapa["al_nombres"], ins_id: instanciamapa["ins_id"], al_ins_ciclo: instanciamapa["al_ins_ciclo"], al_ins_paralelo: instanciamapa["al_ins_paralelo"],nota_fecha: instanciamapa["nota_fecha"].toString());
+        //Notas nota = new Notas(ins_id: instanciamapa["ins_id"], al_ins_ciclo: instanciamapa["al_ins_ciclo"], al_ins_paralelo: instanciamapa["al_ins_paralelo"], al_id: instanciamapa["al_id"], nota_fecha: instanciamapa["nota_fecha"], nota_p1: instanciamapa["nota_p1"], nota_p2: instanciamapa["nota_p2"], nota_p3: instanciamapa["nota_p3"], nota_p4: instanciamapa["nota_p4"], nota_p5: instanciamapa["nota_p5"], nota_p6: instanciamapa["nota_p6"], nota_p7: instanciamapa["nota_p7"], nota_p8: instanciamapa["nota_p8"], nota_p9: instanciamapa["nota_p9"], nota_p10: instanciamapa["nota_p10"], nota_adc: instanciamapa["nota_adc"]);
+        datosNotas.add(instanciamapa);
+        //rint(instanciamapa.nota_fecha);
+      }*/
+      //await datosNotas = cargar(listanotas);
+      //print(datosNotas);
+      datosNotas = await cargar(listanotas);
+      });
+
+      return Future.value(listanotas);
+      //return datosNotas;
+  }
+
+  Future<void> grabarMarcaciones(ins_id, al_ins_ciclo, al_ins_paralelo, al_id,
+      nota_fecha,
+      nota_p1, nota_p2, nota_p3, nota_p4, nota_p5, nota_p6, nota_p7, nota_p8,
+      nota_p9, nota_p10, nota_adc)
+  async {
+    final url = Uri.parse(
+        "http://panemia.uazuay.edu.ec:8090/pruebasmed/procedimientosnot/wsnot.php");
+    http.Response response = await http.get(url);
+    response = await http.post(url,
+        headers: {"Content-Type": "ext/html; charset=UTF-8"},
+        /*body: jsonEncode({
+          "title": titleController.text,
+          "body": bodyController.text,
+          "userId": 1,
+        }));*/
+        body: {
+          "ins_id": ins_id,
+          "al_ins_ciclo": al_ins_ciclo,
+          "al_ins_paralelo": al_ins_paralelo,
+          "al_id": al_id,
+          "nota_fecha": nota_fecha,
+          "nota_p1": nota_p1,
+          "nota_p2": nota_p2,
+          "nota_p3": nota_p3,
+          "nota_p4": nota_p4,
+          "nota_p5": nota_p5,
+          "nota_p6": nota_p6,
+          "nota_p7": nota_p7,
+          "nota_p8": nota_p8,
+          "nota_p9": nota_p9,
+          "nota_p10": nota_p10,
+          "nota_adc": nota_adc,
+        });
+    print("Respuesta");
+
+    /*if (response.statusCode == 201) {
+        Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text("Post created successfully!"),
+        ));
+      } else {
+        Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text("Failed to create post!"),
+        ));
+      }*/
+  }
+
+
+
+
+
+
+
+  @override
+  void initState() {
+    super.initState();
+    //print(widget.par_entidad);
+
+    setState(() {
+      //llamacargarAlumnos(widget.par_ent_cod);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Marcaciones '),
+          backgroundColor: const Color(0xff1D4554),
+        ),
+
+        body: FutureBuilder<List> (
+          //future: llamacargarAlumnos(widget.par_ent_cod),
+            future: //loadListaAlumnos(widget.par_ent_cod,widget.par_curso,widget.par_paralelo),
+            loadListaNotas(),
+            //initialData: loadListaNotas(),
+            builder: (context, snapshot) {
+              return snapshot.hasData
+                  ? new ListView.builder(
+                  padding: const EdgeInsets.all(10.0),
+                  itemCount: snapshot.data?.length ?? 0,
+                  itemBuilder: (context, index) {
+                    //return Text(snapshot.data?[index] ?? "got null");
+                    double screenWidth = MediaQuery.of(context).size.width;
+                    child:
+                    return Card(
+                        margin: const EdgeInsets.all(10),
+                        child: ListTile(
+
+                            //title: Text(snapshot.data?[index].ins_id ?? "Null"),//Text(snapshot.data?[index] ?? "Null"),
+                            title:RichText(
+                                textAlign: TextAlign.left,
+                                text: TextSpan(
+                                  text:snapshot.data?[index].ins_id + " "+
+                                      snapshot.data?[index].al_ins_ciclo.toString()  + " "+
+                                      snapshot.data?[index].al_ins_paralelo  + " "+
+                                      snapshot.data?[index].al_id.toString()  + " "+
+                                      snapshot.data?[index].nota_fecha ?? " " ,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                  ),
+                                  )),
+                            trailing: Icon(Icons.dangerous,
+                                color: Colors.red,
+                                size: 30.0),
+                            leading: CircleAvatar(
+                              backgroundImage: //NetworkImage(
+                             AssetImage("assets/images/person.png"),
+                            ))
+                    );
+                  })
+                  : Center(
+                child: CircularProgressIndicator(),
+              );
+            }),
+        floatingActionButton: BotonOpcion("Cancelar", "btn1", context),
+      ),
+    );
+  }
+
+  Widget _buildRow(String texto) {
+    return new ListTile(
+      title: new Text(texto),
+    );
+  }
+}
+
+Widget BotonOpcion(String texto, String etiqueta, BuildContext contexto) {
+  return FloatingActionButton.large(
+    backgroundColor: texto == "Cancelar" ? Colors.red : Color(0xff4e9603),
+    heroTag: etiqueta,
+    child: FittedBox(child: Text(texto)),
+    onPressed: () {
+      if (texto == "Cancelar") {
+        Navigator.of(contexto).pop();
+      }
+    },
+  );
+}
+
+
+
+
+
+
+
+
