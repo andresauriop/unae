@@ -81,7 +81,8 @@ class _ParametrosState extends State<Parametros> {
           title: const Text('Ingreso de parametros'),
           backgroundColor: const Color(0xff1D4554),
         ),
-        body: Builder(builder: (contextolocal) {
+        body:
+        Builder(builder: (contextolocal) {
           return Container(
             color: const Color(0xffffffff),
             child: Center(

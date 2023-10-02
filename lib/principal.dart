@@ -64,7 +64,8 @@ class SampleCenterButton extends StatelessWidget {
       children: <Widget>[
         buildRow([
           buildOption(Color(0xff1D4554), Icons.person, "Calificar", context),
-          buildOption(Color(0xff229B8D), Icons.folder_open, "Enviar notas", context),
+          buildOption(
+              Color(0xff229B8D), Icons.folder_open, "Enviar notas", context),
         ]),
         buildRow([
           buildOption(
@@ -88,14 +89,14 @@ class SampleCenterButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Icon(
-                color:Colors.white,
+                color: Colors.white,
                 iconData,
 
                 size: 80,
               ),
               Text(
                 title,
-                style: TextStyle(fontSize: 30,color:Colors.white,),
+                style: TextStyle(fontSize: 30, color: Colors.white,),
               ),
             ],
           ),
@@ -120,14 +121,13 @@ class SampleCenterButton extends StatelessWidget {
         context,
         MaterialPageRoute(builder: (context) => const RecuperarDatos()),
       );
-
     }
 
     if (titulo == "Calificar") {
       Navigator.push(
         context,
         //MaterialPageRoute(builder: (context) =>  IngresoParametros()),
-        MaterialPageRoute(builder: (context) =>  Parametros()),
+        MaterialPageRoute(builder: (context) => Parametros()),
       );
     }
 
@@ -135,12 +135,10 @@ class SampleCenterButton extends StatelessWidget {
       Navigator.push(
         context,
         //MaterialPageRoute(builder: (context) =>  IngresoParametros()),
-        MaterialPageRoute(builder: (context) =>  pantallaNotas()),
-      );
-    }
-
+        MaterialPageRoute(builder: (context) => pantallaNotas()),
+      ).then((value) {});
+    };
   }
+
+
 }
-
-
-
