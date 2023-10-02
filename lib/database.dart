@@ -27,9 +27,9 @@ class DataBase {
         await db.execute(
             "CREATE TABLE notas(nota_id INTEGER PRIMARY KEY, ins_id TEXT," +
                 "al_ins_ciclo TEXT NOT NULL,al_ins_paralelo TEXT NOT NULL," +
-                "al_id INTEGER,  nota_p1  TEXT, nota_p2  TEXT,nota_p3  TEXT," +
-                "nota_p4  TEXT,nota_p5  TEXT,nota_p6  TEXT,nota_7  TEXT," +
-                "nota_p8  TEXT,nota_p9  TEXT,nota_p10  TEXT)");
+                "al_id INTEGER,  nota_fecha TEXT, nota_p1  TEXT, nota_p2  TEXT,nota_p3  TEXT," +
+                "nota_p4  TEXT,nota_p5  TEXT,nota_p6  TEXT,nota_p7  TEXT," +
+                "nota_p8  TEXT,nota_p9  TEXT,nota_p10  TEXT,nota_adc TEXT)");
       },
 
       onUpgrade: (Database db, int oldVersion, int newVersion) async {
@@ -237,6 +237,7 @@ class DataBase {
         where: "nota_adc = ?",
         whereArgs: ["I"]  //I:ingresado P:procesado
     );
+
     return queryResult.map((e) => Notas.fromMap(e)).toList();
   }
 

@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:unae/alumnocalificado.dart';
-import 'package:unae/alumnos.dart';
 import 'database.dart';
-import 'instituciones.dart';
-import 'preguntas.dart';
 import 'notas.dart';
 import 'dart:async';
-import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 late DataBase handler = DataBase();
 List<String> titles = [];
-List<Alumnos> listaalumnos = [];
-List<Map> listaalumnos2 = [];
 List<Notas> listanotas = [];
+Future<List<Notas>> hope = [] as Future<List<Notas>>;
 
 List subtitles = [
   "Here is list 1 subtitle",
@@ -39,10 +32,8 @@ class _pantallaNotasState extends State<pantallaNotas> {
   void initState() {
     super.initState();
     //print(widget.par_entidad);
-
     setState(() {
-      loadListaNotas();
-
+      //loadListaNotas();
       //llamacargarAlumnos(widget.par_ent_cod);
     });
   }
@@ -73,36 +64,19 @@ class _pantallaNotasState extends State<pantallaNotas> {
     return lista;
   }
 
-  Future<List<Notas>> loadListaNotas() async {
-    List<Notas> datosNotas = [];
-    List<Notas> listanotas2 = [];
-    //listanotas2 = await cargarNotas();
+  Future<List<Notas>> loadListaNotas() async  {
+    List<Notas> datosnotas = [];
     handler.initializedDB().whenComplete(() async {
       listanotas = await handler.retrieveNotasPendientes();
-      listanotas2 = listanotas;
-      print("respuesta " + listanotas2.toString());
-      for (var instanciamapa in listanotas2) {
-        //AlumnosCalificados alumno = new AlumnosCalificados(al_id: instanciamapa["al_id"], al_apellidos: instanciamapa["al_apellidos"], al_nombres: instanciamapa["al_nombres"], ins_id: instanciamapa["ins_id"], al_ins_ciclo: instanciamapa["al_ins_ciclo"], al_ins_paralelo: instanciamapa["al_ins_paralelo"],nota_fecha: instanciamapa["nota_fecha"].toString());
+      for (var instanciamapa in listanotas) {
         //Notas nota = new Notas(ins_id: instanciamapa["ins_id"], al_ins_ciclo: instanciamapa["al_ins_ciclo"], al_ins_paralelo: instanciamapa["al_ins_paralelo"], al_id: instanciamapa["al_id"], nota_fecha: instanciamapa["nota_fecha"], nota_p1: instanciamapa["nota_p1"], nota_p2: instanciamapa["nota_p2"], nota_p3: instanciamapa["nota_p3"], nota_p4: instanciamapa["nota_p4"], nota_p5: instanciamapa["nota_p5"], nota_p6: instanciamapa["nota_p6"], nota_p7: instanciamapa["nota_p7"], nota_p8: instanciamapa["nota_p8"], nota_p9: instanciamapa["nota_p9"], nota_p10: instanciamapa["nota_p10"], nota_adc: instanciamapa["nota_adc"]);
-        datosNotas.add(instanciamapa);
-        //rint(instanciamapa.nota_fecha);
+        datosnotas.add(instanciamapa);
       }
-      print(datosNotas);
-      return Future.value(datosNotas);
+      //print(listanotas2);
     });
-    return Future.value(listanotas);
+    await Future.delayed(Duration(seconds: 2));
+    return Future.value(datosnotas);
 
-    /*print("recibe lista " + listanotas.toString());
-      for (var instanciamapa in listanotas2) {
-        //AlumnosCalificados alumno = new AlumnosCalificados(al_id: instanciamapa["al_id"], al_apellidos: instanciamapa["al_apellidos"], al_nombres: instanciamapa["al_nombres"], ins_id: instanciamapa["ins_id"], al_ins_ciclo: instanciamapa["al_ins_ciclo"], al_ins_paralelo: instanciamapa["al_ins_paralelo"],nota_fecha: instanciamapa["nota_fecha"].toString());
-        //Notas nota = new Notas(ins_id: instanciamapa["ins_id"], al_ins_ciclo: instanciamapa["al_ins_ciclo"], al_ins_paralelo: instanciamapa["al_ins_paralelo"], al_id: instanciamapa["al_id"], nota_fecha: instanciamapa["nota_fecha"], nota_p1: instanciamapa["nota_p1"], nota_p2: instanciamapa["nota_p2"], nota_p3: instanciamapa["nota_p3"], nota_p4: instanciamapa["nota_p4"], nota_p5: instanciamapa["nota_p5"], nota_p6: instanciamapa["nota_p6"], nota_p7: instanciamapa["nota_p7"], nota_p8: instanciamapa["nota_p8"], nota_p9: instanciamapa["nota_p9"], nota_p10: instanciamapa["nota_p10"], nota_adc: instanciamapa["nota_adc"]);
-        datosNotas.add(instanciamapa);
-        //rint(instanciamapa.nota_fecha);
-      }
-      //await datosNotas = cargar(listanotas);
-      //print(datosNotas);
-      //datosNotas = await cargar(listanotas);
-        return Future.value(datosNotas);*/
   }
 
   Future<void> grabarMarcaciones(
@@ -181,11 +155,8 @@ class _pantallaNotasState extends State<pantallaNotas> {
             Expanded(
               child: FutureBuilder<List>(
                   //future: llamacargarAlumnos(widget.par_ent_cod),
-                  future:
-                      //loadListaAlumnos(widget.par_ent_cod,widget.par_curso,widget.par_paralelo),
-                      loadListaNotas(),
-
-                  //initialData: loadListaNotas(),
+                  future: loadListaNotas(),
+                  //initialData: listanotas,
                   builder: (context, snapshot) {
                     return snapshot.hasData
                         ? new ListView.builder(
