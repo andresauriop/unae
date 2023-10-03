@@ -52,16 +52,45 @@ class _pantallaNotasState extends State<pantallaNotas> {
     return datosNotas;
   }*/
 
-  Future<List<Notas>> cargarNotas() async {
-    List<Notas> lista = [];
-    await handler.initializedDB().whenComplete(() async {
-      listanotas = await handler.retrieveNotasPendientes();
-      lista = listanotas;
-      print("respuesta " + lista.toString());
+  pregrabacion() async {
+    List<Notas> datosnotas = [];
+    await loadListaNotasSinEspera();
+    for(Notas elemento in listanotas)
+      {
+        grabarNotas(elemento.nota_id,
+            elemento.ins_id,
+            elemento.al_ins_ciclo,
+            elemento.al_ins_paralelo,
+            elemento.al_id,
+            elemento.nota_fecha,
+            elemento.nota_p1,elemento.nota_p2,
+            elemento.nota_p3,elemento.nota_p4,
+            elemento.nota_p5,elemento.nota_p6,
+            elemento.nota_p7,elemento.nota_p8,
+            elemento.nota_p9,elemento.nota_p10,
+            elemento.nota_adc);
 
-      return Future.value(lista);
+      }
+      print("actualizado");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content:
+          Text("Proceso finalizado"),
+          duration: Duration(seconds: 2),
+        ));
+        Navigator.of(context).pop();
+
+    //print("A grabar " + listanotas.toString());
+
+  }
+
+  Future<void> loadListaNotasSinEspera() async  {
+    List<Notas> datosnotas = [];
+    handler.initializedDB().whenComplete(() async {
+      listanotas = await handler.retrieveNotasPendientes();
     });
-    return lista;
+    // Es void porque afecta a una variable global
+    // No requiere espera porque no afecta interfaz
   }
 
   Future<List<Notas>> loadListaNotas() async  {
@@ -79,29 +108,21 @@ class _pantallaNotasState extends State<pantallaNotas> {
 
   }
 
-  Future<void> grabarMarcaciones(
+  Future<void> grabarNotas(nota_id,
       ins_id,
       al_ins_ciclo,
       al_ins_paralelo,
       al_id,
       nota_fecha,
-      nota_p1,
-      nota_p2,
-      nota_p3,
-      nota_p4,
-      nota_p5,
-      nota_p6,
-      nota_p7,
-      nota_p8,
-      nota_p9,
-      nota_p10,
-      nota_adc) async {
+      nota_p1,nota_p2,nota_p3,nota_p4,
+      nota_p5,nota_p6,nota_p7,nota_p8,
+      nota_p9,nota_p10,nota_adc) async {
     final url = Uri.parse(
         "http://panemia.uazuay.edu.ec:8090/pruebasmed/procedimientosnot/wsnot.php");
     http.Response response = await http.get(url);
     response = await http.post(url,
         headers: {
-          "Content-Type": "ext/html; charset=UTF-8"
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
         },
         /*body: jsonEncode({
           "title": titleController.text,
@@ -109,24 +130,29 @@ class _pantallaNotasState extends State<pantallaNotas> {
           "userId": 1,
         }));*/
         body: {
-          "ins_id": ins_id,
-          "al_ins_ciclo": al_ins_ciclo,
+         "ins_id": ins_id,
+          "al_ins_ciclo": al_ins_ciclo.toString(),
           "al_ins_paralelo": al_ins_paralelo,
-          "al_id": al_id,
+          "al_id": al_id.toString(),
           "nota_fecha": nota_fecha,
-          "nota_p1": nota_p1,
-          "nota_p2": nota_p2,
-          "nota_p3": nota_p3,
-          "nota_p4": nota_p4,
-          "nota_p5": nota_p5,
-          "nota_p6": nota_p6,
-          "nota_p7": nota_p7,
-          "nota_p8": nota_p8,
-          "nota_p9": nota_p9,
-          "nota_p10": nota_p10,
+          "nota_p1": nota_p1.toString(),
+          "nota_p2": nota_p2.toString(),
+          "nota_p3": nota_p3.toString(),
+          "nota_p4": nota_p4.toString(),
+          "nota_p5": nota_p5.toString(),
+          "nota_p6": nota_p6.toString(),
+          "nota_p7": nota_p7.toString(),
+          "nota_p8": nota_p8.toString(),
+          "nota_p9": nota_p9.toString(),
+          "nota_p10": nota_p10.toString(),
           "nota_adc": nota_adc,
         });
-    print("Respuesta");
+        //print("Respuesta " + response.body);
+        if (response.body=="res:1")
+        {   handler.initializedDB().whenComplete(() async {
+            await handler.updateNota(nota_id);
+          });
+        }
 
     /*if (response.statusCode == 201) {
         Scaffold.of(context).showSnackBar(SnackBar(
@@ -144,7 +170,7 @@ class _pantallaNotasState extends State<pantallaNotas> {
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
-            title: const Text('Marcaciones '),
+            title: const Text('Notas '),
             backgroundColor: const Color(0xff1D4554),
             leading: BackButton(
               onPressed: () => Navigator.of(context).pop(),
@@ -235,10 +261,8 @@ class _pantallaNotasState extends State<pantallaNotas> {
 
             });
           }
-          if (texto == "Graber") {
-
-          } else {
-
+          if (texto == "Grabar") {
+            pregrabacion();
           }
         }
     );}

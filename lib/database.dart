@@ -208,6 +208,16 @@ class DataBase {
     return result;
   }
 
+  //coloca la nota en procesado
+
+  Future<void> updateNota(int nota_id) async {
+    final Database db = await initializedDB();
+    await db.rawUpdate('update notas set nota_adc = "P" where nota_id = ${nota_id.toString()}');
+    //await database
+      //  .rawUpdate('UPDATE SQFLITE SET last_name = "${user.lastName}" WHERE first_name = "${user.firstName}"');
+  }
+
+
   // retrieve Notas
   Future<List<Notas>> retrieveNotas(institucion,curso,paralelo,fecha) async {
     final Database db = await initializedDB();
