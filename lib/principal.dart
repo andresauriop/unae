@@ -4,11 +4,18 @@ import 'package:unae/institucionestest.dart';
 import 'package:unae/parametros_calificacion.dart';
 import 'package:unae/enviarnotas.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+//flutter build apk  -t .\lib\principal.dart
 
-void main() {
+
+void main() async {
   /*SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.green,
   ));*/
+  WidgetsFlutterBinding.ensureInitialized();
+  await Future.delayed(const Duration(seconds: 2));
+  FlutterNativeSplash.remove();
+
   runApp(SampleCenterButton());
 }
 

@@ -42,6 +42,9 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   intl: ^0.17.0
   http: ^1.1.0
+  audioplayers: ^5.2.0
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -70,6 +73,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/images/
+    - assets/audio/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

@@ -5,6 +5,7 @@ import 'package:unae/alumnos.dart';
 import 'database.dart';
 import 'instituciones.dart';
 import 'preguntas.dart';
+import 'preguntasalter.dart';
 import 'notas.dart';
 late DataBase handler = DataBase();
 List<String> titles = [];
@@ -154,18 +155,37 @@ class _pantallaAlumnosState extends State<pantallaAlumnos> {
                                 String completo = snapshot.data?[index]
                                     .al_nombres + " " +
                                     snapshot.data?[index].al_apellidos ?? " ";
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          pantallaPreguntas(
-                                              par_ent_cod: widget.par_ent_cod,
-                                              par_curso: widget.par_curso,
-                                              par_paralelo: widget.par_paralelo,
-                                              par_al_id: snapshot.data?[index]
-                                                  .al_id ?? 0,
-                                              par_nombre_completo: completo)),
-                                ).then((value) => setState(() {}));
+                                if (int.parse(widget.par_curso) > 5) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            pantallaPreguntas(
+                                                par_ent_cod: widget.par_ent_cod,
+                                                par_curso: widget.par_curso,
+                                                par_paralelo: widget
+                                                    .par_paralelo,
+                                                par_al_id: snapshot.data?[index]
+                                                    .al_id ?? 0,
+                                                par_nombre_completo: completo)),
+                                  ).then((value) => setState(() {}));
+                                }
+                                else
+                                {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            pantallaPreguntasAlter(
+                                                par_ent_cod: widget.par_ent_cod,
+                                                par_curso: widget.par_curso,
+                                                par_paralelo: widget
+                                                    .par_paralelo,
+                                                par_al_id: snapshot.data?[index]
+                                                    .al_id ?? 0,
+                                                par_nombre_completo: completo)),
+                                  ).then((value) => setState(() {}));
+                                }
 
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
