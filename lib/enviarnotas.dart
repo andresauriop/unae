@@ -144,8 +144,9 @@ class _pantallaNotasState extends State<pantallaNotas> {
           "nota_p7": nota_p7.toString(),
           "nota_p8": nota_p8.toString(),
           "nota_p9": nota_p9.toString(),
-          "nota_p10": nota_p10.toString(),
-          "nota_adc": nota_adc,
+          "nota_p10": "-1", //nota_p10.toString(), //se pasa directamente porque en el dispositivo
+                            //se usa para obtener el tiempo en milisegundos
+          "nota_adc": nota_p10.toString(),     //nota_adc, //no se pasa porque en el dispositivo corresponde al estado
         });
         //print("Respuesta " + response.body);
         if (response.body=="res:1")

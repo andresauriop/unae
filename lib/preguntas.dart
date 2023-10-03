@@ -324,6 +324,7 @@ Widget BotonOpcion(String texto, String etiqueta, BuildContext contexto) {
                 else
                   { print ("a grabar");
                     String currentDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+                    String tiempocompleto = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
 
                     Notas objeto = Notas(//nota_id: null,//nota_id:1,
                         ins_id:parametros['ins_id'].toString(),
@@ -337,7 +338,10 @@ Widget BotonOpcion(String texto, String etiqueta, BuildContext contexto) {
                         nota_p4:calificaciones['3'].toString(),
                         nota_p5:"0",
                         nota_p6:"0",nota_p7:"0",nota_p8:"0",
-                        nota_p9:"0",nota_p10:"0",nota_adc:"I"
+                        nota_p9:"0",
+                        //nota_p10:"0",
+                        nota_p10:tiempocompleto,
+                        nota_adc:"I"
                     );
                     handler.initializedDB().whenComplete(() async {
                        handler.insertNota(objeto);

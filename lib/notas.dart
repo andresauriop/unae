@@ -15,7 +15,8 @@ class Notas {
   late final String nota_p8;
   late final String nota_p9;
   late final String nota_p10;
-  late final String nota_adc; //estado A:Activo P:Procesado
+  late final String nota_adc;
+  //estado A:Activo P:Procesado
 
   Notas ({
     //required this.nota_id,
