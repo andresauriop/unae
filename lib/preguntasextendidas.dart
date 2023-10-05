@@ -164,13 +164,15 @@ class _pantallaPreguntasExtendidasState
               onPressed: () => Navigator.of(context).pop(),
             ),
           ),
-          body: Column(
+          body: Column(children:<Widget>[
+            Expanded(child:
+             ListView(
               children: <Widget>[
                   Pregunta1(context),
                   Textoprevio(context),
                   Pregunta2_1(context),
-              ])
-
+              ]))
+          ]
         //floatingActionButton: BotonOpcion("Grabar", "btn1", context),
         /*floatingActionButton: Builder(
             builder: (context) {
@@ -187,7 +189,7 @@ class _pantallaPreguntasExtendidasState
               );
             }
         ),*/
-      ),
+      )),
     );
   }
 }
@@ -379,6 +381,10 @@ Widget Textoprevio(BuildContext context) {
   );
 }
 Widget Pregunta2_1(BuildContext context) {
+  var minimo = MediaQuery
+      .of(context)
+      .size
+      .width / 14;
   return Card(
     shape: RoundedRectangleBorder( //<-- 1. SEE HERE
       side: BorderSide(
@@ -397,7 +403,7 @@ Widget Pregunta2_1(BuildContext context) {
         maxLines: 10,
         textScaleFactor: 1,
         text: TextSpan(
-          text: "\nPregunta 1. ¿Te sientes cómodo pidiendo ayuda a los practicantes?",
+          text: "\nPregunta 2.1. Apoyo con los estudiantes con necesidades educativas específicas asociadas o no a la discapacidad",
           style: TextStyle(color: Colors.black, fontSize: 18),
         ),
       ),
@@ -408,25 +414,32 @@ Widget Pregunta2_1(BuildContext context) {
           ),
           ToggleSwitch(
             initialLabelIndex: 0,
-            totalSwitches: 3,
+            totalSwitches: 10,
             radiusStyle: true,
-            cornerRadius: 20.0,
-            minWidth: MediaQuery
-                .of(context)
-                .size
-                .width / 4,
-            activeBgColors: [
+            cornerRadius: 10.0,
+            minWidth: minimo,
+            /*activeBgColors: [
               [Colors.red],
               [Colors.yellow],
               [Colors.lightGreenAccent],
-            ],
+            ],*/
+            activeBgColor: [Colors.green],
+            activeFgColor: Colors.white,
             multiLineText: true,
+            customWidths: [minimo,minimo,minimo,minimo,minimo,minimo,minimo,minimo,minimo,minimo*2],
             customTextStyles: [
-              TextStyle(fontSize: 16.0, color: Colors.white,),
-              TextStyle(fontSize: 16.0, color: Colors.black,),
-              TextStyle(fontSize: 16.0, color: Colors.black,)
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
             ],
-            labels: ['Nunca', 'A veces', 'Siempre'],
+            labels: ['1', '2', '3','4', '5', '6','7', '8', '9','10'],
             onToggle: (index) {
               print('switched to: $index');
             },
