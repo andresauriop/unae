@@ -341,11 +341,12 @@ Widget BotonOpcion(String texto, String etiqueta, BuildContext contexto) {
                         nota_p2:calificaciones['1'].toString(),
                         nota_p3:calificaciones['2'].toString(),
                         nota_p4:calificaciones['3'].toString(),
-                        nota_p5:"0",
-                        nota_p6:"0",nota_p7:"0",nota_p8:"0",
-                        nota_p9:"0",
+                        nota_p5:"0",nota_p6:"0",nota_p7:"0",nota_p8:"0",nota_p9:"0",
                         //nota_p10:"0",
                         nota_p10:tiempocompleto,
+                        nota_p11:"0",nota_p12:"0",nota_p13:"0",nota_p14:"0",nota_p15:"0",
+                        nota_p16:"0",nota_p17:"0",nota_p18:"0",nota_p19:"0",nota_p20:"0",
+                        nota_estado:"I",
                         nota_adc:"I"
                     );
                     handler.initializedDB().whenComplete(() async {

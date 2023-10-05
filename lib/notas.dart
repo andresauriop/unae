@@ -15,7 +15,19 @@ class Notas {
   late final String nota_p8;
   late final String nota_p9;
   late final String nota_p10;
+  late final String nota_p11;
+  late final String nota_p12;
+  late final String nota_p13;
+  late final String nota_p14;
+  late final String nota_p15;
+  late final String nota_p16;
+  late final String nota_p17;
+  late final String nota_p18;
+  late final String nota_p19;
+  late final String nota_p20;
+
   late final String nota_adc;
+  late final String nota_estado;
   //estado A:Activo P:Procesado
 
   Notas ({
@@ -35,6 +47,19 @@ class Notas {
     required this.nota_p8,
     required this.nota_p9,
     required this.nota_p10,
+
+    required this.nota_p11,
+    required this.nota_p12,
+    required this.nota_p13,
+    required this.nota_p14,
+    required this.nota_p15,
+    required this.nota_p16,
+    required this.nota_p17,
+    required this.nota_p18,
+    required this.nota_p19,
+    required this.nota_p20,
+
+    required this.nota_estado,
     required this.nota_adc,
   });
 
@@ -55,7 +80,20 @@ class Notas {
         nota_p8 = result["nota_p8"],
         nota_p9 = result["nota_p9"],
         nota_p10 = result["nota_p10"],
-        nota_adc = result["nota_adc"];
+
+        nota_p11 = result["nota_p11"],
+        nota_p12 = result["nota_p12"],
+        nota_p13 = result["nota_p13"],
+        nota_p14 = result["nota_p14"],
+        nota_p15 = result["nota_p15"],
+        nota_p16 = result["nota_p16"],
+        nota_p17 = result["nota_p17"],
+        nota_p18 = result["nota_p18"],
+        nota_p19 = result["nota_p19"],
+        nota_p20 = result["nota_p20"],
+
+        nota_adc = result["nota_adc"],
+        nota_estado = result["nota_estado"];
 
   /*Map<String, Object> toMap() {
     return {
@@ -84,6 +122,18 @@ class Notas {
       'nota_p8': nota_p8,
       'nota_p9': nota_p9,
       'nota_p10': nota_p10,
+
+      'nota_p11': nota_p11,
+      'nota_p12': nota_p12,
+      'nota_p13': nota_p13,
+      'nota_p14': nota_p14,
+      'nota_p15': nota_p15,
+      'nota_p16': nota_p16,
+      'nota_p17': nota_p17,
+      'nota_p18': nota_p18,
+      'nota_p19': nota_p19,
+      'nota_p20': nota_p20,
+      'nota_estado' : nota_estado,
       'nota_adc' : nota_adc,
     };
   }

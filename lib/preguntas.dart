@@ -321,7 +321,8 @@ Widget BotonOpcion(String texto, String etiqueta, BuildContext contexto) {
                     ),
                   );
                 }
-                else
+               /* //se comenta por rediseño
+                  else
                   { print ("a grabar");
                     String currentDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
                     String tiempocompleto = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
@@ -336,8 +337,7 @@ Widget BotonOpcion(String texto, String etiqueta, BuildContext contexto) {
                         nota_p2:calificaciones['1'].toString(),
                         nota_p3:calificaciones['2'].toString(),
                         nota_p4:calificaciones['3'].toString(),
-                        nota_p5:"0",
-                        nota_p6:"0",nota_p7:"0",nota_p8:"0",
+                        nota_p5:"0",nota_p6:"0",nota_p7:"0",nota_p8:"0",
                         nota_p9:"0",
                         //nota_p10:"0",
                         nota_p10:tiempocompleto,
@@ -354,7 +354,7 @@ Widget BotonOpcion(String texto, String etiqueta, BuildContext contexto) {
                     ),
                   );
                   Navigator.of(contexto).pop();
-                  };
+                  };*/
               }
             }
 

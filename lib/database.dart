@@ -58,7 +58,11 @@ class DataBase {
                 "nota_fecha TEXT NOT NULL,  "+
                 "nota_p1  TEXT, nota_p2  TEXT,nota_p3  TEXT," +
                 "nota_p4  TEXT,nota_p5  TEXT,nota_p6  TEXT,nota_p7  TEXT," +
-                "nota_p8  TEXT,nota_p9  TEXT,nota_p10  TEXT, nota_adc TEXT)");
+                "nota_p8  TEXT,nota_p9  TEXT,nota_p10  TEXT, "
+                "nota_p11  TEXT, nota_p12  TEXT,nota_p13  TEXT," +
+                "nota_p14  TEXT,nota_p15  TEXT,nota_p16  TEXT,nota_p17  TEXT," +
+                "nota_p18  TEXT,nota_p19  TEXT,nota_p20  TEXT, nota_estado TEXT," +
+                    "nota_adc TEXT)");
       },
     );
   }
