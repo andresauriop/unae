@@ -171,6 +171,11 @@ class _pantallaPreguntasExtendidasState
                   Pregunta1(context),
                   Textoprevio(context),
                   Pregunta2_1(context),
+                  Pregunta2_2(context),
+                  Pregunta2_3(context),
+                  Pregunta2_4(context),
+                  Pregunta3(context),
+                  Pregunta4(context),
               ]))
           ]
         //floatingActionButton: BotonOpcion("Grabar", "btn1", context),
@@ -337,7 +342,7 @@ Widget Pregunta1(BuildContext context) {
             ],
             multiLineText: true,
             customTextStyles: [
-              TextStyle(fontSize: 16.0, color: Colors.white,),
+              TextStyle(fontSize: 16.0, color: Colors.black,),
               TextStyle(fontSize: 16.0, color: Colors.black,),
               TextStyle(fontSize: 16.0, color: Colors.black,)
             ],
@@ -423,7 +428,7 @@ Widget Pregunta2_1(BuildContext context) {
               [Colors.yellow],
               [Colors.lightGreenAccent],
             ],*/
-            activeBgColor: [Colors.green],
+            activeBgColor: [Colors.lightGreenAccent],
             activeFgColor: Colors.white,
             multiLineText: true,
             customWidths: [minimo,minimo,minimo,minimo,minimo,minimo,minimo,minimo,minimo,minimo*2],
@@ -440,6 +445,364 @@ Widget Pregunta2_1(BuildContext context) {
               TextStyle(fontSize: 14.0, color: Colors.black,),
             ],
             labels: ['1', '2', '3','4', '5', '6','7', '8', '9','10'],
+            onToggle: (index) {
+              print('switched to: $index');
+            },
+          ),
+          SizedBox(
+            height: 20, // <-- SEE HERE
+          ),
+        ],
+      ),
+    ),
+  );
+}
+Widget Pregunta2_2(BuildContext context) {
+  var minimo = MediaQuery
+      .of(context)
+      .size
+      .width / 14;
+  return Card(
+    shape: RoundedRectangleBorder( //<-- 1. SEE HERE
+      side: BorderSide(
+        color: Colors.lightBlue,
+        width: 1,
+      ),
+      borderRadius: BorderRadius.circular(20.0),
+    ),
+    margin: const EdgeInsets.all(20),
+    child: ListTile(
+      onTap: () {},
+      title: RichText(
+        overflow: TextOverflow.clip,
+        textAlign: TextAlign.justify,
+        softWrap: true,
+        maxLines: 10,
+        textScaleFactor: 1,
+        text: TextSpan(
+          text: "\nPregunta 2.2. Retroalimentación a los estudiantes",
+          style: TextStyle(color: Colors.black, fontSize: 18),
+        ),
+      ),
+      subtitle: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 20, // <-- SEE HERE
+          ),
+          ToggleSwitch(
+            initialLabelIndex: 0,
+            totalSwitches: 10,
+            radiusStyle: true,
+            cornerRadius: 10.0,
+            minWidth: minimo,
+            /*activeBgColors: [
+              [Colors.red],
+              [Colors.yellow],
+              [Colors.lightGreenAccent],
+            ],*/
+            activeBgColor: [Colors.lightGreenAccent],
+            activeFgColor: Colors.white,
+            multiLineText: true,
+            customWidths: [minimo,minimo,minimo,minimo,minimo,minimo,minimo,minimo,minimo,minimo*2],
+            customTextStyles: [
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+            ],
+            labels: ['1', '2', '3','4', '5', '6','7', '8', '9','10'],
+            onToggle: (index) {
+              print('switched to: $index');
+            },
+          ),
+          SizedBox(
+            height: 20, // <-- SEE HERE
+          ),
+        ],
+      ),
+    ),
+  );
+}
+Widget Pregunta2_3(BuildContext context) {
+  var minimo = MediaQuery
+      .of(context)
+      .size
+      .width / 14;
+  return Card(
+    shape: RoundedRectangleBorder( //<-- 1. SEE HERE
+      side: BorderSide(
+        color: Colors.lightBlue,
+        width: 1,
+      ),
+      borderRadius: BorderRadius.circular(20.0),
+    ),
+    margin: const EdgeInsets.all(20),
+    child: ListTile(
+      onTap: () {},
+      title: RichText(
+        overflow: TextOverflow.clip,
+        textAlign: TextAlign.justify,
+        softWrap: true,
+        maxLines: 10,
+        textScaleFactor: 1,
+        text: TextSpan(
+          text: "\nPregunta 2.3. Acompañamiento durante el recreo",
+          style: TextStyle(color: Colors.black, fontSize: 18),
+        ),
+      ),
+      subtitle: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 20, // <-- SEE HERE
+          ),
+          ToggleSwitch(
+            initialLabelIndex: 0,
+            totalSwitches: 10,
+            radiusStyle: true,
+            cornerRadius: 10.0,
+            minWidth: minimo,
+            /*activeBgColors: [
+              [Colors.red],
+              [Colors.yellow],
+              [Colors.lightGreenAccent],
+            ],*/
+            activeBgColor: [Colors.lightGreenAccent],
+            activeFgColor: Colors.white,
+            multiLineText: true,
+            customWidths: [minimo,minimo,minimo,minimo,minimo,minimo,minimo,minimo,minimo,minimo*2],
+            customTextStyles: [
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+            ],
+            labels: ['1', '2', '3','4', '5', '6','7', '8', '9','10'],
+            onToggle: (index) {
+              print('switched to: $index');
+            },
+          ),
+          SizedBox(
+            height: 20, // <-- SEE HERE
+          ),
+        ],
+      ),
+    ),
+  );
+}
+Widget Pregunta2_4(BuildContext context) {
+  var minimo = MediaQuery
+      .of(context)
+      .size
+      .width / 14;
+  return Card(
+    shape: RoundedRectangleBorder( //<-- 1. SEE HERE
+      side: BorderSide(
+        color: Colors.lightBlue,
+        width: 1,
+      ),
+      borderRadius: BorderRadius.circular(20.0),
+    ),
+    margin: const EdgeInsets.all(20),
+    child: ListTile(
+      onTap: () {},
+      title: RichText(
+        overflow: TextOverflow.clip,
+        textAlign: TextAlign.justify,
+        softWrap: true,
+        maxLines: 10,
+        textScaleFactor: 1,
+        text: TextSpan(
+          text: "\nPregunta 2.4. Revisión de tareas",
+          style: TextStyle(color: Colors.black, fontSize: 18),
+        ),
+      ),
+      subtitle: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 20, // <-- SEE HERE
+          ),
+          ToggleSwitch(
+            initialLabelIndex: 0,
+            totalSwitches: 10,
+            radiusStyle: true,
+            cornerRadius: 10.0,
+            minWidth: minimo,
+            /*activeBgColors: [
+              [Colors.red],
+              [Colors.yellow],
+              [Colors.lightGreenAccent],
+            ],*/
+            activeBgColor: [Colors.lightGreenAccent],
+            activeFgColor: Colors.white,
+            multiLineText: true,
+            customWidths: [minimo,minimo,minimo,minimo,minimo,minimo,minimo,minimo,minimo,minimo*2],
+            customTextStyles: [
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+              TextStyle(fontSize: 14.0, color: Colors.black,),
+            ],
+            labels: ['1', '2', '3','4', '5', '6','7', '8', '9','10'],
+            onToggle: (index) {
+              print('switched to: $index');
+            },
+          ),
+          SizedBox(
+            height: 20, // <-- SEE HERE
+          ),
+        ],
+      ),
+    ),
+  );
+}
+Widget Pregunta3(BuildContext context) {
+  return Card(
+    shape: RoundedRectangleBorder( //<-- 1. SEE HERE
+      side: BorderSide(
+        color: Colors.lightBlue,
+        width: 1,
+      ),
+      borderRadius: BorderRadius.circular(20.0),
+    ),
+    margin: const EdgeInsets.all(20),
+    child: ListTile(
+      onTap: () {},
+      title: RichText(
+        overflow: TextOverflow.clip,
+        textAlign: TextAlign.justify,
+        softWrap: true,
+        maxLines: 10,
+        textScaleFactor: 1,
+        text: TextSpan(
+          text: "\nPregunta 3. ¿Te sientes satisfecho con la ayuda que recibes de los practicantes?",
+          style: TextStyle(color: Colors.black, fontSize: 18),
+        ),
+      ),
+      subtitle: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 20, // <-- SEE HERE
+          ),
+          ToggleSwitch(
+            isVertical: true,
+            initialLabelIndex: 0,
+            totalSwitches: 5,
+            radiusStyle: true,
+            cornerRadius: 20.0,
+            //inactiveBgColor: Colors.white,
+            //borderColor: [Colors.blueGrey, Colors.blueGrey, Colors.blueGrey, Colors.blueGrey, Colors.blueGrey, Colors.blueGrey],
+            //dividerColor: Colors.blueGrey,
+            minWidth: MediaQuery
+                .of(context)
+                .size
+                .width / 2,
+
+            activeBgColors: [
+              [Colors.red],
+              [Colors.orange],
+              [Colors.yellow],
+              [Colors.lightGreenAccent],
+              [Colors.green],
+            ],
+            multiLineText: true,
+            customTextStyles: [
+              TextStyle(fontSize: 16.0, color: Colors.black,),
+              TextStyle(fontSize: 16.0, color: Colors.black,),
+              TextStyle(fontSize: 16.0, color: Colors.black,),
+              TextStyle(fontSize: 16.0, color: Colors.black,),
+              TextStyle(fontSize: 16.0, color: Colors.black,)
+            ],
+            labels: ['Muy insatisfecho', 'Insatisfecho', 'Neutral', 'Satisfecho', 'Muy satisfecho',],
+              onToggle: (index) {
+              print('switched to: $index');
+            },
+          ),
+          SizedBox(
+            height: 20, // <-- SEE HERE
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+
+Widget Pregunta4(BuildContext context) {
+  return Card(
+    shape: RoundedRectangleBorder( //<-- 1. SEE HERE
+      side: BorderSide(
+        color: Colors.lightBlue,
+        width: 1,
+      ),
+      borderRadius: BorderRadius.circular(20.0),
+    ),
+    margin: const EdgeInsets.all(20),
+    child: ListTile(
+      onTap: () {},
+      title: RichText(
+        overflow: TextOverflow.clip,
+        textAlign: TextAlign.justify,
+        softWrap: true,
+        maxLines: 10,
+        textScaleFactor: 1,
+        text: TextSpan(
+          text: "\nPregunta 4. ¿Cómo te sientes con la presencia y acompañamiento de los estudiantes UNAE?",
+          style: TextStyle(color: Colors.black, fontSize: 18),
+        ),
+      ),
+      subtitle: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 20, // <-- SEE HERE
+          ),
+          ToggleSwitch(
+            isVertical: true,
+            initialLabelIndex: 0,
+            totalSwitches: 4,
+            radiusStyle: true,
+            cornerRadius: 20.0,
+            //inactiveBgColor: Colors.white,
+            //borderColor: [Colors.blueGrey, Colors.blueGrey, Colors.blueGrey, Colors.blueGrey, Colors.blueGrey, Colors.blueGrey],
+            //dividerColor: Colors.blueGrey,
+            minWidth: MediaQuery
+                .of(context)
+                .size
+                .width / 2,
+
+            activeBgColors: [
+              [Colors.red],
+              [Colors.orange],
+              [Colors.yellow],
+              [Colors.lightGreenAccent],
+              [Colors.green],
+            ],
+            multiLineText: true,
+            customTextStyles: [
+              TextStyle(fontSize: 16.0, color: Colors.black,),
+              TextStyle(fontSize: 16.0, color: Colors.black,),
+              TextStyle(fontSize: 16.0, color: Colors.black,),
+              TextStyle(fontSize: 16.0, color: Colors.black,),
+
+            ],
+            labels: ['Felicidad', 'Tristeza', 'Indiferencia', 'Miedo', ],
             onToggle: (index) {
               print('switched to: $index');
             },
