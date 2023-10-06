@@ -11,6 +11,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:toggle_switch/toggle_switch.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 late DataBase handler = DataBase();
 
@@ -176,6 +177,11 @@ class _pantallaPreguntasExtendidasState
                   Pregunta2_4(context),
                   Pregunta3(context),
                   Pregunta4(context),
+                  Pregunta5(context),
+                  Pregunta6(context),
+                  Pregunta7(context),
+                  Pregunta8(context),
+                  Pregunta9(context),
               ]))
           ]
         //floatingActionButton: BotonOpcion("Grabar", "btn1", context),
@@ -743,8 +749,6 @@ Widget Pregunta3(BuildContext context) {
     ),
   );
 }
-
-
 Widget Pregunta4(BuildContext context) {
   return Card(
     shape: RoundedRectangleBorder( //<-- 1. SEE HERE
@@ -788,21 +792,328 @@ Widget Pregunta4(BuildContext context) {
                 .width / 2,
 
             activeBgColors: [
-              [Colors.red],
-              [Colors.orange],
               [Colors.yellow],
-              [Colors.lightGreenAccent],
-              [Colors.green],
+              [Colors.blueAccent],
+              [Colors.purple],
+              [Colors.black],
             ],
             multiLineText: true,
             customTextStyles: [
               TextStyle(fontSize: 16.0, color: Colors.black,),
               TextStyle(fontSize: 16.0, color: Colors.black,),
               TextStyle(fontSize: 16.0, color: Colors.black,),
-              TextStyle(fontSize: 16.0, color: Colors.black,),
+              TextStyle(fontSize: 16.0, color: Colors.white,),
 
             ],
             labels: ['Felicidad', 'Tristeza', 'Indiferencia', 'Miedo', ],
+            onToggle: (index) {
+              print('switched to: $index');
+            },
+          ),
+          SizedBox(
+            height: 20, // <-- SEE HERE
+          ),
+        ],
+      ),
+    ),
+  );
+}
+Widget Pregunta5(BuildContext context) {
+  return Card(
+    shape: RoundedRectangleBorder( //<-- 1. SEE HERE
+      side: BorderSide(
+        color: Colors.lightBlue,
+        width: 1,
+      ),
+      borderRadius: BorderRadius.circular(20.0),
+    ),
+    margin: const EdgeInsets.all(20),
+    child: ListTile(
+      onTap: () {},
+      title: RichText(
+        overflow: TextOverflow.clip,
+        textAlign: TextAlign.justify,
+        softWrap: true,
+        maxLines: 10,
+        textScaleFactor: 1,
+        text: TextSpan(
+          text: "\nPregunta 5. ¿Has recibido apoyo en tu aprendizaje gracias a los practicantes?                                         ",
+          style: TextStyle(color: Colors.black, fontSize: 18),
+        ),
+      ),
+      subtitle: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 20, // <-- SEE HERE
+          ),
+          ToggleSwitch(
+            initialLabelIndex: 0,
+            totalSwitches: 2,
+            radiusStyle: true,
+            cornerRadius: 20.0,
+            minWidth: MediaQuery
+                .of(context)
+                .size
+                .width / 4,
+            activeBgColors: [
+              [Colors.red],
+              [Colors.lightGreenAccent],
+            ],
+            multiLineText: true,
+            customTextStyles: [
+              TextStyle(fontSize: 16.0, color: Colors.black,),
+              TextStyle(fontSize: 16.0, color: Colors.black,),
+            ],
+            labels: ['No', 'Si'],
+            icons: [FontAwesomeIcons.circleXmark, FontAwesomeIcons.circleCheck],
+            onToggle: (index) {
+              print('switched to: $index');
+            },
+          ),
+          SizedBox(
+            height: 20, // <-- SEE HERE
+          ),
+        ],
+      ),
+    ),
+  );
+}
+Widget Pregunta6(BuildContext context) {
+  return Card(
+    shape: RoundedRectangleBorder( //<-- 1. SEE HERE
+      side: BorderSide(
+        color: Colors.lightBlue,
+        width: 1,
+      ),
+      borderRadius: BorderRadius.circular(20.0),
+    ),
+    margin: const EdgeInsets.all(20),
+    child: ListTile(
+      onTap: () {},
+      title: RichText(
+        overflow: TextOverflow.clip,
+        textAlign: TextAlign.justify,
+        softWrap: true,
+        maxLines: 10,
+        textScaleFactor: 1,
+        text: TextSpan(
+          text: "\nPregunta 6. ¿Qué tan efectivos cree que fueron los recursos proporcionados en las clases impartidas por los practicantes para su aprendizaje?",
+          style: TextStyle(color: Colors.black, fontSize: 18),
+        ),
+      ),
+      subtitle: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 20, // <-- SEE HERE
+          ),
+          ToggleSwitch(
+            isVertical: true,
+            initialLabelIndex: 0,
+            totalSwitches: 4,
+            radiusStyle: true,
+            cornerRadius: 20.0,
+            //inactiveBgColor: Colors.white,
+            //borderColor: [Colors.blueGrey, Colors.blueGrey, Colors.blueGrey, Colors.blueGrey, Colors.blueGrey, Colors.blueGrey],
+            //dividerColor: Colors.blueGrey,
+            minWidth: MediaQuery
+                .of(context)
+                .size
+                .width / 2,
+
+            activeBgColors: [
+              [Colors.red],
+              [Colors.orange],
+              [Colors.yellow],
+              [Colors.lightGreenAccent],
+            ],
+            multiLineText: true,
+            customTextStyles: [
+              TextStyle(fontSize: 16.0, color: Colors.black,),
+              TextStyle(fontSize: 16.0, color: Colors.black,),
+              TextStyle(fontSize: 16.0, color: Colors.black,),
+              TextStyle(fontSize: 16.0, color: Colors.black,)
+            ],
+            labels: ['Muy inefectivos', 'Inefectivos', 'Efectivos', 'Muy efectivos',],
+            onToggle: (index) {
+              print('switched to: $index');
+            },
+          ),
+          SizedBox(
+            height: 20, // <-- SEE HERE
+          ),
+        ],
+      ),
+    ),
+  );
+}
+Widget Pregunta7(BuildContext context) {
+  return Card(
+    shape: RoundedRectangleBorder( //<-- 1. SEE HERE
+      side: BorderSide(
+        color: Colors.lightBlue,
+        width: 1,
+      ),
+      borderRadius: BorderRadius.circular(20.0),
+    ),
+    margin: const EdgeInsets.all(20),
+    child: ListTile(
+      onTap: () {},
+      title: RichText(
+        overflow: TextOverflow.clip,
+        textAlign: TextAlign.justify,
+        softWrap: true,
+        maxLines: 10,
+        textScaleFactor: 1,
+        text: TextSpan(
+          text: "\nPregunta 7. ¿Has aprendido algo nuevo de los practicantes?                                          ",
+          style: TextStyle(color: Colors.black, fontSize: 18),
+        ),
+      ),
+      subtitle: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 20, // <-- SEE HERE
+          ),
+          ToggleSwitch(
+            initialLabelIndex: 0,
+            totalSwitches: 2,
+            radiusStyle: true,
+            cornerRadius: 20.0,
+            minWidth: MediaQuery
+                .of(context)
+                .size
+                .width / 4,
+            activeBgColors: [
+              [Colors.red],
+              [Colors.lightGreenAccent],
+            ],
+            multiLineText: true,
+            customTextStyles: [
+              TextStyle(fontSize: 16.0, color: Colors.black,),
+              TextStyle(fontSize: 16.0, color: Colors.black,),
+            ],
+            labels: ['No', 'Si'],
+            icons: [FontAwesomeIcons.circleXmark, FontAwesomeIcons.circleCheck],
+            onToggle: (index) {
+              print('switched to: $index');
+            },
+          ),
+          SizedBox(
+            height: 20, // <-- SEE HERE
+          ),
+        ],
+      ),
+    ),
+  );
+}
+Widget Pregunta8(BuildContext context) {
+  return Card(
+    shape: RoundedRectangleBorder( //<-- 1. SEE HERE
+      side: BorderSide(
+        color: Colors.lightBlue,
+        width: 1,
+      ),
+      borderRadius: BorderRadius.circular(20.0),
+    ),
+    margin: const EdgeInsets.all(20),
+    child: ListTile(
+      onTap: () {},
+      title: RichText(
+        overflow: TextOverflow.clip,
+        textAlign: TextAlign.justify,
+        softWrap: true,
+        maxLines: 10,
+        textScaleFactor: 1,
+        text: TextSpan(
+          text: "\nPregunta 8. ¿Los practicantes te han brindado confianza y han sido amigables contigo?                                         ",
+          style: TextStyle(color: Colors.black, fontSize: 18),
+        ),
+      ),
+      subtitle: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 20, // <-- SEE HERE
+          ),
+          ToggleSwitch(
+            initialLabelIndex: 0,
+            totalSwitches: 2,
+            radiusStyle: true,
+            cornerRadius: 20.0,
+            minWidth: MediaQuery
+                .of(context)
+                .size
+                .width / 4,
+            activeBgColors: [
+              [Colors.red],
+              [Colors.lightGreenAccent],
+            ],
+            multiLineText: true,
+            customTextStyles: [
+              TextStyle(fontSize: 16.0, color: Colors.black,),
+              TextStyle(fontSize: 16.0, color: Colors.black,),
+            ],
+            labels: ['No', 'Si'],
+            icons: [FontAwesomeIcons.circleXmark, FontAwesomeIcons.circleCheck],
+            onToggle: (index) {
+              print('switched to: $index');
+            },
+          ),
+          SizedBox(
+            height: 20, // <-- SEE HERE
+          ),
+        ],
+      ),
+    ),
+  );
+}
+Widget Pregunta9(BuildContext context) {
+  return Card(
+    shape: RoundedRectangleBorder( //<-- 1. SEE HERE
+      side: BorderSide(
+        color: Colors.lightBlue,
+        width: 1,
+      ),
+      borderRadius: BorderRadius.circular(20.0),
+    ),
+    margin: const EdgeInsets.all(20),
+    child: ListTile(
+      onTap: () {},
+      title: RichText(
+        overflow: TextOverflow.clip,
+        textAlign: TextAlign.justify,
+        softWrap: true,
+        maxLines: 10,
+        textScaleFactor: 1,
+        text: TextSpan(
+          text: "\nPregunta 9. ¿¿Cree que la presencia de practicantes ha tenido un impacto positivo en tu aprendizaje? ?                                         ",
+          style: TextStyle(color: Colors.black, fontSize: 18),
+        ),
+      ),
+      subtitle: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 20, // <-- SEE HERE
+          ),
+          ToggleSwitch(
+            initialLabelIndex: 0,
+            totalSwitches: 2,
+            radiusStyle: true,
+            cornerRadius: 20.0,
+            minWidth: MediaQuery
+                .of(context)
+                .size
+                .width / 4,
+            activeBgColors: [
+              [Colors.red],
+              [Colors.lightGreenAccent],
+            ],
+            multiLineText: true,
+            customTextStyles: [
+              TextStyle(fontSize: 16.0, color: Colors.black,),
+              TextStyle(fontSize: 16.0, color: Colors.black,),
+            ],
+            labels: ['No', 'Si'],
+            icons: [FontAwesomeIcons.circleXmark, FontAwesomeIcons.circleCheck],
             onToggle: (index) {
               print('switched to: $index');
             },
