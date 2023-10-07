@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:unae/alumnocalificado.dart';
 import 'package:unae/alumnos.dart';
 import 'package:unae/preguntasextendidas.dart';
+import 'package:unae/preguntasextendidasninos.dart';
 import 'database.dart';
 import 'instituciones.dart';
 import 'preguntas.dart';
@@ -177,7 +178,7 @@ class _pantallaAlumnosState extends State<pantallaAlumnos> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            pantallaPreguntasExtendidas(
+                                            pantallaPreguntasExtendidasNinos(
                                                 par_ent_cod: widget.par_ent_cod,
                                                 par_curso: widget.par_curso,
                                                 par_paralelo: widget

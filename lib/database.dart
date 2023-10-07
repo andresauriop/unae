@@ -147,6 +147,13 @@ class DataBase {
     await db.delete(
       'instituciones',
     );
+    await db.delete(
+      'alumnos',
+    );
+    await db.delete(
+      'notas',
+    );
+
   }
 
   Future<void> cargardatos() async {
