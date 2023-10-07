@@ -15,29 +15,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 late DataBase handler = DataBase();
 
-List<String> titles = [
-  "\u00BFQué tan efectivos cree que fueron los recursos " +
-      "proporcionados en las clases impartidas por los " +
-      "por los practicantes para su aprendizaje? " +
-      "Material brindado en las clases por los practicantes\n",
-  "\u00BFCómo te sientes con la presencia y acompañamiento de los estudiantes UNAE?\n",
-  "Desde tu punto de vista, \u00BFCuál crees que fue la forma más efectiva en que el los estudiante apoyaron a la práctica?\n",
-  "\u00BFQué cualidades crees que se han visto reflejados en los estudiantes de la UNAE?\n"
-  //,  "\n\n"
-];
 var calificaciones = {
   '1': -1.0,
-  '2-1': -1.0,
-  '2-2': -1.0,
-  '2-3': -1.0,
-  '2-4': -1.0,
+  '2': -1.0,
   '3': -1.0,
-  '4': -1.0,
-  '5': -1.0,
-  '6': -1.0,
-  '7': -1.0,
-  '8': -1.0,
-  '9': -1.0,
+
 };
 var parametros = {
   'ins_id': '',
@@ -58,35 +40,7 @@ var parametros = {
   'nota_adc': '',
 };
 
-//nota_id:
-/*
-              al_ins_ciclo
-              al_ins_paralelo:
-              al_id =
-              nota_fecha =
-              nota_p1 =
-              nota_p2 =
-              nota_p3 =
-              nota_p4 =
-              nota_p5 =
-              nota_p6 =
-              nota_p7 =
-              nota_p8 =
-              nota_p9 =
-              nota_p10 =
-              nota_adc =
-                    */
 
-/*List subtitles = [
-  "Here is list 1 subtitle",
-  "Here is list 2 subtitle",
-  "Here is list 3 subtitle"
-];
-List icons = [
-  Icons.sentiment_neutral_rounded,
-  Icons.sentiment_neutral_rounded,
-  Icons.done_outline_sharp
-];*/
 
 class pantallaPreguntasExtendidasNinos extends StatefulWidget {
   final String par_curso;
@@ -150,17 +104,8 @@ class _pantallaPreguntasExtendidasNinosState
     setState(() {
       calificaciones = {
         '1': -1.0,
-        '2-1': -1.0,
-        '2-2': -1.0,
-        '2-3': -1.0,
-        '2-4': -1.0,
+        '2': -1.0,
         '3': -1.0,
-        '4': -1.0,
-        '5': -1.0,
-        '6': -1.0,
-        '7': -1.0,
-        '8': -1.0,
-        '9': -1.0,
       };
       parametros['ins_id'] = widget.par_ent_cod;
       parametros['al_ins_ciclo'] = widget.par_curso;
@@ -189,6 +134,7 @@ class _pantallaPreguntasExtendidasNinosState
           Pregunta1(context),
 
           Pregunta2(context),
+          Pregunta3(context),
         ]))
       ]),
       floatingActionButton: BotonOpcion("Grabar", "btn1", context),
@@ -247,17 +193,17 @@ Widget BotonOpcion(String texto, String etiqueta, BuildContext contexto) {
                   al_id: int.parse(parametros['al_id'].toString()),
                   nota_fecha: currentDate,
                   nota_p1: calificaciones['1'].toString(),
-                  nota_p2: calificaciones['2-1'].toString(),
-                  nota_p3: calificaciones['2-2'].toString(),
-                  nota_p4: calificaciones['2-3'].toString(),
-                  nota_p5: calificaciones['2-4'].toString(),
-                  nota_p6: calificaciones['3'].toString(),
-                  nota_p7: calificaciones['4'].toString(),
-                  nota_p8: calificaciones['5'].toString(),
-                  nota_p9: calificaciones['6'].toString(),
-                  nota_p10: calificaciones['7'].toString(),
-                  nota_p11: calificaciones['8'].toString(),
-                  nota_p12: calificaciones['9'].toString(),
+                  nota_p2: calificaciones['2'].toString(),
+                  nota_p3: calificaciones['3'].toString(),
+                  nota_p4: "0",
+                  nota_p5: "0",
+                  nota_p6: "0",
+                  nota_p7: "0",
+                  nota_p8: "0",
+                  nota_p9: "0",
+                  nota_p10: "0",
+                  nota_p11: "0",
+                  nota_p12: "0",
                   //las preguntas validas son mayores o iguales a 1
                   nota_p13: "0",
                   nota_p14: "0",
@@ -286,27 +232,6 @@ Widget BotonOpcion(String texto, String etiqueta, BuildContext contexto) {
           }));
 }
 
-//nota_id:
-/*
-              al_ins_ciclo
-              al_ins_paralelo
-              al_id =
-              nota_fecha =
-              nota_p1 =
-              nota_p2 =
-              nota_p3 =
-              nota_p4 =
-              nota_p5 =
-              nota_p6 =
-              nota_p7 =
-              nota_p8 =
-              nota_p9 =
-              nota_p10 =
-              nota_adc =
-                    */
-
-
-
 Widget Pregunta1(BuildContext context) {
   //IconData icono = FontAwesomeIcons.faceLaughBeam;
   return Card(
@@ -329,7 +254,7 @@ Widget Pregunta1(BuildContext context) {
         textScaleFactor: 1,
         text: TextSpan(
           text:
-              "\nPregunta 1. ¿Te sientes cómodo pidiendo ayuda a los practicantes?",
+              "\nPregunta 1. ¿Cuánto te gusto la clase?",
           style: TextStyle(color: Colors.black, fontSize: 18),
         ),
       ),
@@ -340,29 +265,8 @@ Widget Pregunta1(BuildContext context) {
           ),
       Row(
         children: [
-                /*if (value > 4) {
-                  icono = FontAwesomeIcons.faceLaughBeam;
-                } else if (value > 3) {
-                  icono = FontAwesomeIcons.faceLaugh;
-                } else if (value > 2) {
-                  icono = FontAwesomeIcons.faceMeh;
-
-                } else if (value > 1) {
-                  icono = FontAwesomeIcons.faceFrown;
-                } else {
-                  icono = FontAwesomeIcons.faceFrownOpen;
-                }
-
-                print(value);*/
-
-                /*setState(() {
-                  _ratingValue = value;
-                  //calificaciones["'"+ index.toString() +"'"] = value.toString();
-                  calificaciones[index.toString()] =
-                      value.toDouble();
-                  print(calificaciones);*/
           RatingBar.builder(
-            initialRating: 3,
+            initialRating: -1,
             itemCount: 5,
             itemSize: 50.0,
             itemBuilder: (context, index) {
@@ -396,7 +300,10 @@ Widget Pregunta1(BuildContext context) {
               return Container();
             },
             onRatingUpdate: (rating) {
-              print(rating);
+              if (rating != null) {
+                calificaciones["1"] = rating.toDouble() ; //rating no necesita sumar porque empieza en 1
+              }
+              print(calificaciones.toString());
             },
           ),
           SizedBox(
@@ -433,7 +340,7 @@ Widget Pregunta2(BuildContext context) {
         textScaleFactor: 1,
         text: TextSpan(
           text:
-          "\nPregunta 1. ¿Te sientes cómodo pidiendo ayuda a los practicantes?",
+          "\nPregunta 2. ¿Cómo te sentiste con la presencia de los practicantes?",
           style: TextStyle(color: Colors.black, fontSize: 18),
         ),
       ),
@@ -444,29 +351,8 @@ Widget Pregunta2(BuildContext context) {
           ),
           Row(
               children: [
-                /*if (value > 4) {
-                  icono = FontAwesomeIcons.faceLaughBeam;
-                } else if (value > 3) {
-                  icono = FontAwesomeIcons.faceLaugh;
-                } else if (value > 2) {
-                  icono = FontAwesomeIcons.faceMeh;
-
-                } else if (value > 1) {
-                  icono = FontAwesomeIcons.faceFrown;
-                } else {
-                  icono = FontAwesomeIcons.faceFrownOpen;
-                }
-
-                print(value);*/
-
-                /*setState(() {
-                  _ratingValue = value;
-                  //calificaciones["'"+ index.toString() +"'"] = value.toString();
-                  calificaciones[index.toString()] =
-                      value.toDouble();
-                  print(calificaciones);*/
                 RatingBar.builder(
-                  initialRating: 3,
+                  initialRating: -1,
                   itemCount: 5,
                   itemSize: 50.0,
                   itemBuilder: (context, index) {
@@ -500,7 +386,10 @@ Widget Pregunta2(BuildContext context) {
                     return Container();
                   },
                   onRatingUpdate: (rating) {
-                    print(rating);
+                    if (rating != null) {
+                      calificaciones["2"] = rating.toDouble(); //rating no necesita sumar porque empieza en 1
+                    }
+                    print(calificaciones.toString());
                   },
                 ),
                 SizedBox(
@@ -509,6 +398,72 @@ Widget Pregunta2(BuildContext context) {
 
                 SizedBox(
                   height: 30, // <-- SEE HERE
+                ),
+              ])],
+      ),
+    ),
+  );
+}
+
+Widget Pregunta3(BuildContext context) {
+  //IconData icono = FontAwesomeIcons.faceLaughBeam;
+  return Card(
+    shape: RoundedRectangleBorder(
+      //<-- 1. SEE HERE
+      side: BorderSide(
+        color: Colors.lightBlue,
+        width: 1,
+      ),
+      borderRadius: BorderRadius.circular(20.0),
+    ),
+    margin: const EdgeInsets.all(20),
+    child: ListTile(
+      onTap: () {},
+      title: RichText(
+        overflow: TextOverflow.clip,
+        textAlign: TextAlign.justify,
+        softWrap: true,
+        maxLines: 10,
+        textScaleFactor: 1,
+        text: TextSpan(
+          text:
+          "\nPregunta 3. ¿Quieres que regresen los profes?",
+          style: TextStyle(color: Colors.black, fontSize: 18),
+        ),
+      ),
+      subtitle: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 20, // <-- SEE HERE
+          ),
+          Row(
+              children: [
+                ToggleSwitch(
+                  minWidth: 90.0,
+                  minHeight: 70.0,
+                  initialLabelIndex: -1,
+                  cornerRadius: 30.0,
+                  activeFgColor: Colors.white,
+                  inactiveBgColor: Colors.blueGrey.shade50,
+                  inactiveFgColor: Colors.grey,
+                  totalSwitches: 2,
+                  icons: [
+                    FontAwesomeIcons.thumbsDown,
+                    FontAwesomeIcons.thumbsUp
+                  ],
+                  iconSize: 30.0,
+                  borderWidth: 0.0,
+                  borderColor: [Colors.blueGrey],
+                  activeBgColors: [[Colors.red], [Colors.lightGreen]],
+                  onToggle: (index) {
+                    if (index != null) {
+                      calificaciones["3"] = index.toDouble() + 1;
+                    }
+                    print(calificaciones.toString());
+                  },
+                ),
+                SizedBox(
+                  height: 40, // <-- SEE HERE
                 ),
               ])],
       ),
