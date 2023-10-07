@@ -25,11 +25,19 @@ class DataBase {
                 "al_ins_paralelo TEXT NOT NULL)");
 
         await db.execute(
-            "CREATE TABLE notas(nota_id INTEGER PRIMARY KEY, ins_id TEXT," +
-                "al_ins_ciclo TEXT NOT NULL,al_ins_paralelo TEXT NOT NULL," +
-                "al_id INTEGER,  nota_fecha TEXT, nota_p1  TEXT, nota_p2  TEXT,nota_p3  TEXT," +
-                "nota_p4  TEXT,nota_p5  TEXT,nota_p6  TEXT,nota_p7  TEXT," +
-                "nota_p8  TEXT,nota_p9  TEXT,nota_p10  TEXT,nota_adc TEXT)");
+            "CREATE TABLE notas(nota_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+            "ins_id TEXT," +
+            "al_ins_ciclo TEXT NOT NULL,"+
+            "al_ins_paralelo TEXT NOT NULL," +
+            "al_id INTEGER,  "+
+            "nota_fecha TEXT NOT NULL,  "+
+            "nota_p1  TEXT, nota_p2  TEXT,nota_p3  TEXT," +
+            "nota_p4  TEXT,nota_p5  TEXT,nota_p6  TEXT,nota_p7  TEXT," +
+            "nota_p8  TEXT,nota_p9  TEXT,nota_p10  TEXT, "
+            "nota_p11  TEXT, nota_p12  TEXT,nota_p13  TEXT," +
+            "nota_p14  TEXT,nota_p15  TEXT,nota_p16  TEXT,nota_p17  TEXT," +
+            "nota_p18  TEXT,nota_p19  TEXT,nota_p20  TEXT, nota_estado TEXT," +
+            "nota_adc TEXT)");
       },
 
       onUpgrade: (Database db, int oldVersion, int newVersion) async {
@@ -216,7 +224,7 @@ class DataBase {
 
   Future<void> updateNota(int nota_id) async {
     final Database db = await initializedDB();
-    await db.rawUpdate('update notas set nota_adc = "P" where nota_id = ${nota_id.toString()}');
+    await db.rawUpdate('update notas set nota_estado = "P" where nota_id = ${nota_id.toString()}');
     //await database
       //  .rawUpdate('UPDATE SQFLITE SET last_name = "${user.lastName}" WHERE first_name = "${user.firstName}"');
   }
@@ -248,7 +256,8 @@ class DataBase {
   Future<List<Notas>> retrieveNotasPendientes() async {
     final Database db = await initializedDB();
     final List<Map<String, Object?>> queryResult =  await db.query('notas',
-        where: "nota_adc = ?",
+        //where: "nota_adc = ?",
+        where: "nota_estado = ?",
         whereArgs: ["I"]  //I:ingresado P:procesado
     );
 

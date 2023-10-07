@@ -68,7 +68,15 @@ class _pantallaNotasState extends State<pantallaNotas> {
             elemento.nota_p5,elemento.nota_p6,
             elemento.nota_p7,elemento.nota_p8,
             elemento.nota_p9,elemento.nota_p10,
-            elemento.nota_adc);
+            elemento.nota_adc,
+            elemento.nota_p11,elemento.nota_p12,
+            elemento.nota_p13,elemento.nota_p14,
+            elemento.nota_p15,elemento.nota_p16,
+            elemento.nota_p17,elemento.nota_p18,
+            elemento.nota_p19,elemento.nota_p20,
+            "" // no se pasa nota_otros
+            //,elemento.nota_estado
+        );
 
       }
       print("actualizado");
@@ -116,7 +124,11 @@ class _pantallaNotasState extends State<pantallaNotas> {
       nota_fecha,
       nota_p1,nota_p2,nota_p3,nota_p4,
       nota_p5,nota_p6,nota_p7,nota_p8,
-      nota_p9,nota_p10,nota_adc) async {
+      nota_p9,nota_p10,nota_adc,
+      nota_p11,nota_p12,nota_p13,nota_p14,
+      nota_p15,nota_p16,nota_p17,nota_p18,
+      nota_p19,nota_p20,nota_otros
+      ) async {
     final url = Uri.parse(
         "http://panemia.uazuay.edu.ec:8090/pruebasmed/procedimientosnot/wsnot.php");
     http.Response response = await http.get(url);
@@ -144,11 +156,25 @@ class _pantallaNotasState extends State<pantallaNotas> {
           "nota_p7": nota_p7.toString(),
           "nota_p8": nota_p8.toString(),
           "nota_p9": nota_p9.toString(),
-          "nota_p10": "-1", //nota_p10.toString(), //se pasa directamente porque en el dispositivo
+          /*"nota_p10": "-1", //nota_p10.toString(), //se pasa directamente porque en el dispositivo
                             //se usa para obtener el tiempo en milisegundos
-          "nota_adc": nota_p10.toString(),     //nota_adc, //no se pasa porque en el dispositivo corresponde al estado
+          "nota_adc": nota_p10.toString(),     *///nota_adc, //no se pasa porque en el dispositivo corresponde al estado
+          "nota_p10": nota_p10.toString(),
+          "nota_adc": nota_adc,
+          "nota_p11": nota_p11.toString(),
+          "nota_p12": nota_p12.toString(),
+          "nota_p13": nota_p13.toString(),
+          "nota_p14": nota_p14.toString(),
+          "nota_p15": nota_p15.toString(),
+          "nota_p16": nota_p16.toString(),
+          "nota_p17": nota_p17.toString(),
+          "nota_p18": nota_p18.toString(),
+          "nota_p19": nota_p19.toString(),
+          "nota_p20": nota_p20.toString(),
+          "nota_otros": nota_otros
+
         });
-        //print("Respuesta " + response.body);
+        print("Respuesta " + response.body);
         if (response.body=="res:1")
         {   handler.initializedDB().whenComplete(() async {
             await handler.updateNota(nota_id);
