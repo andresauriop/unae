@@ -12,6 +12,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 late DataBase handler = DataBase();
 
@@ -123,7 +124,7 @@ class _pantallaPreguntasExtendidasNinosState
         home: Scaffold(
       appBar: AppBar(
         title: Text(widget.par_nombre_completo),
-        backgroundColor: const Color(0xff1D4554),
+        backgroundColor: Colors.blueAccent,//const Color(0xff1D4554),
         leading: BackButton(
           onPressed: () => Navigator.of(context).pop(),
         ),
@@ -245,7 +246,10 @@ Widget Pregunta1(BuildContext context) {
     ),
     margin: const EdgeInsets.all(20),
     child: ListTile(
-      onTap: () {},
+      onTap: () async {
+        final player = AudioPlayer();
+        player.play(AssetSource('audio/pregunta1.mp3'));
+      },
       title: RichText(
         overflow: TextOverflow.clip,
         textAlign: TextAlign.justify,
@@ -331,7 +335,10 @@ Widget Pregunta2(BuildContext context) {
     ),
     margin: const EdgeInsets.all(20),
     child: ListTile(
-      onTap: () {},
+      onTap: () async {
+        final player = AudioPlayer();
+        player.play(AssetSource('audio/pregunta2.mp3'));
+      },
       title: RichText(
         overflow: TextOverflow.clip,
         textAlign: TextAlign.justify,
@@ -418,7 +425,11 @@ Widget Pregunta3(BuildContext context) {
     ),
     margin: const EdgeInsets.all(20),
     child: ListTile(
-      onTap: () {},
+
+        onTap: () async {
+          final player = AudioPlayer();
+          player.play(AssetSource('audio/pregunta3.mp3'));
+        },
       title: RichText(
         overflow: TextOverflow.clip,
         textAlign: TextAlign.justify,

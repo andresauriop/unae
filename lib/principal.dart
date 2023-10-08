@@ -5,6 +5,7 @@ import 'package:unae/parametros_calificacion.dart';
 import 'package:unae/enviarnotas.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'dart:io';
 //flutter build apk  -t .\lib\principal.dart
 
 
@@ -34,7 +35,7 @@ class SampleCenterButton extends StatelessWidget {
               alignment: Alignment.center,
               children: <Widget>[
                 _myScreenOptions(context1),
-                _playButton(context),
+                //_playButton(context),
               ],
             ),
           );
@@ -77,7 +78,7 @@ class SampleCenterButton extends StatelessWidget {
         buildRow([
           buildOption(
               Color(0xffE7C16A), Icons.videogame_asset, "Sincronizar", context),
-          buildOption(Color(0xffF2A061), Icons.settings, "Options", context),
+          buildOption(Color(0xffF2A061), Icons.settings, "Salir", context),
         ]),
       ],
     );
@@ -144,6 +145,10 @@ class SampleCenterButton extends StatelessWidget {
         //MaterialPageRoute(builder: (context) =>  IngresoParametros()),
         MaterialPageRoute(builder: (context) => pantallaNotas()),
       ).then((value) {});
+    };
+
+    if (titulo == "Salir") {
+      exit(0);
     };
   }
 

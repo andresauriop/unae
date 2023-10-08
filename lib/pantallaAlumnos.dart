@@ -129,7 +129,7 @@ class _pantallaAlumnosState extends State<pantallaAlumnos> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Lista alumnos'),
-          backgroundColor: const Color(0xff1D4554),
+          backgroundColor: Colors.blueAccent,//const Color(0xff1D4554),
         ),
 
         body: FutureBuilder<List>(
@@ -162,7 +162,7 @@ class _pantallaAlumnosState extends State<pantallaAlumnos> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            pantallaPreguntas(
+                                            pantallaPreguntasExtendidas(
                                                 par_ent_cod: widget.par_ent_cod,
                                                 par_curso: widget.par_curso,
                                                 par_paralelo: widget

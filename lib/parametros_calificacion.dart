@@ -79,7 +79,7 @@ class _ParametrosState extends State<Parametros> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Ingreso de parametros'),
-          backgroundColor: const Color(0xff1D4554),
+          backgroundColor: Colors.blueAccent,//const Color(0xff1D4554),
         ),
         body:
         Builder(builder: (contextolocal) {

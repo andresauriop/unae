@@ -16,7 +16,8 @@ class RecuperarDatos extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: const Text('Sincronizar'),backgroundColor:  Color(0xff1D4554),),
+        appBar: AppBar(title: const Text('Sincronizar'),
+          backgroundColor:  Colors.blueAccent,), //Color(0xff1D4554),),
         body:
         Builder(
             builder: (context1) {

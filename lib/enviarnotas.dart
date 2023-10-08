@@ -198,7 +198,7 @@ class _pantallaNotasState extends State<pantallaNotas> {
       home: Scaffold(
           appBar: AppBar(
             title: const Text('Notas '),
-            backgroundColor: const Color(0xff1D4554),
+            backgroundColor: Colors.blueAccent,//const Color(0xff1D4554),
             leading: BackButton(
               onPressed: () => Navigator.of(context).pop(),
             ),

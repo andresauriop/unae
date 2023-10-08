@@ -178,7 +178,7 @@ class _pantallaPreguntasExtendidasState
         home: Scaffold(
       appBar: AppBar(
         title: Text(widget.par_nombre_completo),
-        backgroundColor: const Color(0xff1D4554),
+        backgroundColor: Colors.blueAccent, // const Color(0xff1D4554),
         leading: BackButton(
           onPressed: () => Navigator.of(context).pop(),
         ),
