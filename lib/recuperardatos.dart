@@ -140,6 +140,7 @@ class RecuperarDatos extends StatelessWidget {
   { late DataBase handler; //late non-nullable variable will be initialized later
     handler = DataBase();
     handler.initializedDB().whenComplete(() async {
+      await handler.recrearbase();
       await handler.deleteInstituciones();
       //await cargarInstituciones();
       await handler.insertInstituciones(await cargarInstituciones());

@@ -106,7 +106,7 @@ flutter_native_splash:
   # Image that you want to show
   image: assets/images/unae.png
   # Sizing of image
-  fill: true
+  fill: false
   # Splash Image to show in dark mode (Optional)
   #image_dark: assets/splash_dark.png
   # Background color of dark mode (Optional)

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:unae/notas.dart';
 import 'database.dart';
 import 'instituciones.dart';
@@ -41,7 +42,7 @@ var parametros = {
   'nota_adc': '',
 };
 
-
+String usuarioshared = ".";
 
 class pantallaPreguntasExtendidasNinos extends StatefulWidget {
   final String par_curso;
@@ -71,6 +72,11 @@ class _pantallaPreguntasExtendidasNinosState
       content: Text("Hi, I am a snack bar!"),
     ));
   }*/
+  void recuperarShared () async
+  {
+    final prefs = await SharedPreferences.getInstance();
+    usuarioshared = await prefs.getString("usuario")??".";
+  }
 
   Future<bool> validar(
       codigoentidad, codigocurso, codigoparalelo, codigoalumno) async {
@@ -113,6 +119,7 @@ class _pantallaPreguntasExtendidasNinosState
       parametros['al_ins_paralelo'] = widget.par_paralelo;
       parametros['al_id'] = widget.par_al_id;
       //validar(widget.par_ent_cod,widget.par_curso,widget.par_paralelo,widget.par_al_id);
+      recuperarShared();
     });
   }
 
@@ -215,7 +222,7 @@ Widget BotonOpcion(String texto, String etiqueta, BuildContext contexto) {
                   nota_p19: "0",
                   nota_p20: "0",
                   nota_estado: "I",
-                  nota_adc: tiempocompleto,
+                  nota_adc: tiempocompleto+ "-"+usuarioshared ,
                 );
                 handler.initializedDB().whenComplete(() async {
                   handler.insertNota(objeto);

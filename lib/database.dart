@@ -10,7 +10,7 @@ class DataBase {
     String path = await getDatabasesPath();
     return openDatabase(
       join(path, 'planets.db'),
-      version: 4,
+      version: 5,
       onCreate: (Database db, int version) async {
         print("Creando base de datos");
         await db.execute(
@@ -73,6 +73,36 @@ class DataBase {
                     "nota_adc TEXT)");
       },
     );
+  }
+
+  Future<void> recrearbase() async
+  {
+    final Database db = await initializedDB();
+    await db.execute("DROP TABLE IF EXISTS instituciones");
+    await db.execute(
+      "CREATE TABLE instituciones(ins_id TEXT PRIMARY KEY , ins_nombre TEXT NOT NULL,ins_tipo TEXT NOT NULL,ins_estado)",
+    );
+    await db.execute("DROP TABLE IF EXISTS alumnos");
+    await db.execute(
+        "CREATE TABLE alumnos(al_id INTEGER PRIMARY KEY, al_apellidos TEXT NOT NULL," +
+            "al_nombres TEXT NOT NULL,ins_id TEXT NOT NULL,al_ins_ciclo TEXT NOT NULL," +
+            "al_ins_paralelo TEXT NOT NULL)");
+
+    await db.execute("DROP TABLE IF EXISTS notas");
+    await db.execute(
+        "CREATE TABLE notas(nota_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+            "ins_id TEXT," +
+            "al_ins_ciclo TEXT NOT NULL,"+
+            "al_ins_paralelo TEXT NOT NULL," +
+            "al_id INTEGER,  "+
+            "nota_fecha TEXT NOT NULL,  "+
+            "nota_p1  TEXT, nota_p2  TEXT,nota_p3  TEXT," +
+            "nota_p4  TEXT,nota_p5  TEXT,nota_p6  TEXT,nota_p7  TEXT," +
+            "nota_p8  TEXT,nota_p9  TEXT,nota_p10  TEXT, "
+                "nota_p11  TEXT, nota_p12  TEXT,nota_p13  TEXT," +
+            "nota_p14  TEXT,nota_p15  TEXT,nota_p16  TEXT,nota_p17  TEXT," +
+            "nota_p18  TEXT,nota_p19  TEXT,nota_p20  TEXT, nota_estado TEXT," +
+            "nota_adc TEXT)");
   }
 
   // insert data

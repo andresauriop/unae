@@ -22,6 +22,12 @@ const List<String> listcursos = <String>[
   '8',
   '9',
   '10',
+  '11',
+  '12',
+  '13',
+  '14',
+
+
 ];
 const List<String> listaparalelos = <String>[
   '',

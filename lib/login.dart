@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:unae/principal.dart';
-void main() {
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+
+//flutter build apk  -t .\lib\login.dart
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Future.delayed(const Duration(seconds: 1));
+  FlutterNativeSplash.remove();
   runApp(PantallaLogin());
 }
 
@@ -24,11 +31,15 @@ class LoginDemo extends StatefulWidget {
 class _LoginDemoState extends State<LoginDemo> {
   final controladornom = TextEditingController();
   final controladorape = TextEditingController();
+  final controladorpwd = TextEditingController();
+
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
     controladorape.dispose();
     controladornom.dispose();
+    controladorpwd.dispose();
+
     super.dispose();
   }
 
@@ -84,14 +95,26 @@ class _LoginDemoState extends State<LoginDemo> {
               //padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
                 controller: controladorape,
-                obscureText: true,
+                //obscureText: true,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Apellido',
                     hintText: 'Ingrese su apellido'),
               ),
             ),
-
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 15.0, right: 15.0, top: 15, bottom: 0),
+              //padding: EdgeInsets.symmetric(horizontal: 15),
+              child: TextField(
+                controller: controladorpwd,
+                obscureText: true,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Contraseña',
+                    hintText: 'Ingrese contraseña'),
+              ),
+            ),
             SizedBox(
               height: 20,
             ),
@@ -105,25 +128,37 @@ class _LoginDemoState extends State<LoginDemo> {
                   foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
                 ),
                 onPressed: () async {
-                  if(controladornom.text.isEmpty || controladorape.text.isEmpty)
-                  { ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text("Debe ingresar el nombre y apellido"),
-                      duration: Duration(seconds: 2),
-                    ));
-                  }
-                  else
-                      {
-                      SharedPreferences pref =await SharedPreferences.getInstance();
-                      String unificado = controladorape.text.toUpperCase() + " " + controladornom.text.toUpperCase();
+                  if(controladorpwd.text=="1NA3.") {
+                    if (controladornom.text.isEmpty ||
+                        controladorape.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text("Debe ingresar el nombre y apellido"),
+                            duration: Duration(seconds: 2),
+                          ));
+                    }
+                    else {
+                      SharedPreferences pref = await SharedPreferences
+                          .getInstance();
+                      String unificado = controladorape.text.toUpperCase() +
+                          " " + controladornom.text.toUpperCase();
                       pref.setString("usuario", unificado);
                       Navigator.push(
                         context,
                         //MaterialPageRoute(builder: (context) =>  IngresoParametros()),
-                        MaterialPageRoute(builder: (context) => SampleCenterButton()),
+                        MaterialPageRoute(builder: (context) =>
+                            SampleCenterButton()),
                       ).then((value) {});
-
-                      }
+                    }
+                  }
+                  else
+                    {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text("Clave inválida"),
+                            duration: Duration(seconds: 2),
+                          ));
+                    }
                 },
                 child: Text('Iniciar'),
               )

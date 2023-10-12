@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:unae/notas.dart';
 import 'database.dart';
 import 'instituciones.dart';
@@ -57,6 +58,8 @@ var parametros = {
   'nota_p10': '',
   'nota_adc': '',
 };
+
+String usuarioshared = ".";
 
 //nota_id:
 /*
@@ -117,6 +120,13 @@ class _pantallaPreguntasExtendidasState
     ));
   }*/
 
+  void recuperarShared () async
+  {
+    final prefs = await SharedPreferences.getInstance();
+    usuarioshared = await prefs.getString("usuario")??".";
+  }
+
+
   Future<bool> validar(
       codigoentidad, codigocurso, codigoparalelo, codigoalumno) async {
     List<Notas> listaaux = [];
@@ -139,6 +149,8 @@ class _pantallaPreguntasExtendidasState
     return true;
   }
 
+
+
   @override
   void initState() {
     super.initState();
@@ -147,6 +159,9 @@ class _pantallaPreguntasExtendidasState
     print(widget.par_paralelo);
     print(widget.par_al_id);
     print(widget.par_nombre_completo);
+
+
+
     setState(() {
       calificaciones = {
         '1': -1.0,
@@ -166,6 +181,7 @@ class _pantallaPreguntasExtendidasState
       parametros['al_ins_ciclo'] = widget.par_curso;
       parametros['al_ins_paralelo'] = widget.par_paralelo;
       parametros['al_id'] = widget.par_al_id;
+      recuperarShared();
       //validar(widget.par_ent_cod,widget.par_curso,widget.par_paralelo,widget.par_al_id);
     });
   }
@@ -242,12 +258,16 @@ Widget BotonOpcion(String texto, String etiqueta, BuildContext contexto) {
                   ),
                 );
               } else {
+
                 print(calificaciones.toString());
                 print("a grabar");
                 String currentDate =
                     DateFormat('yyyy-MM-dd').format(DateTime.now());
                 String tiempocompleto =
                     DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
+
+
+
 
                 Notas objeto = Notas(
                   //nota_id: null,//nota_id:1,
@@ -278,7 +298,7 @@ Widget BotonOpcion(String texto, String etiqueta, BuildContext contexto) {
                   nota_p19: "0",
                   nota_p20: "0",
                   nota_estado: "I",
-                  nota_adc: tiempocompleto,
+                  nota_adc: tiempocompleto+ "-"+usuarioshared ,
                 );
                 handler.initializedDB().whenComplete(() async {
                   handler.insertNota(objeto);
