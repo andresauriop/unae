@@ -158,7 +158,7 @@ class _pantallaAlumnosState extends State<pantallaAlumnos> {
                                 String completo = snapshot.data?[index]
                                     .al_nombres + " " +
                                     snapshot.data?[index].al_apellidos ?? " ";
-                                if (int.parse(widget.par_curso) > 5) {
+                                if (int.parse(widget.par_curso) > 3) { //mayor a tercero
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -204,7 +204,7 @@ class _pantallaAlumnosState extends State<pantallaAlumnos> {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content:
-                                    Text('La marcación ya está registrada'),
+                                    Text('La calificación ya está registrada'),
                                     duration: Duration(seconds: 2),
                                   ),
                                 );

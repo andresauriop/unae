@@ -10,8 +10,27 @@ var mapa = new Map();
 List<Instituciones> listainst = [];
 late DataBase handler = DataBase();
 
+const Map<String, String> descripcioncursos = {
+  '-1': 'Inicial 1',
+  '0': 'Inicial 2',
+  '1': '1 EGB',
+  '2': '2 EGB',
+  '3': '3 EGB',
+  '4': '4 EGB',
+  '5': '5 EGB',
+  '6': '6 EGB',
+  '7': '7 EGB',
+  '8': '8 EGB',
+  '9': '9 EGB',
+  '10': '10 EGB',
+  '11': '1 BACH',
+  '12': '2 BACH',
+  '13': '3 BACH',
+};
+
 const List<String> listcursos = <String>[
-  '',
+  '-1',
+  '0',
   '1',
   '2',
   '3',
@@ -25,10 +44,9 @@ const List<String> listcursos = <String>[
   '11',
   '12',
   '13',
-  '14',
-
 
 ];
+
 const List<String> listaparalelos = <String>[
   '',
   'A',
@@ -239,7 +257,7 @@ class _ListaCursos extends State<ListaCursos> {
       items: listcursos.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
-          child: Text(value),
+          child: Text(descripcioncursos[value]??""),//Text(value),
         );
       }).toList(),
     );
@@ -358,10 +376,11 @@ class _ListaFutura extends State<ListaFutura> {
         return snapshot.hasData
             ? Container(
                 child: DropdownButton<String>(
+                  isExpanded: true,
                   icon: const Icon(Icons.arrow_downward),
                   elevation: 16,
                   style:
-                      const TextStyle(fontSize: 20, color: Color(0xff1D4554)),
+                      const TextStyle(fontSize: 18, color: Color(0xff1D4554)),
                   underline: Container(
                     height: 2,
                     color: Color(0xff1D4554),
@@ -370,7 +389,11 @@ class _ListaFutura extends State<ListaFutura> {
                   items: snapshot.data.map<DropdownMenuItem<String>>((item) {
                     return DropdownMenuItem<String>(
                       value: item.ins_nombre,
-                      child: Text(item.ins_nombre),
+                      child: Text(item.ins_nombre,overflow: TextOverflow.visible),
+                      /*child: Padding(
+                        padding: EdgeInsets.all(6),
+                        child: Text(item.ins_nombre,overflow: TextOverflow.visible),
+                      ),*/
                     );
                   }).toList(),
                   onChanged: (value) {

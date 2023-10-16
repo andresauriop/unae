@@ -62,7 +62,7 @@ class _LoginDemoState extends State<LoginDemo> {
               padding: const EdgeInsets.only(top: 30.0),
               child: Center(
                 child: Container(
-                    width: 200,
+                    width: 250,
                     height: 150,
                     decoration: BoxDecoration(
                         color: Colors.white,
@@ -70,7 +70,7 @@ class _LoginDemoState extends State<LoginDemo> {
                     child:
                     ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
-                        child: Image.asset('assets/images/unae.png',width: 50.0, height: 50.0,fit: BoxFit.fill,)),
+                        child: Image.asset('assets/images/logoapp.png',width: 50.0, height: 50.0,fit: BoxFit.fill,)),
                 )
 
               ),
