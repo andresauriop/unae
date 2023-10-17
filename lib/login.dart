@@ -51,7 +51,7 @@ class _LoginDemoState extends State<LoginDemo> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("Registro evaluaciones"),
+        title: Text("Registro evaluaciones v1"),
         backgroundColor: Colors.blueAccent,//const Color(0xff1D4554),
         leading: BackButton(
           onPressed: () => exit(0),
