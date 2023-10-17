@@ -3,10 +3,12 @@ import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:unae/principal.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:http/http.dart';
 
 //flutter build apk  -t .\lib\login.dart
 
 void main() async{
+  HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
   await Future.delayed(const Duration(seconds: 1));
   FlutterNativeSplash.remove();
@@ -143,6 +145,7 @@ class _LoginDemoState extends State<LoginDemo> {
                       String unificado = controladorape.text.toUpperCase() +
                           " " + controladornom.text.toUpperCase();
                       pref.setString("usuario", unificado);
+                      pref.setString("usuariows","1na3.2023");
                       Navigator.push(
                         context,
                         //MaterialPageRoute(builder: (context) =>  IngresoParametros()),
@@ -169,5 +172,14 @@ class _LoginDemoState extends State<LoginDemo> {
         ),
       ),
     );
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

@@ -129,8 +129,12 @@ class _pantallaNotasState extends State<pantallaNotas> {
       nota_p15,nota_p16,nota_p17,nota_p18,
       nota_p19,nota_p20,nota_otros
       ) async {
-    final url = Uri.parse(
-        "http://panemia.uazuay.edu.ec:8090/pruebasmed/procedimientosnot/wsnot.php");
+    //final url = Uri.parse(
+    //    "http://wsnot.php");
+
+    final url = Uri.parse("https://190.15.130.81/proyectounae/procedures/wsnot.php");
+
+
     http.Response response = await http.get(url);
     response = await http.post(url,
         headers: {

@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:unae/instituciones.dart';
 import 'package:unae/alumnos.dart';
 import 'database.dart';
@@ -6,14 +9,26 @@ import 'database.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:http/io_client.dart';
 
+
+String usuariows = "";
 
 class RecuperarDatos extends StatelessWidget {
 
   const RecuperarDatos({Key? key}) : super(key: key);
 
+
+  void recuperarShared () async
+  {
+    final prefs = await SharedPreferences.getInstance();
+    usuariows = await prefs.getString("usuariows")??".";
+    print(usuariows);
+  }
+
   @override
   Widget build(BuildContext context) {
+    recuperarShared();
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: const Text('Sincronizar'),
@@ -120,6 +135,8 @@ class RecuperarDatos extends StatelessWidget {
     );
   }
 
+
+
   acciones(String titulo, BuildContext context) {
     if (titulo == "No")
       {//print("cancelar");
@@ -156,7 +173,10 @@ class RecuperarDatos extends StatelessWidget {
 
   Future<List<Instituciones>> cargarInstituciones() async {
     //var http = HttpClient();
-    final url = Uri.parse("http://panemia.uazuay.edu.ec:8090/pruebasmed/procedimientosnot/wsinst.php");
+    //final url = Uri.parse("http://wsinst.php");
+
+    final url = Uri.parse("https://190.15.130.81/proyectounae/procedures/wsinst.php?usr="+usuariows);
+
     http.Response response = await http.get(url);
     //print('Status code: ${response.statusCode}');
     //print('Headers: ${response.headers}');
@@ -179,8 +199,12 @@ class RecuperarDatos extends StatelessWidget {
 
    Future<List<Alumnos>> cargarAlumnos() async {
     //var http = HttpClient();
-    final url = Uri.parse("http://panemia.uazuay.edu.ec:8090/pruebasmed/procedimientosnot/wsalu.php");
-    http.Response response = await http.get(url);
+    //final url = Uri.parse("http://wsalu.php");
+
+
+     final url = Uri.parse("https://190.15.130.81/proyectounae/procedures/wsalu.php?usr="+usuariows);
+     http.Response response = await http.get(url);
+
     //print('Status code: ${response.statusCode}');
     //print('Headers: ${response.headers}');
     print('Body: ${response.body}');

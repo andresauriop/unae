@@ -356,6 +356,7 @@ Widget Pregunta1(BuildContext context) {
             onToggle: (index) {
               if (index != null) {
                 calificaciones["1"] = index.toDouble() + 1;
+                print(calificaciones);
               }
               //print('switched to: $index');
             },
@@ -445,6 +446,7 @@ Widget Pregunta2(BuildContext context) {
               //print('switched to: $index');
               if (index != null) {
                 calificaciones["2"] = index.toDouble() + 1;
+                print(calificaciones);
               }
             },
           ),
@@ -513,6 +515,7 @@ Widget Pregunta3(BuildContext context) {
               //print('switched to: $index');
               if (index != null) {
                 calificaciones["3"] = index.toDouble() + 1;
+                print(calificaciones);
               }
             },
           ),
@@ -601,6 +604,7 @@ Widget Pregunta4(BuildContext context) {
               //print('switched to: $index');
               if (index != null) {
                 calificaciones["4"] = index.toDouble() + 1;
+                print(calificaciones);
               }
             },
           ),
@@ -695,6 +699,7 @@ Widget Pregunta5(BuildContext context) {
               //print('switched to: $index');
               if (index != null) {
                 calificaciones["5"] = index.toDouble() + 1;
+                print(calificaciones);
               }
             },
           ),

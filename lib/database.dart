@@ -238,14 +238,14 @@ class DataBase {
     final db = await initializedDB();
     //cargar datos desde http
     List<Alumnos> lista_alumnos = [];
-    lista_alumnos.add(new Alumnos(
+    /*lista_alumnos.add(new Alumnos(
         al_id: 1, al_apellidos: "Prieto", al_nombres: "Jaime", ins_id: "BOR",al_ins_ciclo: "1",al_ins_paralelo: "A"));
     lista_alumnos.add(new Alumnos(
         al_id: 2, al_apellidos: "Rojas", al_nombres: "Juan", ins_id: "BOR",al_ins_ciclo: "1",al_ins_paralelo: "A"));
     lista_alumnos.add(new Alumnos(
         al_id: 3, al_apellidos: "Riquelme", al_nombres: "Julia", ins_id: "CAT",al_ins_ciclo: "1",al_ins_paralelo: "A"));
 
-    insertAlumnos(lista_alumnos);
+    insertAlumnos(lista_alumnos);*/
   }
 
 
