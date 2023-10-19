@@ -146,6 +146,15 @@ class DataBase {
   }
 
   // retrieve Instituciones
+  Future<void> contarInstituciones() async {
+    final Database db = await initializedDB();
+    String sql = "select count() from instituciones";
+    final List<Map<String, Object?>> queryResult = await db.rawQuery(sql);
+    print("cuantos " + queryResult.toString() );
+  }
+
+
+  // retrieve Instituciones
   Future<List<Instituciones>> retrieveInstitucionesCombo() async {
     final Database db = await initializedDB();
     final List<Map<String, Object?>> queryResult = await db.query(

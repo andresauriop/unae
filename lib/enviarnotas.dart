@@ -132,7 +132,8 @@ class _pantallaNotasState extends State<pantallaNotas> {
     //final url = Uri.parse(
     //    "http://wsnot.php");
 
-    final url = Uri.parse("https://190.15.130.81/proyectounae/procedures/wsnot.php");
+    //final url = Uri.parse("https://190.15.130.81/proyectounae/procedures/wsnot.php");
+    final url = Uri.parse("https://proypreprofesional.unae.edu.ec/proyectounae/procedures/wsnot.php");
 
 
     http.Response response = await http.get(url);

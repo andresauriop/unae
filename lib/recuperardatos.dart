@@ -160,6 +160,7 @@ class RecuperarDatos extends StatelessWidget {
       await handler.recrearbase();
       await handler.deleteInstituciones();
       //await cargarInstituciones();
+      await handler.contarInstituciones();
       await handler.insertInstituciones(await cargarInstituciones());
       await handler.insertAlumnos(await cargarAlumnos());
 
@@ -175,7 +176,9 @@ class RecuperarDatos extends StatelessWidget {
     //var http = HttpClient();
     //final url = Uri.parse("http://wsinst.php");
 
-    final url = Uri.parse("https://190.15.130.81/proyectounae/procedures/wsinst.php?usr="+usuariows);
+    //final url = Uri.parse("https://190.15.130.81/proyectounae/procedures/wsinst.php?usr="+usuariows);
+    final url = Uri.parse("https://proypreprofesional.unae.edu.ec/proyectounae/procedures/wsinst.php?usr="+usuariows);
+
 
     http.Response response = await http.get(url);
     //print('Status code: ${response.statusCode}');
@@ -202,7 +205,11 @@ class RecuperarDatos extends StatelessWidget {
     //final url = Uri.parse("http://wsalu.php");
 
 
-     final url = Uri.parse("https://190.15.130.81/proyectounae/procedures/wsalu.php?usr="+usuariows);
+     //final url = Uri.parse("https://190.15.130.81/proyectounae/procedures/wsalu.php?usr="+usuariows);
+
+     final url = Uri.parse("https://proypreprofesional.unae.edu.ec/proyectounae/procedures/wsalu.php?usr="+usuariows);
+
+
      http.Response response = await http.get(url);
 
     //print('Status code: ${response.statusCode}');

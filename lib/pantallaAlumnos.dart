@@ -59,7 +59,9 @@ class _pantallaAlumnosState extends State<pantallaAlumnos> {
         datosAlumnos.add(alumno);
       }
     });
-    return datosAlumnos;
+    await Future.delayed(Duration(seconds: 1));
+    return Future.value(datosAlumnos);
+    //return datosAlumnos;
   }
 
 
