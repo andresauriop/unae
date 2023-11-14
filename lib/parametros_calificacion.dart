@@ -44,7 +44,6 @@ const List<String> listcursos = <String>[
   '11',
   '12',
   '13',
-
 ];
 
 const List<String> listaparalelos = <String>[
@@ -56,6 +55,13 @@ const List<String> listaparalelos = <String>[
   'E',
   'F',
   'G',
+  'AV',
+  'BV',
+  'CV',
+  'DV',
+  'EV',
+  'FV',
+  'GV',
 ];
 
 String entidadseleccionada = "";

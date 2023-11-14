@@ -141,7 +141,8 @@ class DataBase {
   Future<List<Instituciones>> retrieveInstituciones() async {
     final Database db = await initializedDB();
     final List<Map<String, Object?>> queryResult =
-        await db.query('instituciones');
+        //await db.query('instituciones');
+        await db.query('instituciones',orderBy: "ins_nombre");
     return queryResult.map((e) => Instituciones.fromMap(e)).toList();
   }
 
@@ -332,7 +333,7 @@ class DataBase {
         'alumnos.al_ins_ciclo = $curso AND '+
         'alumnos.al_ins_paralelo = "$paralelo" '+
         ')';
-        //print(sql);
+        print(sql);
         List<Map> result = await db.rawQuery(sql);
 
 
